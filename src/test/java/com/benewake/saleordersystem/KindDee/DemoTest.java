@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -52,6 +53,10 @@ public class DemoTest {
         QueryParam queryParam = new QueryParam();
         queryParam.setFormId("BD_Material");
         queryParam.setFieldKeys("FMATERIALID,FNumber,FName,FCreateOrgId,FUseOrgId");
+        // 条件筛选
+        //List<String> queryFilters = new ArrayList<>();
+        queryParam.setFilterString("FCreateOrgId = 1");
+
         List<Md> result = k3CloudApi.executeBillQuery(queryParam, Md.class);
         System.out.println("物料单据查询接口: " + result.size());
         for(Md m : result){

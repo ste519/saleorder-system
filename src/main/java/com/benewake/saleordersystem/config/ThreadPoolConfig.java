@@ -35,6 +35,7 @@ public class ThreadPoolConfig {
         taskExecutor.setRejectedExecutionHandler(new ThreadPoolExecutor.AbortPolicy());
         taskExecutor.setWaitForTasksToCompleteOnShutdown(true);
         taskExecutor.setAwaitTerminationSeconds(60);
+        taskExecutor.initialize();
         return taskExecutor;
 //        return new ThreadPoolExecutor(
 //                CORE_POLL_SIZE,

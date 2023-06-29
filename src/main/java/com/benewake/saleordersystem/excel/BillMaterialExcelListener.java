@@ -2,13 +2,10 @@ package com.benewake.saleordersystem.excel;
 
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
-import com.alibaba.excel.util.ListUtils;
-import com.alibaba.fastjson.JSON;
 
 import com.benewake.saleordersystem.model.BillMaterialModel;
 import lombok.extern.slf4j.Slf4j;
 
-import java.util.List;
 
 /**
  * @author lcs
@@ -24,7 +21,7 @@ public class BillMaterialExcelListener extends AnalysisEventListener<BillMateria
      */
     @Override
     public void invoke(BillMaterialModel data, AnalysisContext context) {
-        //log.info("解析到一条数据:{}", JSON.toJSONString(data));
+        //log.info("解析到一条数据:{}", JSON.toJSONString(data));l
         //解析到的数据进行实体类封装，并传入到list集合中
         System.out.println(data.toString());
     }
