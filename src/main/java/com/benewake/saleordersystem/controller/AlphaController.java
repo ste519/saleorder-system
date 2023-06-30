@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.UUID;
@@ -22,10 +23,11 @@ public class AlphaController {
     @Autowired
     private UserMapper userMapper;
 
-    @GetMapping("/index")
+    @RequestMapping(path = "/index",method = RequestMethod.GET)
     @ResponseBody
-    public Result<User> alpheTime(int aa, User ss){
-        return null;
+    public Result<User> alpheTime(int aa){
+        System.out.println( Result.success().toString());
+        return  Result.fail();
     }
 
 }

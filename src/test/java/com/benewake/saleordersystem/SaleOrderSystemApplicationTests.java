@@ -47,7 +47,7 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
 
     @Test
     void testHoliday() throws InterruptedException {
-        List<Holiday> list = HolidayUtils.getMultiHolidays(System.currentTimeMillis(),7,false);
+        List<Holiday> list = HolidayUtils.getMultiHolidays(System.currentTimeMillis(),30,false);
         for(Holiday h : list){
             System.out.println(h.toString());
         }

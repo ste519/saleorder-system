@@ -21,7 +21,7 @@ public class User {
     @TableField("FIM_coding")
     private String salt;
     @TableField("FIM_user_type")
-    private String type;
+    private Long type;
     @TableField("FIM_authority")
     private Long auth;
 //    //激活码

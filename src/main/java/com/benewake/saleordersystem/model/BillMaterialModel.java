@@ -5,8 +5,9 @@ import lombok.Data;
 
 import java.util.Date;
 
+
 /**
- * lcs
+ * @author Lcs
  */
 @Data
 public class BillMaterialModel {

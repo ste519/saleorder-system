@@ -32,12 +32,12 @@ public class LogAspect {
     public void controllerMethod(){}
 
     @Around("controllerMethod()")
-    public void before(ProceedingJoinPoint joinPoint) throws Throwable {
+    public Object before(ProceedingJoinPoint joinPoint) throws Throwable {
         // before
         // 用户XXX，在XXX（时间），访问了[xxx方法]
         ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
         if(attributes == null) {
-            return;
+            return null;
         }
         HttpServletRequest request = attributes.getRequest();
         String ip = request.getRemoteHost();
@@ -51,6 +51,7 @@ public class LogAspect {
         // after
         log.info("返回结果："+JSON.toJSONString(result));
 
+        return result;
 
     }
 
