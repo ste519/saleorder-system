@@ -25,4 +25,8 @@ public interface BenewakeConstants {
      * 响应message：失败
      */
     String FAIL_MESSAGE = "fail";
+    /**
+     * 默认状态的登录凭证超时时间 (7天)
+     */
+    int DEFAULT_EXPIRED_SECONDS = 1000*3600*24*7;
 }

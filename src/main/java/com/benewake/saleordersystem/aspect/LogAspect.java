@@ -2,6 +2,7 @@ package com.benewake.saleordersystem.aspect;
 
 import com.alibaba.fastjson.JSON;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.ArrayUtils;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 import org.aspectj.lang.annotation.Aspect;
@@ -11,9 +12,13 @@ import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
-
+import javax.servlet.http.HttpServletResponse;
 import java.text.SimpleDateFormat;
+import java.util.Arrays;
 import java.util.Date;
+import java.util.List;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * @author Lcs
@@ -28,7 +33,7 @@ public class LogAspect {
     /**
      * ..表示包及子包 该方法代表controller层所有方法
      */
-    @Pointcut("execution(public * com.benewake.saleordersystem.controller..*.*(..))")
+    @Pointcut("execution(public * com.benewake.saleordersystem.service.*.*(..))")
     public void controllerMethod(){}
 
     @Around("controllerMethod()")
@@ -40,11 +45,31 @@ public class LogAspect {
             return null;
         }
         HttpServletRequest request = attributes.getRequest();
-        String ip = request.getRemoteHost();
+        String ip = request.getHeader("x-forwarded-for");
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("WL-Proxy-Client-IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_CLIENT_IP");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getHeader("HTTP_X_FORWARDED_FOR");
+        }
+        if (ip == null || ip.length() == 0 || "unknown".equalsIgnoreCase(ip)) {
+            ip = request.getRemoteAddr();
+        }
+        if(ip != null && ip.length() > 15){
+            if(ip.indexOf(",")>0){
+                ip = ip.substring(0,ip.indexOf(","));
+            }
+        }
         String now = new SimpleDateFormat("yyyy-MM-dd HH:MM:ss").format(new Date());
         String target = joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName();
-        log.info(String.format("用户[%s],在[%s],使用[%s]请求,Url:[%s],请求参数：[%s],访问了[%s].",
-                ip,now,request.getMethod(),request.getRequestURL().toString(),JSON.toJSONString(joinPoint.getArgs()),target));
+        log.info(String.format("用户[%s],在[%s],访问了[%s].",
+                ip,now,target));
 
         Object result = joinPoint.proceed();
 
