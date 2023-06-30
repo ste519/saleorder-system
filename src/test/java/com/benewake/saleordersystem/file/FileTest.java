@@ -11,7 +11,7 @@ import java.io.*;
 @SpringBootTest
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
 public class FileTest {
-    String filePath = "F:\\study\\pythonStudy\\FJSP2\\input";
+    String filePath = "F:\\study\\pythonStudy\\FJSP2\\src\\config.py";
     @Test
     public void deleteFiles(){
         System.out.println(FileUtils.removeFile(new File(filePath)));

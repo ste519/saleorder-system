@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -11,18 +12,20 @@ import java.util.Date;
  * @author Lcs
  */
 @Data
-@TableName("user")
+@TableName("fim_users_table")
 public class User {
-    @TableId("user_id")
+    @TableId(value = "FIM_user_id",type = IdType.AUTO)
     private Long id;
-    @TableField("user_name")
+    @TableField("FIM_user_name")
     private String username;
-    @TableField("user_password")
+    @TableField("FIM_user_password")
     private String password;
-    @TableField("user_salt")
+    @TableField("FIM_coding")
     private String salt;
-    @TableField("user_type")
-    private Long type;
+    @TableField("FIM_user_type")
+    private String type;
+    @TableField("FIM_authority")
+    private Long auth;
 //    //激活码
 //    @TableField("activation_code")
 //    private String activationCode;

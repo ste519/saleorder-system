@@ -17,12 +17,14 @@ public class FileUtils {
 
     /**
      * 修改配置文件中对应key值的value
-     * 要求 等号前需要有空格 文件每个参数设置对应一行
-     * 如 key = value
+     * 文件每个参数设置对应一行
+     * 如 :
+     *  key1 = value1
+     *  key2 = value2
      * @param filePath
      * @param keys
      * @param values
-     * @return
+     * @return 修改的行数
      */
     public static int updateFile(String filePath,String[] keys,String[] values){
         int updateRow = 0;
@@ -38,8 +40,8 @@ public class FileUtils {
             StringBuilder sb = new StringBuilder();
             int ind = 0;
             while((str = reader.readLine()) != null){
-                if((ind = str.indexOf(" "))!=-1){
-                    String head = str.substring(0,ind);
+                if((ind = str.indexOf("="))!=-1){
+                    String head = str.substring(0,ind).trim();
                     // keys中有则更新相应的value
                     if(map.containsKey(head)){
                         str = head + " = " + values[map.get(head)];
@@ -61,7 +63,7 @@ public class FileUtils {
     }
 
     /**
-     * 删除指定文件夹下的所有文件
+     * 删除指定文件夹下的所有文件  (不删除选定的文件夹)
      * @param file
      * @return 删除的文件数量
      */

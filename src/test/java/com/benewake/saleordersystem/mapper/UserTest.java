@@ -6,13 +6,16 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * @author Lcs
- * @Description TODO
- * @since 2023年06月29 14:36
+ * @since 2023年06月29 18:20
+ * 描 述： TODO
  */
 @SpringBootTest
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
-public class SalesmanTest {
+public class UserTest {
 
 }

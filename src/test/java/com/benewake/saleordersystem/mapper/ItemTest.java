@@ -1,18 +1,18 @@
 package com.benewake.saleordersystem.mapper;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
-import org.junit.jupiter.api.Test;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
 /**
  * @author Lcs
- * @Description TODO
- * @since 2023年06月29 14:36
+ * @since 2023年06月29 17:24
+ * 描 述： TODO
  */
 @SpringBootTest
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
-public class SalesmanTest {
+public class ItemTest {
+
+
 
 }

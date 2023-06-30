@@ -22,7 +22,7 @@ public class PythonUtils {
     }
 
     /**
-     * 执行python脚本
+     * 执行python脚本 并只会打印python中的输出（需要获取返回值请另写对result的处理逻辑）
      * @param pyScript python脚本文件的绝对地址
      * @param args 传入的参数 可为空
      * @return 只有返回值为0时才表示成功，其他数值均表示失败

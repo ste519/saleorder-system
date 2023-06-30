@@ -39,9 +39,9 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
     }
     @Test
     void contextLoads() {
-        User a = userMap.selectUserByName("liao");
-
-        System.out.println(a.toString());
+//        User a = userMap.selectUserByName("liao");
+//
+//        System.out.println(a.toString());
 
     }
 
