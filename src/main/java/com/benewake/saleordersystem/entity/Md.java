@@ -1,6 +1,5 @@
 package com.benewake.saleordersystem.entity;
 
-import jnr.ffi.annotations.In;
 import lombok.Data;
 
 /**
@@ -10,9 +9,9 @@ import lombok.Data;
  */
 @Data
 public class Md {
-    private Integer FmaterialId;
-    private String FNumber;
-    private String FName;
-    private Integer FCreateOrgId;
-    private Integer FUseOrgId;
+    private Integer fMaterialId;
+    private String fNumber;
+    private String fName;
+    private Integer fCreateOrgId;
+    private Integer fUseOrgId;
 }

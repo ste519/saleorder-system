@@ -4,7 +4,6 @@ import com.alibaba.excel.EasyExcel;
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.model.BillMaterialModel;
-import com.benewake.saleordersystem.utils.CommonUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
