@@ -4,6 +4,7 @@ import com.benewake.saleordersystem.annotation.LoginRequired;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.service.UserService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
+import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -25,6 +26,9 @@ public class HomeController implements BenewakeConstants {
 
     @Autowired
     private UserService userService;
+
+    @Autowired
+    private HostHolder hostHolder;
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
@@ -53,6 +57,11 @@ public class HomeController implements BenewakeConstants {
     @PostMapping("/login")
     @ResponseBody
     public Result<Map<String,Object>> login(String username, String password, Model model, HttpServletResponse response){
+        if(hostHolder.getUser() != null) {
+            Map<String,Object> map = new HashMap<>();
+            map.put("loginMessage","当前已有账号登录，请先退出当前账号！");
+            return Result.success(map);
+        }
         Map<String,Object> map = userService.login(username,password);
         if (map.containsKey("ticket")) {
             //验证成功 设置Cookie

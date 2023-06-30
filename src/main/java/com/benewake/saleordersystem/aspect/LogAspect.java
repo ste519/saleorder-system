@@ -68,8 +68,8 @@ public class LogAspect {
         }
         String now = new SimpleDateFormat("yyyy-MM-dd HH:MM:ss").format(new Date());
         String target = joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName();
-        log.info(String.format("用户[%s],在[%s],访问了[%s].",
-                ip,now,target));
+        log.info(String.format("用户[%s],在[%s],访问了[%s]的[%s]方法，参数为[%s].",
+                ip,now,target,joinPoint.getSignature().getName(),Arrays.asList(joinPoint.getArgs())));
 
         Object result = joinPoint.proceed();
 
