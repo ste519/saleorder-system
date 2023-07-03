@@ -25,8 +25,8 @@ public class AlphaController {
 
     @RequestMapping(path = "/index",method = RequestMethod.GET)
     @ResponseBody
-    public Result<User> alpheTime(int aa){
-        System.out.println( Result.success().toString());
+    public Result<User> alpheTime(Integer aa){
+        //System.out.println( Result.success().toString());
         return  Result.fail();
     }
 

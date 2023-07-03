@@ -48,4 +48,8 @@ public interface StoredProceduresMapper extends BaseMapper {
     @Options(statementType = StatementType.CALLABLE)
     List<Map<String,Object>> doPastOrdersAnalysis8MajorCustomersSituation();
 
+    @Select({"call past_orders_analysis_12_customer_type_orders(1,1,1,1,1,1)"})
+    @Options(statementType = StatementType.CALLABLE)
+    List<Map<String,Object>> doppp();
+
 }

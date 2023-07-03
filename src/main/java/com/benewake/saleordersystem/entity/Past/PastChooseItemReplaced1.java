@@ -1,4 +1,4 @@
-package com.benewake.saleordersystem.entity;
+package com.benewake.saleordersystem.entity.Past;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;

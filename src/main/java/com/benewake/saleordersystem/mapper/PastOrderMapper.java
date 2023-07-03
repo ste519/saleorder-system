@@ -1,7 +1,7 @@
 package com.benewake.saleordersystem.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.benewake.saleordersystem.entity.PastOrder;
+import com.benewake.saleordersystem.entity.Past.PastOrder;
 import org.apache.ibatis.annotations.Mapper;
 
 /**

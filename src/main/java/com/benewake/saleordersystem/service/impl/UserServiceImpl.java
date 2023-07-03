@@ -125,7 +125,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         QueryWrapper<LoginTicket> qw = new QueryWrapper<>();
         qw.eq("FIM_ticket",ticket);
         LoginTicket loginTicket = loginTicketMapper.selectOne(qw);
-        if(null == loginTicket){
+        if(null == loginTicket || loginTicket.getStatus() != 0 || !loginTicket.getExpired().after(new Date())){
             map.put("ticketMessage","ticket不存在或已失效");
             return map;
         }

@@ -28,7 +28,7 @@ public class TestExcel {
     @Test
     public void excelWrite(){
         //1、创建一个文件对象
-        File excelFile = new File("F:/订单表.xlsx");
+        File excelFile = new File("F:/销售出库单测试.xlsx");
         //2、判断文件是否存在，不存在则创建一个Excel文件
         if (!excelFile.exists()) {
             try {

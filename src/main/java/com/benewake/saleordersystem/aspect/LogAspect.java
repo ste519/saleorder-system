@@ -33,7 +33,7 @@ public class LogAspect {
     /**
      * ..表示包及子包 该方法代表controller层所有方法
      */
-    @Pointcut("execution(public * com.benewake.saleordersystem.service.*.*(..))")
+    @Pointcut("execution(public * com.benewake.saleordersystem.controller.*.*(..))")
     public void controllerMethod(){}
 
     @Around("controllerMethod()")
@@ -67,7 +67,7 @@ public class LogAspect {
             }
         }
         String now = new SimpleDateFormat("yyyy-MM-dd HH:MM:ss").format(new Date());
-        String target = joinPoint.getSignature().getDeclaringTypeName()+"."+joinPoint.getSignature().getName();
+        String target = joinPoint.getSignature().getDeclaringTypeName();
         log.info(String.format("用户[%s],在[%s],访问了[%s]的[%s]方法，参数为[%s].",
                 ip,now,target,joinPoint.getSignature().getName(),Arrays.asList(joinPoint.getArgs())));
 

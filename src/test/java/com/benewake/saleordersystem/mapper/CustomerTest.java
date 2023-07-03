@@ -1,31 +1,28 @@
 package com.benewake.saleordersystem.mapper;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
+import com.benewake.saleordersystem.service.CustomerService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import java.util.List;
-import java.util.Map;
-
 /**
  * @author Lcs
- * @since 2023年06月30 10:08
+ * @since 2023年07月03 17:35
  * 描 述： TODO
  */
 @SpringBootTest
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
-public class StoredProceduresTest {
+public class CustomerTest {
+
     @Autowired
-    StoredProceduresMapper storedProceduresMapper;
+    private CustomerService customerService;
 
     @Test
-    public void doGet(){
-        List<Map<String,Object>> list = storedProceduresMapper.doppp();
-        for(Map<String,Object> t : list){
-            t.forEach((k,v)-> System.out.print(k+"："+v+","));
-            System.out.println();
-        }
+    public void testUpdateDB(){
+        System.out.println(customerService.updateCustomerDB());
     }
+
+
 }

@@ -1,4 +1,4 @@
-package com.benewake.saleordersystem.entity;
+package com.benewake.saleordersystem.entity.Past;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
@@ -10,12 +10,12 @@ import java.util.Date;
 
 /**
  * @author Lcs
- * @since 2023年06月30 10:47
+ * @since 2023年06月30 10:58
  * 描 述： TODO
  */
 @Data
-@TableName("fim_past_orders_clean_temp_table")
-public class PastOrdersCleanTemp {
+@TableName("fim_past_orders_temp1_table")
+public class PastOrdersTemp1 {
     @TableId("order_id")
     private Long id;
 

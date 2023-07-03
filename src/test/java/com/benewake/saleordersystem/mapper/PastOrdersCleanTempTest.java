@@ -1,8 +1,6 @@
 package com.benewake.saleordersystem.mapper;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
-import com.benewake.saleordersystem.entity.PastOrdersTemp1;
-import com.benewake.saleordersystem.entity.PastOrdersTemp4;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
