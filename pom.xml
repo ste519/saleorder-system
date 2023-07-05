@@ -110,7 +110,22 @@
             <artifactId>httpcore</artifactId>
             <version>4.4.4</version>
         </dependency>
-
+<!--        跨越api-->
+        <dependency>
+            <groupId>com.kyexpress</groupId>
+            <artifactId>kye-open-api-sdk</artifactId>
+            <version>2.3.0-SNAPSHOT</version>
+            <systemPath>${basedir}/libs/kye-openapi-sdk-2.3.0-SNAPSHOT.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
+<!--        金蝶api-->
+        <dependency>
+            <groupId>com.k3cloud</groupId>
+            <artifactId>kecloud-webapi</artifactId>
+            <version>8.0.5</version>
+            <systemPath>${basedir}/libs/k3cloud-webapi-sdk8.0.5.jar</systemPath>
+            <scope>system</scope>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

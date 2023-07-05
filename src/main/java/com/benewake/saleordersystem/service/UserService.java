@@ -4,6 +4,7 @@ import com.benewake.saleordersystem.entity.LoginTicket;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.utils.Result;
 
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -46,5 +47,29 @@ public interface UserService {
      * @return
      */
     User findUserById(Long id);
+
+    /**
+     * 修改用户类型
+     * @param id
+     * @param type
+     * @return
+     */
+    int updateUserType(Long id,Long type);
+
+    /**
+     * 更新用户名
+     * @param id
+     * @param username
+     * @return
+     */
+    int updateUsername(Long id,String username);
+
+    /**
+     * 更新用户密码
+     * @param id
+     * @param password
+     * @return
+     */
+    int updatePassword(Long id,String password);
 
 }

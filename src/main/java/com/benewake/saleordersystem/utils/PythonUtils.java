@@ -6,8 +6,8 @@ import java.io.InputStreamReader;
 
 /**
  * @author lcs
- * 描述：调用python脚本的工具类
- * 重点：其中python脚本中涉及到的文件路径要设置成绝对路径
+ * 描 述：调用python脚本的工具类
+ * 注 意：其中python脚本中涉及到的文件路径要设置成绝对路径
  */
 public class PythonUtils {
 

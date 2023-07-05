@@ -8,20 +8,24 @@ import org.springframework.test.context.ContextConfiguration;
 
 /**
  * @author Lcs
- * @since 2023年07月03 17:35
+ * @since 2023年07月04 10:25
  * 描 述： TODO
  */
 @SpringBootTest
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
-public class CustomerTest {
-
+public class CustomerTypeOrdersTest {
     @Autowired
-    private CustomerMapper customerMapper;
+    CustomerTypeOrdersBackMapper customerTypeOrdersBackMapper;
+    @Autowired
+    CustomerTypeOrdersReplaceMapper customerTypeOrdersReplaceMapper;
 
     @Test
-    public void testUpdateDB(){
-        customerMapper.selectList(null).forEach(System.out::println);
+    public void testBack(){
+        customerTypeOrdersBackMapper.selectList(null).forEach(System.out::println);
     }
-
+    @Test
+    public void testReplace(){
+        customerTypeOrdersReplaceMapper.selectList(null).forEach(System.out::println);
+    }
 
 }

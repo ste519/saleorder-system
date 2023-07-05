@@ -147,4 +147,26 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
     public User findUserById(Long id) {
         return userMapper.selectById(id);
     }
+
+    @Override
+    public int updateUserType(Long id, Long type) {
+        User u = userMapper.selectById(id);
+        u.setType(type);
+        return userMapper.updateById(u);
+    }
+
+    @Override
+    public int updateUsername(Long id, String username) {
+        User u = userMapper.selectById(id);
+        u.setUsername(username);
+        return userMapper.updateById(u);
+    }
+
+    @Override
+    public int updatePassword(Long id, String password) {
+        User u = userMapper.selectById(id);
+        // 加密存储
+        u.setPassword(CommonUtils.md5(password+u.getSalt()));
+        return userMapper.updateById(u);
+    }
 }

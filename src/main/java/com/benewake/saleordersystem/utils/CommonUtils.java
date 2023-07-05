@@ -8,6 +8,7 @@ import org.springframework.util.DigestUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.UUID;
@@ -17,6 +18,21 @@ import java.util.UUID;
  * 描述：一些通用工具
  */
 public class CommonUtils {
+    /**
+     * 订单状态映射表
+     */
+    private static final Map<String,String> ORDER_STATUS_MAP;
+    static {
+        ORDER_STATUS_MAP = new HashMap<>();
+        ORDER_STATUS_MAP.put("A","创建");
+        ORDER_STATUS_MAP.put("B","审核中");
+        ORDER_STATUS_MAP.put("Z","暂存");
+        ORDER_STATUS_MAP.put("C","已审核");
+        ORDER_STATUS_MAP.put("D","重新审核");
+    }
+    public static String getOrderStatus(String key){
+        return ORDER_STATUS_MAP.get(key);
+    }
 
     // 生成随机字符串UUID
     public static String generateUUID(){

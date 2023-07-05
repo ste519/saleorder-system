@@ -11,6 +11,7 @@ public interface CustomerService {
      * 从金蝶取数并更新用户id->用户名称映射表
      * @return
      */
+    @Deprecated
     int updateCustomerDB();
 
 }

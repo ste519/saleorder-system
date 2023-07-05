@@ -2,6 +2,7 @@ package com.benewake.saleordersystem.controller.intercepter;
 
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
+import com.benewake.saleordersystem.utils.CommonUtils;
 import com.benewake.saleordersystem.utils.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -10,6 +11,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
 import java.lang.reflect.Method;
 
 /**
@@ -30,8 +32,12 @@ public class LoginRequiredInterceptor implements HandlerInterceptor {
             LoginRequired loginRequired = method.getAnnotation(LoginRequired.class);
             // 有标记 且此时处于未登录状态
             if(null != loginRequired && hostHolder.getUser() == null){
-                // 强制返回登录页面
-                response.sendRedirect(request.getContextPath() + "/login");
+                // 提示账号未登录
+                response.setCharacterEncoding("UTF-8");
+                response.setContentType("application/json; charset=utf-8");
+                PrintWriter writer = response.getWriter();
+                writer.write(CommonUtils.getJSONString(1,"账号未登录！"));
+                writer.close();
                 return false;
             }
         }

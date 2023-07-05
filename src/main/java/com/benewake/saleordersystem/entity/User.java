@@ -24,6 +24,8 @@ public class User {
     private Long type;
     @TableField("FIM_authority")
     private Long auth;
+    @TableField("FIM_collection_func")
+    private Long collection;
 //    //激活码
 //    @TableField("activation_code")
 //    private String activationCode;

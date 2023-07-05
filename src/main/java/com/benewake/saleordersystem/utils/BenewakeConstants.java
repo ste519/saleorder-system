@@ -6,7 +6,7 @@ package com.benewake.saleordersystem.utils;
  */
 public interface BenewakeConstants {
     /**
-     * 金蝶授权信息系
+     * 金蝶授权信息
      */
     String X_KDAPI_ACCTID = "20210222142620903";
     String X_KDAPI_USERNAME = "TF系列交付管理信息系统";
@@ -14,7 +14,6 @@ public interface BenewakeConstants {
     String X_KDAPI_APPSEC = "d7cc71aa2cc74d4eb06f21fa322f2082";
     String X_KDAPI_SERVICEURL = "https://benewake.test.ik3cloud.com/k3cloud/";
     int X_KDAPI_LCID = 2052;
-
 
     /**
      * 一天的时间
@@ -40,4 +39,6 @@ public interface BenewakeConstants {
      * 默认状态的登录凭证超时时间 (7天)
      */
     int DEFAULT_EXPIRED_SECONDS = 1000*3600*24*7;
+
+
 }

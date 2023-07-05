@@ -30,16 +30,17 @@ public class CustomerServiceImpl implements CustomerService {
     @Override
     public int updateCustomerDB() {
         // 查询条件
-        QueryParam queryParam = new QueryParam();
-        queryParam.setFormId("BD_Customer");
-        queryParam.setFieldKeys("FCustId,FName");
-        int ans = 0;
-        try {
-            List<Customer> res = api.executeBillQuery(queryParam,Customer.class);
-            ans = customerMapper.updateCustomer(res);
-        } catch (Exception e) {
-            log.error(e.getMessage());
-        }
-        return ans;
+//        QueryParam queryParam = new QueryParam();
+//        queryParam.setFormId("BD_Customer");
+//        queryParam.setFieldKeys("FCustId,FName");
+//        int ans = 0;
+//        try {
+//            List<Customer> res = api.executeBillQuery(queryParam,Customer.class);
+//            ans = customerMapper.updateCustomer(res);
+//        } catch (Exception e) {
+//            log.error(e.getMessage());
+//        }
+//        return ans;
+        return 0;
     }
 }

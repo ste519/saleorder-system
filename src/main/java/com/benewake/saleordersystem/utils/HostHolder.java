@@ -6,6 +6,7 @@ import org.springframework.stereotype.Component;
 
 /**
  * 持有用户信息，用于代替session对象。
+ * @author Lcs
  */
 @Component
 public class HostHolder {
