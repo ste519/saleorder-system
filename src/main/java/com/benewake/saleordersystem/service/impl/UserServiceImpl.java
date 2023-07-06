@@ -46,7 +46,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
             map.put("passwordMsg","密码不能为空!");
             return Result.fail(map);
         }
-        if(user.getType()==null){
+        if(user.getUserType()==null){
             map.put("typeMsg","用户类型不能为空！");
             return Result.fail(map);
         }
@@ -64,7 +64,8 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
             user.setPassword(CommonUtils.md5(user.getPassword() + user.getSalt()));
 
             // 设置默认参数
-            user.setAuth(0L);
+            user.setUserAuth(0L);
+            user.setUserConllection(0L);
 
             userMapper.insert(user);
             return Result.success("添加成功",map);
@@ -151,7 +152,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
     @Override
     public int updateUserType(Long id, Long type) {
         User u = userMapper.selectById(id);
-        u.setType(type);
+        u.setUserType(type);
         return userMapper.updateById(u);
     }
 

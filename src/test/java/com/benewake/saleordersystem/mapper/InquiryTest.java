@@ -1,10 +1,15 @@
 package com.benewake.saleordersystem.mapper;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
+import com.benewake.saleordersystem.service.InquiryService;
+import com.benewake.saleordersystem.utils.BenewakeConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
+
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Lcs
@@ -13,12 +18,14 @@ import org.springframework.test.context.ContextConfiguration;
  */
 @SpringBootTest
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
-public class InquiryTest {
+public class InquiryTest implements BenewakeConstants {
     @Autowired
-    InquiryMapper inquiryMapper;
+    InquiryService inquiryService;
 
     @Test
     public void testList(){
-        inquiryMapper.selectList(null).forEach(System.out::println);
+        Map<String, Map<String,Object>> filters = new HashMap<>();
+        Map<String,Object> f1 = new HashMap<>();
+
     }
 }

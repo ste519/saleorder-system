@@ -40,5 +40,19 @@ public interface BenewakeConstants {
      */
     int DEFAULT_EXPIRED_SECONDS = 1000*3600*24*7;
 
+    /**
+     * 筛选条件
+     */
+    String LIKE = "like";
+    String NOT_LIKE = "not_like";
+    String GREATER = "gt";
+    String GREATER_OR_EQUAL = "ge";
+    String EQUAL = "eq";
+    String NOT_EQUAL = "ne";
+    String LITTER = "lt";
+    String LITTER_OR_EQUAL = "le";
+    String IS_NULL = "null";
+    String NOT_NULL = "notnull";
+
 
 }

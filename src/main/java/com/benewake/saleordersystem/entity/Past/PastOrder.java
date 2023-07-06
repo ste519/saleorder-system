@@ -16,8 +16,9 @@ import java.util.Date;
 @Data
 @TableName("fim_past_orders_table")
 public class PastOrder {
-    @TableId("order_id")
-    private Long id;
+    @TableId
+    @TableField("order_id")
+    private Long orderId;
 
     @TableField("order_code")
     private String orderCode;

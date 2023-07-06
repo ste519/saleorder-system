@@ -2,8 +2,13 @@ package com.benewake.saleordersystem.utils;
 
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSONObject;
-import com.benewake.saleordersystem.entity.Md;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.benewake.saleordersystem.entity.FilterCriteria;
+import com.benewake.saleordersystem.entity.Inquiry;
+import com.benewake.saleordersystem.entity.sfexpress.Route;
+import com.benewake.saleordersystem.entity.sfexpress.SF_SEARCH_RESULT;
 import org.apache.commons.lang3.StringUtils;
+import org.apache.poi.ss.formula.functions.T;
 import org.springframework.util.DigestUtils;
 
 import java.io.File;
@@ -17,11 +22,12 @@ import java.util.UUID;
  * @author Lcs
  * 描述：一些通用工具
  */
-public class CommonUtils {
+public class CommonUtils implements BenewakeConstants{
     /**
      * 订单状态映射表
      */
     private static final Map<String,String> ORDER_STATUS_MAP;
+    private static final Map<String,String> IS_CLOSE_MAP;
     static {
         ORDER_STATUS_MAP = new HashMap<>();
         ORDER_STATUS_MAP.put("A","创建");
@@ -29,9 +35,22 @@ public class CommonUtils {
         ORDER_STATUS_MAP.put("Z","暂存");
         ORDER_STATUS_MAP.put("C","已审核");
         ORDER_STATUS_MAP.put("D","重新审核");
+
+        IS_CLOSE_MAP = new HashMap<>();
+        IS_CLOSE_MAP.put("A","已关闭");
+        IS_CLOSE_MAP.put("B","未关闭");
     }
+
+    /**
+     * 根据标识获取订单状态信息
+     * @param key
+     * @return
+     */
     public static String getOrderStatus(String key){
         return ORDER_STATUS_MAP.get(key);
+    }
+    public static String getIsClose(String key){
+        return IS_CLOSE_MAP.get(key);
     }
 
     // 生成随机字符串UUID
@@ -89,4 +108,61 @@ public class CommonUtils {
         return true;
     }
 
+    /**
+     * 解析顺丰路由列表
+     * @param result
+     * @return
+     */
+    public static List<Route> paresRoutes(SF_SEARCH_RESULT result){
+        String msgData = com.alibaba.fastjson2.JSONObject.parseObject(result.getApiResultData()).getString("msgData");
+        String routeResps = com.alibaba.fastjson2.JSONObject.parseObject(msgData).getJSONArray("routeResps").get(0).toString();
+        List<Route> routes = com.alibaba.fastjson2.JSONObject.parseObject(routeResps).getList("routes", Route.class);
+        return routes;
+    }
+
+    /**
+     * 添加筛选条件
+     * @param filters
+     * @param queryWrapper
+     * @return
+     */
+    public static <T> boolean addFilters(List<FilterCriteria> filters, QueryWrapper<T> queryWrapper){
+        filters.forEach(f ->{
+            switch (f.getCondition()){
+                case LIKE:
+                    queryWrapper.like(f.getColName(),f.getValue());
+                    break;
+                case NOT_LIKE:
+                    queryWrapper.notLike(f.getColName(),f.getValue());
+                    break;
+                case GREATER:
+                    queryWrapper.gt(f.getColName(),f.getValue());
+                    break;
+                case GREATER_OR_EQUAL:
+                    queryWrapper.ge(f.getColName(),f.getValue());
+                    break;
+                case EQUAL:
+                    queryWrapper.eq(f.getColName(),f.getValue());
+                    break;
+                case NOT_EQUAL:
+                    queryWrapper.ne(f.getColName(),f.getValue());
+                    break;
+                case LITTER:
+                    queryWrapper.lt(f.getColName(),f.getValue());
+                    break;
+                case LITTER_OR_EQUAL:
+                    queryWrapper.le(f.getColName(),f.getValue());
+                    break;
+                case IS_NULL:
+                    queryWrapper.isNull(f.getColName());
+                    break;
+                case NOT_NULL:
+                    queryWrapper.isNotNull(f.getColName());
+                    break;
+                default:
+                    throw new IllegalArgumentException("筛选参数错误！");
+            }
+        });
+        return true;
+    }
 }

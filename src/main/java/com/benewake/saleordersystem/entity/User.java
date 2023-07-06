@@ -21,11 +21,11 @@ public class User {
     @TableField("FIM_coding")
     private String salt;
     @TableField("FIM_user_type")
-    private Long type;
+    private Long userType;
     @TableField("FIM_authority")
-    private Long auth;
+    private Long userAuth;
     @TableField("FIM_collection_func")
-    private Long collection;
+    private Long userConllection;
 //    //激活码
 //    @TableField("activation_code")
 //    private String activationCode;
