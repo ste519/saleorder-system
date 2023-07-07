@@ -52,7 +52,7 @@ public class SFExpressServiceImpl implements SFExpressService {
             params.put("msgData", msgData);
             params.put("msgDigest", CallExpressServiceTools.getMsgDigest(msgData, timeStamp, CHECK_WORD));
             String result = HttpClientUtil.post(CALL_URL_PRO, params);
-            //System.out.println(result);
+            System.out.println(result);
             SF_SEARCH_RESULT routes = JSON.parseObject(result, SF_SEARCH_RESULT.class);
             return routes;
         } catch (UnsupportedEncodingException e) {

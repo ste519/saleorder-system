@@ -16,5 +16,17 @@ public interface InquiryService {
      * @param filters
      * @return
      */
-    List<Inquiry> selectInquiryList(List<FilterCriteria> filters);
+    List<Map<String,Object>> selectSalesOrderVoList(List<FilterCriteria> filters,int offset,int limit);
+
+
+    List<Map<String,Object>> testItemFilter(List<FilterCriteria> filters,int offset,int limit);
+
+    /**
+     * 获取展示的列名信息
+     * @param tableId
+     * @param planId
+     * @param userId
+     * @return
+     */
+    List<Map<String,Object>> getColMaps(Long tableId,Long planId,Long userId);
 }

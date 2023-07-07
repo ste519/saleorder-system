@@ -44,7 +44,7 @@ public interface BenewakeConstants {
      * 筛选条件
      */
     String LIKE = "like";
-    String NOT_LIKE = "not_like";
+    String NOT_LIKE = "notlike";
     String GREATER = "gt";
     String GREATER_OR_EQUAL = "ge";
     String EQUAL = "eq";
@@ -53,6 +53,7 @@ public interface BenewakeConstants {
     String LITTER_OR_EQUAL = "le";
     String IS_NULL = "null";
     String NOT_NULL = "notnull";
+
 
 
 }

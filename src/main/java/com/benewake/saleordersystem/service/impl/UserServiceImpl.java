@@ -64,7 +64,6 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
             user.setPassword(CommonUtils.md5(user.getPassword() + user.getSalt()));
 
             // 设置默认参数
-            user.setUserAuth(0L);
             user.setUserConllection(0L);
 
             userMapper.insert(user);

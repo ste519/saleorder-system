@@ -1,23 +1,18 @@
 package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
+import com.benewake.saleordersystem.entity.Col;
 import com.benewake.saleordersystem.entity.User;
+import com.benewake.saleordersystem.entity.VO.FilterVo;
 import com.benewake.saleordersystem.service.InquiryService;
 import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
-import jnr.ffi.annotations.In;
-import lombok.extern.java.Log;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -35,17 +30,27 @@ public class SaleOrderController {
     @Autowired
     private HostHolder hostHolder;
 
-    @GetMapping("/allList")
+    @PostMapping("/allList")
     @LoginRequired
-    public Result<Map<String,Object>> selectList(HttpServletRequest request,
-                                                 HttpServletResponse response, Integer tableId, Integer plan, Integer offset, Integer limit,
-                                                 String matp){
+    public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
+        Map<String,Object> res = new HashMap<>();
         // 当前登录用户
         User loginUser = hostHolder.getUser();
+        System.out.println(filterVo.toString());
+        //System.out.println(col);
+        // 获取列名信息
+        res.put("cols",inquiryService.getColMaps(filterVo.getTableId(),filterVo.getPlanId(),loginUser.getId()));
+        // 添加默认筛选信息
 
-        //String ma_tp = (String) request.getAttribute("matp");
-        String ma_va = (String) request.getAttribute("mava");
-        System.out.println(matp+" "+ma_va);
+        // 根据筛选条件获取数据
+        res.put("list",inquiryService.testItemFilter(filterVo.getFilterCriterias(), filterVo.getOffset(), filterVo.getLimit()));
+        return Result.success();
+    }
+
+    @GetMapping("/savePlan")
+    @LoginRequired
+    public Result<Map<String,Object>> savePlan(){
+
         return Result.success();
     }
 

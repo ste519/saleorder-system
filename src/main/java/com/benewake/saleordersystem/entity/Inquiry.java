@@ -47,7 +47,5 @@ public class Inquiry {
     private String inquiryType;
     @TableField("remark")
     private String remark;
-    @TableField("reserved")
-    private String reserved;
 
 }

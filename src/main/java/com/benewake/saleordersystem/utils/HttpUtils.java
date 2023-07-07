@@ -19,7 +19,7 @@ import java.util.Map;
  * @date 2022/5/7 10:16
  */
 public class HttpUtils {
-    //获得http客户端（相当于一个浏览器）
+    // 获得http客户端（相当于一个浏览器）
     static CloseableHttpClient httpClient = HttpClientBuilder.create().build();
 
     public static HttpResponse doGet(String scheme, String host, String path, Map<String, String> bodys, Map<String, String> headers) throws Exception {

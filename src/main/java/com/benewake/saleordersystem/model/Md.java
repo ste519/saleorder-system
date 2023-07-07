@@ -1,6 +1,7 @@
-package com.benewake.saleordersystem.entity;
+package com.benewake.saleordersystem.model;
 
 import com.alibaba.excel.annotation.ExcelProperty;
+import com.alibaba.excel.annotation.format.DateTimeFormat;
 import lombok.Data;
 
 import java.util.Date;
@@ -14,8 +15,10 @@ import java.util.Date;
 public class Md {
     //FID,FBillNo,FSaleOrgId,FDate,FStockOrgId,FCustomerID
     @ExcelProperty(value = "日期")
+    @DateTimeFormat("yyyy-MM-dd")
     private String FDate;
     @ExcelProperty("要货日期")
+    @DateTimeFormat("yyyy-MM-dd")
     private String FDeliveryDate;
     @ExcelProperty("单据编号")
     private String FBillNo;

@@ -25,10 +25,7 @@ public class SFTest {
 
     @Test
     public void testSF(){
-        SF_SEARCH_RESULT result = sfExpressService.findRoutesByCode("SF1688857087748","8562");
-        String msgData = JSONObject.parseObject(result.getApiResultData()).getString("msgData");
-        String routeResps = JSONObject.parseObject(msgData).getJSONArray("routeResps").get(0).toString();
-        List<Route> routes = JSONObject.parseObject(routeResps).getList("routes", Route.class);
-        routes.forEach(System.out::println);
+        SF_SEARCH_RESULT result = sfExpressService.findRoutesByCode("SF2071882625241","4392");
+
     }
 }

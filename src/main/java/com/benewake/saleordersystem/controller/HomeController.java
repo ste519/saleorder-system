@@ -34,12 +34,21 @@ public class HomeController implements BenewakeConstants {
     private String contextPath;
 
 
+    /**
+     * index测试
+     * @return
+     */
     @GetMapping("/index")
     @LoginRequired
     public Result<String> index() {
         return Result.success();
     }
 
+    /**
+     * 添加新用户（需管理员权限 目前没设置)
+     * @param user
+     * @return
+     */
     @PostMapping("/add")
     @ResponseBody
     public Result<Map<String, Object>> add(User user) {
@@ -55,6 +64,15 @@ public class HomeController implements BenewakeConstants {
         map.put("msg","进入登录页面！");
         return Result.success(map);
     }
+
+    /**
+     * 用户登录
+     * @param username 用户名
+     * @param password 密码
+     * @param model
+     * @param response
+     * @return
+     */
     @PostMapping("/login")
     @ResponseBody
     public Result<Map<String,Object>> login(String username, String password, Model model, HttpServletResponse response){
@@ -79,6 +97,11 @@ public class HomeController implements BenewakeConstants {
         }
     }
 
+    /**
+     * 用户登出
+     * @param ticket
+     * @return
+     */
     @GetMapping("/logout")
     @ResponseBody
     public Result<Map<String,Object>> logout(@CookieValue("ticket") String ticket){

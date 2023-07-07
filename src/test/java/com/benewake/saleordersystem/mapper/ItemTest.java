@@ -53,7 +53,7 @@ public class ItemTest {
     public void testItem(){
         QueryWrapper<List<Map<String,Object>>> queryWrapper = new QueryWrapper<>();
         queryWrapper.like("item_name","(整箱包装)");
-        List<Map<String,Object>> res = salesOrderVoMapper.getALL(queryWrapper);
+        List<Map<String,Object>> res = salesOrderVoMapper.getALL(queryWrapper,0,10);
         res.forEach(c->{
             c.forEach((k,v)->{
                 System.out.print(k+" "+v+" ");

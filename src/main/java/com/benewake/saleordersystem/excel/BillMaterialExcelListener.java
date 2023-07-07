@@ -6,6 +6,9 @@ import com.alibaba.excel.event.AnalysisEventListener;
 import com.benewake.saleordersystem.model.BillMaterialModel;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.ArrayList;
+import java.util.List;
+
 
 /**
  * @author lcs
@@ -13,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class BillMaterialExcelListener extends AnalysisEventListener<BillMaterialModel> {
 
-
+    List<BillMaterialModel> cache = new ArrayList<>();
     /**
      * 这个每一条数据解析都会来调用
      *

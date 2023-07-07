@@ -93,7 +93,7 @@ public class CommonUtils implements BenewakeConstants{
      * @param type
      * @return
      */
-    public static boolean writeExcel(File file, List data,Class type){
+    public static boolean writeExcel(File file, List data,Class type,String sheetName){
         //1、创建一个文件对象
         //2、判断文件是否存在，不存在则创建一个Excel文件
         if (!file.exists()) {
@@ -104,8 +104,11 @@ public class CommonUtils implements BenewakeConstants{
             }
         }
         //3、指定需要那个class去写。然后写到第一个sheet，名字为模版，然后文件流会自动关闭
-        EasyExcel.write(file, type).sheet("订单模版").doWrite(data);
+        EasyExcel.write(file, type).sheet(sheetName).doWrite(data);
         return true;
+    }
+    public static boolean writeExcel(File file,List data,Class type){
+        return writeExcel(file, data, type, "sheet");
     }
 
     /**

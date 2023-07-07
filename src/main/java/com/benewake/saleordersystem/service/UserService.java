@@ -72,4 +72,5 @@ public interface UserService {
      */
     int updatePassword(Long id,String password);
 
+
 }

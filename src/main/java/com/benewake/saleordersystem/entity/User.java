@@ -22,8 +22,6 @@ public class User {
     private String salt;
     @TableField("FIM_user_type")
     private Long userType;
-    @TableField("FIM_authority")
-    private Long userAuth;
     @TableField("FIM_collection_func")
     private Long userConllection;
 //    //激活码
