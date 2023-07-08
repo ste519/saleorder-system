@@ -1,7 +1,6 @@
 package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
-import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.service.UserService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.HostHolder;
@@ -22,6 +21,7 @@ import java.util.Map;
  * 描 述： TODO
  */
 @RestController
+@ResponseBody
 public class HomeController implements BenewakeConstants {
 
     @Autowired
@@ -36,7 +36,6 @@ public class HomeController implements BenewakeConstants {
 
     /**
      * index测试
-     * @return
      */
     @GetMapping("/index")
     @LoginRequired
@@ -44,23 +43,11 @@ public class HomeController implements BenewakeConstants {
         return Result.success();
     }
 
-    /**
-     * 添加新用户（需管理员权限 目前没设置)
-     * @param user
-     * @return
-     */
-    @PostMapping("/add")
-    @ResponseBody
-    public Result<Map<String, Object>> add(User user) {
-        //System.out.println("新增用户信息："+user.toString());
-
-        return userService.addUser(user);
-    }
 
 
     @GetMapping("/login")
     public Result<Map<String,Object>> toLogin(){
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>(1);
         map.put("msg","进入登录页面！");
         return Result.success(map);
     }
@@ -71,17 +58,17 @@ public class HomeController implements BenewakeConstants {
      * @param password 密码
      * @param model
      * @param response
-     * @return
+     * @return 登录信息
      */
     @PostMapping("/login")
-    @ResponseBody
-    public Result<Map<String,Object>> login(String username, String password, Model model, HttpServletResponse response){
+    public Result<Map<String,Object>> login(String username, String password, HttpServletResponse response){
         if(hostHolder.getUser() != null) {
             // 当前已存在登录用户
-            Map<String,Object> map = new HashMap<>();
+            Map<String,Object> map = new HashMap<>(1);
             map.put("loginMessage","当前已有账号登录，请先退出当前账号！");
             return Result.fail(map);
         }
+        // 尝试登录
         Map<String,Object> map = userService.login(username,password);
         if (map.containsKey("ticket")) {
             //验证成功 设置Cookie并返回成功信息
@@ -103,7 +90,6 @@ public class HomeController implements BenewakeConstants {
      * @return
      */
     @GetMapping("/logout")
-    @ResponseBody
     public Result<Map<String,Object>> logout(@CookieValue("ticket") String ticket){
         return Result.success(userService.logout(ticket));
     }

@@ -2,9 +2,12 @@ package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
 import com.benewake.saleordersystem.entity.Col;
+import com.benewake.saleordersystem.entity.Item;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.entity.VO.FilterVo;
+import com.benewake.saleordersystem.mapper.ItemMapper;
 import com.benewake.saleordersystem.service.InquiryService;
+import com.benewake.saleordersystem.service.ItemService;
 import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -30,6 +33,9 @@ public class SaleOrderController {
     @Autowired
     private HostHolder hostHolder;
 
+    @Autowired
+    private ItemService itemService;
+
     @PostMapping("/allList")
     @LoginRequired
     public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
@@ -54,4 +60,8 @@ public class SaleOrderController {
         return Result.success();
     }
 
+    @PostMapping("/finditem")
+    public List<Item> likeItemCode(String itemCode){
+        return itemService.itemCodeLikeList(itemCode);
+    }
 }

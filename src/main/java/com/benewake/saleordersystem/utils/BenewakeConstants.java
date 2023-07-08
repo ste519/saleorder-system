@@ -39,6 +39,26 @@ public interface BenewakeConstants {
      * 默认状态的登录凭证超时时间 (7天)
      */
     int DEFAULT_EXPIRED_SECONDS = 1000*3600*24*7;
+    /**
+     * 用户类型：管理员
+     */
+    Long USER_TYPE_ADMIN = 1L;
+    /**
+     * 用户类型：销售员
+     */
+    Long USER_TYPE_SALESMAN = 2L;
+    /**
+     * 用户类型：访客
+     */
+    Long USER_TYPE_VISITOR = 3L;
+    /**
+     * 用户类型：无效
+     */
+    Long USER_TYPE_INVALID = 4L;
+    /**
+     * 用户类型：系统
+     */
+    Long USER_TYPE_SYSTEM = 5L;
 
     /**
      * 筛选条件

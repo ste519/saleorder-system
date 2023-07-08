@@ -77,7 +77,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
 
         //空值处理
         if (StringUtils.isBlank(username)) {
-            map.put("usernameMsg", "账号不能为空！");
+            map.put("usernameMsg", "未注册无法登录，注册请飞书联系管理员！");
             return map;
         }
         if (StringUtils.isBlank(password)) {
