@@ -16,4 +16,24 @@ public interface ItemService {
      */
     List<Item> itemCodeLikeList(String itemCode);
 
+    /**
+     * 根据id判断物料是否存在
+     * @param itemId
+     * @return
+     */
+    Item findItemById(Long itemId);
+
+    /**
+     * 根据物料编码查询物料
+     * @param itemCode
+     * @return
+     */
+    Item findItemByCode(String itemCode);
+
+    /**
+     * 将字符串对应转换为int
+     * @param itemType
+     * @return
+     */
+    int transferItemType(String itemType);
 }

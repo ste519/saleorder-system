@@ -14,12 +14,12 @@ import lombok.Data;
 @TableName("fim_item_table")
 public class Item {
     @TableId("item_id")
-    private String id;
+    private Long id;
     @TableField("item_code")
     private String itemCode;
     @TableField("item_name")
     private String itemName;
     @TableField("item_type")
-    private String itemType;
+    private int itemType;
 
 }

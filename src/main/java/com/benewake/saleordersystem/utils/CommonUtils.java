@@ -13,6 +13,8 @@ import org.springframework.util.DigestUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -168,4 +170,16 @@ public class CommonUtils implements BenewakeConstants{
         });
         return true;
     }
+
+    /**
+     * 金蝶时间转换
+     * @param date
+     * @return
+     */
+    public static String KingDeeDateFormat(String date) throws ParseException {
+        SimpleDateFormat ft1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
+        SimpleDateFormat ft2 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        return ft2.format(ft1.parse(date));
+    }
+
 }

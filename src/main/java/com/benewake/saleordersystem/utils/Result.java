@@ -17,7 +17,7 @@ public class Result<T> implements BenewakeConstants{
     /**
      * 返回信息
      */
-    private String message;
+    private String msg;
 
     /**
      * 返回数据
@@ -30,7 +30,7 @@ public class Result<T> implements BenewakeConstants{
     public static <T> Result<T> success() {
         Result<T> Result = new Result<>();
         Result.setCode(SUCCESS_CODE);
-        Result.setMessage(SUCCESS_MESSAGE);
+        Result.setMsg(SUCCESS_MESSAGE);
         return Result;
     }
 
@@ -42,7 +42,7 @@ public class Result<T> implements BenewakeConstants{
 
     public static <T> Result<T> success(String message, T data) {
         Result<T> Result = success();
-        Result.setMessage(message);
+        Result.setMsg(message);
         Result.setData(data);
         return Result;
     }
@@ -50,7 +50,7 @@ public class Result<T> implements BenewakeConstants{
     public static <T> Result<T> success(Integer code, String message, T data) {
         Result<T> Result = new Result<>();
         Result.setCode(code);
-        Result.setMessage(message);
+        Result.setMsg(message);
         Result.setData(data);
         return Result;
     }
@@ -58,7 +58,7 @@ public class Result<T> implements BenewakeConstants{
     public static <T> Result<T> fail() {
         Result<T> Result = new Result<>();
         Result.setCode(FAIL_CODE);
-        Result.setMessage(FAIL_MESSAGE);
+        Result.setMsg(FAIL_MESSAGE);
         return Result;
     }
 
@@ -70,7 +70,7 @@ public class Result<T> implements BenewakeConstants{
 
     public static <T> Result<T> fail(String message, T data) {
         Result<T> Result = fail();
-        Result.setMessage(message);
+        Result.setMsg(message);
         Result.setData(data);
         return Result;
     }
@@ -78,14 +78,14 @@ public class Result<T> implements BenewakeConstants{
     public static <T> Result<T> fail(Integer code, String message) {
         Result<T> Result = fail();
         Result.setCode(code);
-        Result.setMessage(message);
+        Result.setMsg(message);
         return Result;
     }
 
     public static <T> Result<T> fail(Integer code, String message, T data) {
         Result<T> Result = new Result<>();
         Result.setCode(code);
-        Result.setMessage(message);
+        Result.setMsg(message);
         Result.setData(data);
         return Result;
     }

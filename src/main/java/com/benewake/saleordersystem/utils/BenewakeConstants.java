@@ -1,5 +1,10 @@
 package com.benewake.saleordersystem.utils;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
 /**
  * @author Lcs
  * 描 述：一些通用常量定义
@@ -74,6 +79,43 @@ public interface BenewakeConstants {
     String IS_NULL = "null";
     String NOT_NULL = "notnull";
 
+    /**
+     * 订单类型：销售预测
+     */
+    int ORDER_TYPE_YC = 4;
+    /**
+     * 订单类型：询单
+     */
+    int ORDER_TYPE_XD = 5;
+    /**
+     * 订单类型：用户付款
+     */
+    int ORDER_TYPE_PO = 1;
+    /**
+     * 订单类型：用户付款意向
+     */
+    int ORDER_TYPE_PR = 2;
+    /**
+     * 订单类型：供应链预估
+     */
+    int ORDER_TYPE_YG = 3;
+
+    /**
+     * 产品类型：已有竞品
+     */
+    int ITEM_TYPE_ALREADY_AVAILABLE = 1;
+    /**
+     * 产品类型：已有定制
+     */
+    int ITEM_TYPE_ALREADY_BESPOKE = 2;
+    /**
+     * 产品类型：软件定制
+     */
+    int ITEM_TYPE_SOFTWARE_BESPOKE = 3;
+    /**
+     * 产品类型：原材料定制
+     */
+    int ITEM_TYPE_RAW_MATERIALS_BESPOKE = 3;
 
 
 }

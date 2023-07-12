@@ -16,7 +16,7 @@ import lombok.Data;
 public class Customer {
     @ExcelProperty("客户ID")
     @TableId("customer_id")
-    private String fCustId;
+    private Long fCustId;
 
     @ExcelProperty("客户名")
     @TableField("customer_name")

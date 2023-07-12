@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -55,9 +56,17 @@ public class UserController implements BenewakeConstants {
             userService.logout(ticket);
             return Result.success("修改成功,请重新登录!");
         }else if(user.getUserType()==USER_TYPE_ADMIN){
+            // 空值处理
+            if(userId == null){
+                return Result.fail("要修改的用户id为空");
+            }
             // 管理员修改用户密码
-            userService.updatePassword(userId,newPassword);
-            return Result.success("修改成功！");
+            int res = userService.updatePassword(userId,newPassword);
+            if(res != -1){
+                return Result.success("修改成功！");
+            }else{
+                return Result.fail("用户id不存在！");
+            }
         }
 
         return Result.fail("发生未知错误，请重试");
@@ -69,10 +78,15 @@ public class UserController implements BenewakeConstants {
      * @return
      */
     @PostMapping("/add")
-    @ResponseBody
     public Result<Map<String, Object>> add(User user) {
         //System.out.println("新增用户信息："+user.toString());
 
         return userService.addUser(user);
     }
+
+    @PostMapping("/likeList")
+    public Result<List<User>> getUserLikeList(String username){
+        return Result.success(userService.getSalesmanLikeList(username));
+    }
+
 }

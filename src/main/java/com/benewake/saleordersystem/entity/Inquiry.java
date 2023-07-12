@@ -19,13 +19,11 @@ public class Inquiry {
     @TableId("inquiry_id")
     private Long inquiryId;
     @TableField("inquiry_code")
-    private Long inquiryCode;
+    private String inquiryCode;
     @TableField("state")
-    private String state;
-    @TableField("latest")
-    private Integer latest;
+    private Integer state;
     @TableField("created_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     private Date createdTime;
     @TableField("created_user")
     private Long createdUser;
@@ -38,13 +36,13 @@ public class Inquiry {
     @TableField("sale_num")
     private Long saleNum;
     @TableField("expected_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     private Date expectedTime;
     @TableField("arranged_time")
-    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @JsonFormat(pattern = "yyyy/MM/dd", timezone = "GMT+8")
     private Date arrangedTime;
     @TableField("inquiry_type")
-    private String inquiryType;
+    private Integer inquiryType;
     @TableField("remark")
     private String remark;
 

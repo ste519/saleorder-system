@@ -1,6 +1,9 @@
 package com.benewake.saleordersystem.mapper;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
+import com.benewake.saleordersystem.service.UserService;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
@@ -12,5 +15,12 @@ import org.springframework.test.context.ContextConfiguration;
 @SpringBootTest
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
 public class UserTest {
+
+    @Autowired
+    UserService userService;
+    @Test
+    public void userLike(){
+        System.out.println(userService.getSalesmanLikeList("测"));
+    }
 
 }

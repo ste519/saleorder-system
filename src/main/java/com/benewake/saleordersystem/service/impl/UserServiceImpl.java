@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.benewake.saleordersystem.entity.LoginTicket;
 import com.benewake.saleordersystem.entity.User;
@@ -15,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -84,13 +86,13 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
             map.put("passwordMsg", "密码不能为空！");
             return map;
         }
-        // 查询用户信息
+        // 根据用户名查询用户信息
         QueryWrapper<User> queryWrapper = new QueryWrapper<>();
         queryWrapper.eq("FIM_user_name",username);
         User u = userMapper.selectOne(queryWrapper);
         // 用户不存在
         if (null == u) {
-            map.put("usernameMsg", "该账号不存在！");
+            map.put("usernameMsg", "未注册无法登录，注册请飞书联系管理员!");
             return map;
         }
         // 验证密码
@@ -118,7 +120,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
     public Map<String, Object> logout(String ticket) {
         Map<String,Object> map = new HashMap<>();
         if(StringUtils.isBlank(ticket)){
-            map.put("ticketMessage","ticket不能为空！");
+            map.put("ticketMessage","ticket不存在或已失效");
             return map;
         }
         // 条件查询
@@ -165,8 +167,29 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
     @Override
     public int updatePassword(Long id, String password) {
         User u = userMapper.selectById(id);
+        if(u ==  null) {
+            return -1;
+        }
         // 加密存储
         u.setPassword(CommonUtils.md5(password+u.getSalt()));
         return userMapper.updateById(u);
+    }
+
+    @Override
+    public List<User> getSalesmanLikeList(String username) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(User::getId,User::getUsername)
+                .like(StringUtils.isNotBlank(username),User::getUsername,username)
+                .eq(User::getUserType,USER_TYPE_SALESMAN);
+        return userMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public User findSalesmanByName(String salesmanName) {
+        LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(User::getId)
+                .eq(User::getUsername,salesmanName)
+                .eq(User::getUserType,USER_TYPE_SALESMAN);
+        return userMapper.selectOne(queryWrapper);
     }
 }

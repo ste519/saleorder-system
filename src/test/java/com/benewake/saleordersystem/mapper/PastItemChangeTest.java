@@ -1,6 +1,9 @@
 package com.benewake.saleordersystem.mapper;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
+import com.benewake.saleordersystem.entity.Past.PastItemChange;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -19,6 +22,8 @@ public class PastItemChangeTest {
 
     @Test
     public void getList(){
-        pastItemChangeMapper.selectList(null).forEach(System.out::println);
+        LambdaQueryWrapper<PastItemChange> q = new LambdaQueryWrapper<>();
+        q.select(PastItemChange::getOldItemCode,PastItemChange::getNewItemCode);
+        pastItemChangeMapper.selectList(q).forEach(System.out::println);
     }
 }

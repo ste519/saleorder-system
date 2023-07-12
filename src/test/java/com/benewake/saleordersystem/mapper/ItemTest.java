@@ -9,6 +9,7 @@ import com.benewake.saleordersystem.entity.Item;
 import com.benewake.saleordersystem.entity.Past.PastItemChange;
 
 import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
+import com.benewake.saleordersystem.service.ItemService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -33,6 +34,8 @@ public class ItemTest {
 
     @Autowired
     ItemMapper itemMapper;
+    @Autowired
+    ItemService itemService;
 
     @Autowired
     SalesOrderVoMapper salesOrderVoMapper;
@@ -61,6 +64,13 @@ public class ItemTest {
             System.out.println();
         });
     }
+
+    @Test
+    public void testItemLike(){
+        List<Item> list = itemService.itemCodeLikeList("13.01");
+        list.forEach(System.out::println);
+    }
+
 
 
 }

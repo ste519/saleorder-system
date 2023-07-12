@@ -4,6 +4,8 @@ import com.benewake.saleordersystem.SaleOrderSystemApplication;
 import com.benewake.saleordersystem.entity.Ysdd;
 import com.benewake.saleordersystem.model.Md;
 import com.benewake.saleordersystem.entity.Transfer.*;
+import com.benewake.saleordersystem.model.SaleOut;
+import com.benewake.saleordersystem.model.Withdraw;
 import com.benewake.saleordersystem.service.KingDeeService;
 import com.benewake.saleordersystem.utils.CommonUtils;
 import com.kingdee.bos.webapi.entity.IdentifyInfo;
@@ -31,7 +33,7 @@ import java.util.Map;
 public class DemoTest {
 
     @Autowired
-    private K3CloudApi k3CloudApi;
+    private K3CloudApi api;
     @Autowired
     private KingDeeService kingDeeService;
 
@@ -48,8 +50,8 @@ public class DemoTest {
         //queryFilters.add(String.format("FCustId = '%s'","452119"));
         //queryFilters.add(String.format("FQty >= '%s'","6"));
         queryParam.setFilterString(String.join(" and ",queryFilters));
-        queryParam.setLimit(200);
-        List<Md> result = k3CloudApi.executeBillQuery(queryParam, Md.class);
+        queryParam.setLimit(20);
+        List<Md> result = api.executeBillQuery(queryParam, Md.class);
         System.out.println("查询到的数据数量: " + result.size());
         // 时间格式
         SimpleDateFormat ft1 = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss");
@@ -59,17 +61,25 @@ public class DemoTest {
         queryParam = new QueryParam();
         queryParam.setFormId("BD_Customer");
         queryParam.setFieldKeys("FCustId,FName");
-        List<CustIdToName> cidToName = k3CloudApi.executeBillQuery(queryParam, CustIdToName.class);
+        List<CustIdToName> cidToName = api.executeBillQuery(queryParam, CustIdToName.class);
         Map<String,String> citn = new HashMap<>();
-        cidToName.forEach(c -> {
-            citn.put(c.getFCustId(),c.getFName());
-        });
+        cidToName.forEach(c -> citn.put(c.getFCustId(),c.getFName()));
         cidToName = null;
+        // 销售员映射表
+        queryParam = new QueryParam();
+        queryParam.setFormId("BD_Saler");
+        queryParam.setFieldKeys("fid,FName");
+        List<SalerIdToName> sidToName = api.executeBillQuery(queryParam, SalerIdToName.class);
+        Map<String,String> sitn = new HashMap<>();
+        sidToName.forEach(c->{
+            sitn.put(c.getFid(), c.getFName());
+        });
+        sidToName = null;
         // 创建人和审核人映射表
         queryParam = new QueryParam();
         queryParam.setFormId("SEC_User");
         queryParam.setFieldKeys("FUserID,FName");
-        List<CreateIdToName> crtidToName = k3CloudApi.executeBillQuery(queryParam, CreateIdToName.class);
+        List<CreateIdToName> crtidToName = api.executeBillQuery(queryParam, CreateIdToName.class);
         Map<String,String> critn = new HashMap<>();
         crtidToName.forEach(c->{
             critn.put(c.getFUserID(),c.getFName());
@@ -79,7 +89,7 @@ public class DemoTest {
         queryParam = new QueryParam();
         queryParam.setFormId("BD_MATERIAL");
         queryParam.setFieldKeys("FMaterialId,FNumber");
-        List<MaterialIdToName> midToName = k3CloudApi.executeBillQuery(queryParam, MaterialIdToName.class);
+        List<MaterialIdToName> midToName = api.executeBillQuery(queryParam, MaterialIdToName.class);
         Map<String,String> mtn = new HashMap<>();
         midToName.forEach(c->{
             mtn.put(c.getFMaterialId(),c.getFNumber());
@@ -97,51 +107,7 @@ public class DemoTest {
             m.setFCreatorId(critn.get(m.getFCreatorId()));
             m.setFApproverId(critn.get(m.getFApproverId()));
             m.setFMaterialId(mtn.get(m.getFMaterialId()));
-            // 替换客户id->客户名
-//            queryParam = new QueryParam();
-//            queryParam.setFormId("BD_Customer");
-//            queryParam.setFieldKeys("FCustId,FName");
-//            queryParam.setFilterString(String.format("FCustId = %s",m.getFCustId()));
-//            queryParam.setLimit(1);
-//            List<CustIdToName> cidToName = k3CloudApi.executeBillQuery(queryParam, CustIdToName.class);
-//            m.setFCustId(cidToName.get(0).getFName());
-            // 替换销售员Id->销售员
-//            queryParam = new QueryParam();
-//            queryParam.setFormId("BD_Saler");
-//            queryParam.setFieldKeys("FNumber,FName");
-//            queryParam.setFilterString(String.format("FNumber = %s",m.getFSalerId()));
-//            queryParam.setLimit(1);
-//            List<SalerIdToName> list = k3CloudApi.executeBillQuery(queryParam,SalerIdToName.class);
-//            m.setFSalerId(list.get(0).getFName());
-            // 替换创建人和审核人Id->名字
-//            queryParam = new QueryParam();
-//            queryParam.setFormId("SEC_User");
-//            queryParam.setFieldKeys("FUserID,FName");
-//            queryParam.setFilterString(String.format("FUserID = %s",m.getFCreatorId()));
-//            queryParam.setLimit(1);
-//            List<CreateIdToName> crtidToName = k3CloudApi.executeBillQuery(queryParam, CreateIdToName.class);
-//            if(m.getFCreatorId().equals(m.getFApproverId())){
-//                m.setFCreatorId(crtidToName.get(0).getFName());
-//                m.setFApproverId(m.getFCreatorId());
-//            }else{
-//                m.setFCreatorId(crtidToName.get(0).getFName());
-//                queryParam = new QueryParam();
-//                queryParam.setFormId("SEC_User");
-//                queryParam.setFieldKeys("FUserID,FName");
-//                queryParam.setFilterString(String.format("FUserID = %s",m.getFApproverId()));
-//                queryParam.setLimit(1);
-//                crtidToName = k3CloudApi.executeBillQuery(queryParam, CreateIdToName.class);
-//                m.setFApproverId(crtidToName.get(0).getFName());
-//            }
-            // 替换物料ID->物料名称
-//            queryParam = new QueryParam();
-//            queryParam.setFormId("BD_MATERIAL");
-//            queryParam.setFieldKeys("FMaterialId,FNumber");
-//            queryParam.setFilterString(String.format("FMaterialId = [%s]",m.getFMaterialId()));
-//            queryParam.setLimit(1);
-//            List<MaterialIdToName> midToName = k3CloudApi.executeBillQuery(queryParam, MaterialIdToName.class);
-//            m.setFMaterialId(midToName.get(0).getFNumber());
-
+            m.setFSalerId(sitn.get(m.getFSalerId()));
             System.out.println(m.toString());
         }
         //1、创建一个文件对象
@@ -191,7 +157,7 @@ public class DemoTest {
         List<String> queryFilters = new ArrayList<>();
         queryFilters.add(String.format("FDate >= '%s'","2023-06-01"));
         queryFilters.add(String.format("FQty >= '%s'","6"));
-        List<Md> res = kingDeeService.searchData(fromId,fieldKeys,String.join(" and ",queryFilters),1,10, Md.class);
+        List<Md> res = kingDeeService.searchData(fromId,fieldKeys,String.join(" and ",queryFilters),10, Md.class);
         res.forEach(System.out::println);
     }
 
@@ -201,7 +167,7 @@ public class DemoTest {
         queryParam.setFormId("BD_OPERATOR");
         queryParam.setFieldKeys("FStaffId");
         queryParam.setLimit(200);
-        List<SalerT> list = k3CloudApi.executeBillQuery(queryParam, SalerT.class);
+        List<SalerT> list = api.executeBillQuery(queryParam, SalerT.class);
         File file = new File("F:/测试.xlsx");
         CommonUtils.writeExcel(file,list, SalerT.class);
     }
@@ -215,9 +181,20 @@ public class DemoTest {
         queryParam.setFilterString(String.format("FBillNo='%s'","XSCKD2023069400"));
         //queryParam.setStartRow(300);
         queryParam.setLimit(1);
-        List<Ysdd> list = k3CloudApi.executeBillQuery(queryParam, Ysdd.class);
+        List<Ysdd> list = api.executeBillQuery(queryParam, Ysdd.class);
         File file = new File("F:/运输单号.xlsx");
         CommonUtils.writeExcel(file,list,Ysdd.class);
 
     }
+
+    @Test
+    public void table1() throws Exception {
+//        String filter = String.format("FDate >= '%s'","2023-06-01");
+        List<SaleOut> lists = kingDeeService.searchSaleOutList1(100);
+        //List<Withdraw> lists = kingDeeService.searcWithdrawList1(100);
+        File file = new File("F:/表1.xlsx");
+        CommonUtils.writeExcel(file, lists, SaleOut.class);
+        //CommonUtils.writeExcel(file, lists, Withdraw.class);
+    }
+
 }

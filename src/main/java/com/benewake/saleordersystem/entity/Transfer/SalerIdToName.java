@@ -11,7 +11,7 @@ import lombok.Data;
 @Data
 public class SalerIdToName {
     @ExcelProperty("销售员ID")
-    private String FSalerId;
+    private String fid;
     @ExcelProperty("销售员")
     private String FName;
 

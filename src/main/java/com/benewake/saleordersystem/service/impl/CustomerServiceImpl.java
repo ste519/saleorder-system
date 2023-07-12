@@ -1,11 +1,14 @@
 package com.benewake.saleordersystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.benewake.saleordersystem.entity.Customer;
 import com.benewake.saleordersystem.mapper.CustomerMapper;
 import com.benewake.saleordersystem.service.CustomerService;
 import com.kingdee.bos.webapi.entity.QueryParam;
 import com.kingdee.bos.webapi.sdk.K3CloudApi;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.stereotype.Service;
@@ -42,5 +45,25 @@ public class CustomerServiceImpl implements CustomerService {
 //        }
 //        return ans;
         return 0;
+    }
+
+    @Override
+    public List<Customer> getCustomerLikeList(String customerName) {
+        LambdaQueryWrapper<Customer> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.select(Customer::getFCustId,Customer::getFName);
+        queryWrapper.like(StringUtils.isNotBlank(customerName),Customer::getFName,customerName);
+        return customerMapper.selectList(queryWrapper);
+    }
+
+    @Override
+    public Customer findCustomerById(Long customerId) {
+        return customerMapper.selectById(customerId);
+    }
+
+    @Override
+    public Customer findCustomerByName(String customerName) {
+        LambdaQueryWrapper<Customer> queryWrapper = new LambdaQueryWrapper<>();
+        queryWrapper.eq(Customer::getFName,customerName);
+        return customerMapper.selectOne(queryWrapper);
     }
 }
