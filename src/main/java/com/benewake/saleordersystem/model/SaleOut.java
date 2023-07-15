@@ -20,8 +20,12 @@ public class SaleOut {
     private String FMaterialName;
     @ExcelProperty("销售数量")
     private String FRealQty;
-//    @ExcelIgnore
-//    private String FStockOrgId;
+    @ExcelIgnore
+    private String FStockOrgId;
+    @ExcelProperty("运输单号")
+    private String FCarriageNO;
+    @ExcelProperty("收件人电话")
+    private String F_ora_Text2;
     @ExcelProperty("客户名称")
     private String FCustomerID;
     @ExcelProperty("销售员")

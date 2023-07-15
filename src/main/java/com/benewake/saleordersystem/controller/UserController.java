@@ -34,10 +34,14 @@ public class UserController implements BenewakeConstants {
 
     @PostMapping("/updatePwd")
     @LoginRequired
-    public Result<String> updatePassword(HttpServletRequest request,String oldPassword, String newPassword,Long userId){
+    public Result<String> updatePassword(HttpServletRequest request,String oldPassword, String newPassword,String rePassword,Long userId){
         // 判断空值
-        if(StringUtils.isEmpty(oldPassword) || StringUtils.isEmpty(newPassword)){
+        if(StringUtils.isEmpty(oldPassword) || StringUtils.isEmpty(newPassword) || StringUtils.isEmpty(rePassword)){
             return Result.fail("密码不能为空");
+        }
+        // 判断新密码两次输入是否一致
+        if(!newPassword.equals(rePassword)){
+            return Result.fail("两次输入的密码不一致");
         }
         // 判断新密码是否符合条件
 
@@ -55,7 +59,7 @@ public class UserController implements BenewakeConstants {
             String ticket = CookieUtil.getValue(request,"ticket");
             userService.logout(ticket);
             return Result.success("修改成功,请重新登录!");
-        }else if(user.getUserType()==USER_TYPE_ADMIN){
+        }else if(user.getUserType().equals(USER_TYPE_ADMIN)){
             // 空值处理
             if(userId == null){
                 return Result.fail("要修改的用户id为空");

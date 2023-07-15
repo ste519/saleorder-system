@@ -1,8 +1,12 @@
 package com.benewake.saleordersystem.mapper;
 
+import com.alibaba.fastjson2.JSON;
+import com.alibaba.fastjson2.JSONObject;
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
 import com.benewake.saleordersystem.entity.FilterCriteria;
+import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
 import com.benewake.saleordersystem.service.InquiryService;
+import com.benewake.saleordersystem.service.ViewService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +28,10 @@ import java.util.Map;
 public class InquiryTest implements BenewakeConstants {
     @Autowired
     InquiryService inquiryService;
+    @Autowired
+    SalesOrderVoMapper salesOrderVoMapper;
+    @Autowired
+    ViewService viewService;
 
     @Test
     public void testList(){
@@ -33,17 +41,23 @@ public class InquiryTest implements BenewakeConstants {
 
     @Test
     public void getOrderTypeCode(){
-        System.out.println(inquiryService.getDocumentNumberFormat(4));
+        inquiryService.getDocumentNumberFormat(4,10).forEach(System.out::println);
     }
 
 
     @Test
     public void testFilter(){
         List<FilterCriteria> filters = new ArrayList<>();
-        filters.add(new FilterCriteria("delivery_state",LIKE,"到达"));
-        List<Map<String,Object>> lists = inquiryService.selectSalesOrderVoList(filters,null);
+        //filters.add(new FilterCriteria("delivery_state",LIKE,"到达"));
+        List<Map<String,Object>> lists = inquiryService.selectSalesOrderVoList(filters,"杜兰特");
 //        lists.forEach(map->{
 //            System.out.println(map.size()+"列："+JSON.toJSONString(map));
 //        });
+    }
+
+
+    @Test
+    public void testView(){
+        viewService.getUserView(6L,1L).forEach(c-> JSONObject.toJSONString(c).toString());
     }
 }

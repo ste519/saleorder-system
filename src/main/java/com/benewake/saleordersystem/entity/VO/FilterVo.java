@@ -4,7 +4,6 @@ import com.benewake.saleordersystem.entity.Col;
 import com.benewake.saleordersystem.entity.FilterCriteria;
 import lombok.Data;
 
-import java.text.Collator;
 import java.util.List;
 
 /**
@@ -15,9 +14,7 @@ import java.util.List;
 @Data
 public class FilterVo {
     Long tableId;
-    Long planId;
-    Integer offset;
-    Integer limit;
+    Long viewId;
     List<FilterCriteria> filterCriterias;
     List<Col> cols;
 }

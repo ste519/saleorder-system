@@ -118,4 +118,16 @@ public interface BenewakeConstants {
     int ITEM_TYPE_RAW_MATERIALS_BESPOKE = 3;
 
 
+    /**
+     * 初始订单类型：销售询单
+     */
+    int INQUIRY_INIT_TYPE_XD = 5;
+    /**
+     * 初始订单类型：销售预测
+     */
+    int INQUIRY_INIT_TYPE_YC = 4;
+    /**
+     * 初始订单类型：供应链预估
+     */
+    int INQUIRY_INT_TYPE_YG = 3;
 }

@@ -38,20 +38,12 @@ public interface InquiryService {
     List<Map<String,Object>> testItemFilter(List<FilterCriteria> filters, int offset, int limit);
 
     /**
-     * 获取展示的列名信息
-     * @param tableId
-     * @param planId
-     * @param userId
-     * @return
-     */
-    List<Map<String,Object>> getColMaps(Long tableId,Long planId,Long userId);
-
-    /**
      * 根据订单类型生成相应的单据编号
      * @param type
+     * @param length
      * @return
      */
-    String getDocumentNumberFormat(int type);
+    List<String> getDocumentNumberFormat(long type,int length);
 
     /**
      * 新增询单时判断参数是否合法

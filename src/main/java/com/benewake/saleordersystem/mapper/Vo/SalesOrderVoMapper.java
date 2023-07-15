@@ -14,6 +14,7 @@ import java.util.Map;
  */
 @Mapper
 public interface SalesOrderVoMapper extends BaseMapper<Map<String,Object>> {
+
     @Select("<script>" +
             "select * from fim_item_table " +
             "${ew1.customSqlSegment} " +
@@ -96,10 +97,10 @@ public interface SalesOrderVoMapper extends BaseMapper<Map<String,Object>> {
             "from fim_customer_table " +
             "${qw6.customSqlSegment}" +
             ") as f on a.customer_id = f.customer_id " +
-            "${qw7.customSqlSegment} " +
+            "${ew.customSqlSegment} " +
             "</script>")
     List<Map<String,Object>> selectListByFilter(@Param("qw1") Wrapper wrapper1,@Param("qw2")Wrapper wrapper2,
                                                 @Param("qw3")Wrapper wrapper3,@Param("qw4")Wrapper wrapper4,
                                                 @Param("qw5")Wrapper wrapper5,@Param("qw6")Wrapper wrapper6,
-                                                @Param("qw7")Wrapper wrapper7);
+                                                @Param("ew")Wrapper wrapper7);
 }

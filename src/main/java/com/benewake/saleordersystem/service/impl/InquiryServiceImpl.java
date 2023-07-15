@@ -7,6 +7,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.benewake.saleordersystem.entity.*;
 import com.benewake.saleordersystem.excel.InquiryExcelListener;
+import com.benewake.saleordersystem.mapper.InquiryCodeMapper;
 import com.benewake.saleordersystem.mapper.InquiryMapper;
 import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
 import com.benewake.saleordersystem.model.InquiryModel;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
 import java.util.*;
+import java.util.concurrent.locks.ReentrantLock;
 
 /**
  * @author Lcs
@@ -32,6 +34,8 @@ import java.util.*;
 @Slf4j
 public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
 
+    @Autowired
+    private InquiryCodeMapper inquiryCodeMapper;
     @Autowired
     private InquiryMapper inquiryMapper;
     @Autowired
@@ -76,7 +80,6 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         for(int i=0;i<filters.size();++i){
             map.put(filters.get(i).getColName(),i);
         }
-
         QueryWrapper<Inquiry> queryWrapper1 = new QueryWrapper<>();
         // 默认最新和有效
         queryWrapper1.isNotNull("bb.inquiry_id");
@@ -178,7 +181,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         queryWrapper4.setParamAlias("qw4");
         queryWrapper5.setParamAlias("qw5");
         queryWrapper6.setParamAlias("qw6");
-        queryWrapper7.setParamAlias("qw7");
+        //queryWrapper7.setParamAlias("qw7");
         return salesOrderVoMapper.selectListByFilter(queryWrapper1,queryWrapper2,
                 queryWrapper3,queryWrapper4,queryWrapper5,queryWrapper6,queryWrapper7);
     }
@@ -198,14 +201,10 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         return salesOrderVoMapper.getALL(queryWrapper,offset,limit);
     }
 
-    @Override
-    public List<Map<String, Object>> getColMaps(Long tableId, Long planId, Long userId) {
-
-        return null;
-    }
 
     @Override
-    public String getDocumentNumberFormat(int type) {
+    public List<String> getDocumentNumberFormat(long type,int length) {
+        List<String> res = new ArrayList<>();
         String s = "";
         if(ORDER_TYPE_XD == type){
             s += "XSXD";
@@ -216,12 +215,29 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
         String date = sdf.format(new Date());
         s += date;
-
         // 获取当月的数量
-
-
-
-        return s;
+        ReentrantLock lock = new ReentrantLock();
+        Long code = 0L;
+        try{
+            lock.lock();
+            code = inquiryCodeMapper.getMonth(type,date);
+            code = code==null?0:code;
+            inquiryCodeMapper.updateMaxMonthString(date,code+length,type);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }finally {
+            lock.unlock();
+        }
+        for(int i=1;i<=length;++i){
+            Long now = code+i;
+            StringBuilder temp = new StringBuilder();
+            for (int j = 0; j < 4; j++) {
+                temp.append(now % 10);
+                now/= 10;
+            }
+            res.add(s+temp.reverse());
+        }
+        return res;
     }
 
     @Override
@@ -235,8 +251,8 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         if(inquiry.getItemId() == null || null == itemService.findItemById(inquiry.getItemId())) {
             map.put("itemIdMsg","物料不存在！");
         }
-        if(inquiry.getSaleNum() == null){
-            map.put("saleNumMsg","数量不能为空！");
+        if(inquiry.getSaleNum() == null || inquiry.getSaleNum() < 1){
+            map.put("saleNumMsg","销售数量为空或不合法！");
         }
         if(inquiry.getCustomerId() == null || null == customerService.findCustomerById(inquiry.getCustomerId())){
             map.put("customerMsb","客户不存在！");
@@ -370,7 +386,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         }
         inquiry.setInquiryType(type);
         // 设置订单编号
-        inquiry.setInquiryCode(getDocumentNumberFormat(type));
+        inquiry.setInquiryCode(getDocumentNumberFormat(type,1).get(0));
         // 设置创建时间
         inquiry.setCreatedTime(new Date());
         // 设置相关时间

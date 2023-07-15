@@ -78,5 +78,10 @@ public interface KingDeeService {
      * @throws Exception
      */
     List<Withdraw> searcWithdrawList2(int limit) throws Exception;
+
+    /**
+     * 根据订单单号从销售出库单中取运输单号和收件人电话
+     */
+    SaleOut selectFCarriageNO(String FSoorDerno) throws Exception;
 }
 

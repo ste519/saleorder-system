@@ -156,6 +156,9 @@ public class KingDeeServiceImpl implements KingDeeService, BenewakeConstants {
         queryFilters.add("FCustomerID != 104169");
         // 客户不为北京北醒智能设备有限公司
         queryFilters.add("FCustomerID != 458103");
+
+        // 临时
+        queryFilters.add("FDate >= '2023-6-1'");
         return searchSaleOutList(String.join(" and ",queryFilters),limit);
     }
 
@@ -181,6 +184,9 @@ public class KingDeeServiceImpl implements KingDeeService, BenewakeConstants {
         fieldKeys.add("FSalesManID");
         fieldKeys.add("FDate");
         fieldKeys.add("FSoorDerno");
+        // 临时获取 运输单号和收件人电话号码
+        fieldKeys.add("FCarriageNO");
+        fieldKeys.add("F_ora_Text2");
         List<SaleOut> lists = searchData(formId,fieldKeys,queryFilters,limit, SaleOut.class);
 
         Map<String,String> mtn = getIdToNameList(1);
@@ -254,5 +260,16 @@ public class KingDeeServiceImpl implements KingDeeService, BenewakeConstants {
         queryFilters.add("FSaleOrgId = 100884");
 //        queryFilters.add("FDate >= '2023-06-20'");
         return searchWithdrawList(String.join(" and ",queryFilters),limit);
+    }
+
+    @Override
+    public SaleOut selectFCarriageNO(String FSoorDerno) throws Exception {
+        String formId = "SAL_OUTSTOCK";
+        List<String> fieldKeys = new ArrayList<>();
+        fieldKeys.add("FCarriageNO,F_ora_Text2");
+        String queryFilters = String.format("FSoorDerno = '%s'",FSoorDerno);
+        List<SaleOut> lists = searchData(formId,fieldKeys,queryFilters,1, SaleOut.class);
+
+        return lists.size()==0?null:lists.get(0);
     }
 }

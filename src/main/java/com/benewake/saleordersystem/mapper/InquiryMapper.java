@@ -2,9 +2,7 @@ package com.benewake.saleordersystem.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.benewake.saleordersystem.entity.Inquiry;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 
@@ -32,4 +30,6 @@ public interface InquiryMapper extends BaseMapper<Inquiry> {
             "</foreach>" +
             "</script>")
     int insertInquiries(@Param("lists") List<Inquiry> lists);
+
+
 }

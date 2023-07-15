@@ -3,6 +3,7 @@ package com.benewake.saleordersystem.utils.api;
 import com.alibaba.fastjson2.JSONObject;
 import com.benewake.saleordersystem.entity.sfexpress.Route;
 import com.benewake.saleordersystem.entity.sfexpress.SF_SEARCH_RESULT;
+import com.benewake.saleordersystem.model.SaleOut;
 
 import java.util.List;
 
@@ -32,6 +33,7 @@ public class SFUtils {
      */
     public static Route getLastestRemark(SF_SEARCH_RESULT result){
         List<Route> routes = parseToRoute(result);
+        if(routes==null || routes.size()==0) return new Route();
         if("8000".equals(routes.get(routes.size()-1).getOpCode())){
             return routes.get(routes.size() - 2);
         }else{
