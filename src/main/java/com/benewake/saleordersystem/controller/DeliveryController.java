@@ -22,6 +22,10 @@ public class DeliveryController {
     @Autowired
     private DeliveryService deliveryService;
 
+    /**
+     * 更新当前未签收订单的最新状态
+     * @return
+     */
     @GetMapping("/update")
     @LoginRequired
     public Result<String> updateDelivery(){

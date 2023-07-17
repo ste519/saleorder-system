@@ -66,10 +66,13 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
             user.setPassword(CommonUtils.md5(user.getPassword() + user.getSalt()));
 
             // 设置默认参数
-            user.setUserConllection(0L);
+            if(user.getUserConllection()==null){
+                user.setUserConllection(0L);
+            }
+
 
             userMapper.insert(user);
-            return Result.success("添加成功",map);
+            return Result.success(map);
         }
     }
 
@@ -180,7 +183,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(User::getId,User::getUsername)
                 .like(StringUtils.isNotBlank(username),User::getUsername,username)
-                .eq(User::getUserType,userType);
+                .eq(userType!=null,User::getUserType,userType);
         return userMapper.selectList(queryWrapper);
     }
 
