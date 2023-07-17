@@ -5,7 +5,11 @@ import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.benewake.saleordersystem.entity.*;
+import com.benewake.saleordersystem.entity.Customer;
+import com.benewake.saleordersystem.entity.Inquiry;
+import com.benewake.saleordersystem.entity.Item;
+import com.benewake.saleordersystem.entity.User;
+import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.excel.InquiryExcelListener;
 import com.benewake.saleordersystem.mapper.InquiryCodeMapper;
 import com.benewake.saleordersystem.mapper.InquiryMapper;
@@ -18,7 +22,6 @@ import com.benewake.saleordersystem.utils.HostHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.text.SimpleDateFormat;
@@ -49,11 +52,13 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     @Autowired
     private CustomerTypeService customerTypeService;
     @Autowired
+    private DeliveryService deliveryService;
+    @Autowired
     private HostHolder hostHolder;
 
     @Override
     public Map<String, Object> saveData(MultipartFile file) {
-        InquiryExcelListener listener = new InquiryExcelListener(this);
+        InquiryExcelListener listener = new InquiryExcelListener(this,deliveryService);
         Map<String,Object> map;
         try{
             EasyExcel.read(file.getInputStream(), InquiryModel.class,listener).sheet().headRowNumber(1).doRead();
@@ -67,13 +72,12 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     }
 
     @Override
-    @Transactional
     public int insertLists(List<Inquiry> inquiries) {
         return inquiryMapper.insertInquiries(inquiries);
     }
 
     @Override
-    public List<Map<String,Object>> selectSalesOrderVoList(List<FilterCriteria> filters,String username) {
+    public List<Map<String,Object>> selectSalesOrderVoList(List<FilterCriteria> filters, String username) {
 
         // 添加筛选条件
         Map<String,Integer> map = new HashMap<>();
@@ -218,8 +222,8 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         // 获取当月的数量
         ReentrantLock lock = new ReentrantLock();
         Long code = 0L;
+        lock.lock();
         try{
-            lock.lock();
             code = inquiryCodeMapper.getMonth(type,date);
             code = code==null?0:code;
             inquiryCodeMapper.updateMaxMonthString(date,code+length,type);
@@ -359,7 +363,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             return map;
         }
         String ct = customerTypeService.getCustomerTypeByRule(c.getFCustId(),item.getId());
-        if(inquiryModel.getCustomerType() == null || !ct.equals(inquiryModel.getCustomerType())){
+        if(ct==null || inquiryModel.getCustomerType() == null || !ct.equals(inquiryModel.getCustomerType())){
             map.put("error","第"+rowIndex+"行的客户类型与数据库对应关系不匹配或不存在，请核对");
             log.error("第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
             return map;
@@ -392,8 +396,17 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         // 设置相关时间
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy/MM/dd");
-            inquiry.setArrangedTime(sdf.parse(inquiryModel.getArrangedTime()));
-            inquiry.setExpectedTime(sdf.parse(inquiryModel.getExceptedTime()));
+            sdf.setLenient(false);
+            if(inquiryModel.getArrangedTime()!=null){
+                inquiry.setArrangedTime(sdf.parse(inquiryModel.getArrangedTime()));
+//                if(!inquiryModel.getArrangedTime().equals(sdf.format(inquiry.getArrangedTime()))){
+//                    System.out.println(sdf.format(inquiry.getArrangedTime()));
+//                    throw new IllegalArgumentException("时间格式不对！");
+//                }
+            }
+            if(inquiryModel.getExceptedTime()!=null){
+                inquiry.setExpectedTime(sdf.parse(inquiryModel.getExceptedTime()));
+            }
         }catch (Exception e){
             map.put("error","第"+rowIndex+"行的时间数据有误，请检查！");
             log.error("第"+rowIndex+"行的时间数据有误，请检查！");

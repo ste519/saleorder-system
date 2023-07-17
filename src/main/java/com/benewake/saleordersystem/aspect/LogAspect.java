@@ -74,7 +74,7 @@ public class LogAspect {
         Object result = joinPoint.proceed();
 
         // after
-        log.info("返回结果："+JSON.toJSONString(result));
+        //log.info("返回结果："+JSON.toJSONString(result));
 
         return result;
 

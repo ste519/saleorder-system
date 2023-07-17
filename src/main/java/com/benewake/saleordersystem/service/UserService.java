@@ -73,11 +73,11 @@ public interface UserService {
     int updatePassword(Long id,String password);
 
     /**
-     * 根据销售员姓名模糊匹配
+     * 根据姓名模糊匹配用户
      * @param username
      * @return
      */
-    List<User> getSalesmanLikeList(String username);
+    List<User> getUsernameLikeList(String username,Long userType);
 
     /**
      * 根据姓名查找对应的销售员用户对象

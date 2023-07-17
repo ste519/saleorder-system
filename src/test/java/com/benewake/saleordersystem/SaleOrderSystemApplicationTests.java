@@ -1,11 +1,14 @@
 package com.benewake.saleordersystem;
 
+import com.benewake.saleordersystem.entity.Inquiry;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.entity.api.holiday.Holiday;
 import com.benewake.saleordersystem.mapper.UserMapper;
 import com.benewake.saleordersystem.service.AlphaService;
+import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.api.HolidayUtils;
+import jnr.ffi.annotations.In;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,6 +20,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.FileWriter;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -29,6 +33,8 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
 
     @Autowired
     private AlphaService alphaService;
+    @Autowired
+    DeliveryService deliveryService;
 
 
     @Test
@@ -40,10 +46,7 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
     }
     @Test
     void contextLoads() {
-//        User a = userMap.selectUserByName("liao");
-//
-//        System.out.println(a.toString());
-
+        deliveryService.updateDelivery();
     }
 
     @Test

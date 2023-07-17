@@ -55,7 +55,6 @@ public class HomeController implements BenewakeConstants {
      * 用户登录
      * @param username 用户名
      * @param password 密码
-     * @param model
      * @param response
      * @return 登录信息
      */

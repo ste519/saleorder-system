@@ -5,7 +5,6 @@ import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.service.UserService;
 import com.benewake.saleordersystem.utils.*;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.http.HttpResponse;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -13,9 +12,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Lcs
@@ -71,26 +68,22 @@ public class UserController implements BenewakeConstants {
             }else{
                 return Result.fail("用户id不存在！");
             }
+        }else if(user.getUserType().equals(USER_TYPE_SYSTEM)){
+            // 无效 或 系统
+            return Result.success("系统修改密码模块");
         }
 
-        return Result.fail("发生未知错误，请重试");
+        return Result.fail("无效用户！");
     }
 
     /**
-     * 添加新用户（需管理员权限 目前没设置)
-     * @param user
+     * 根据用户姓名模糊匹配
+     * @param username
      * @return
      */
-    @PostMapping("/add")
-    public Result<Map<String, Object>> add(User user) {
-        //System.out.println("新增用户信息："+user.toString());
-
-        return userService.addUser(user);
-    }
-
     @PostMapping("/likeList")
-    public Result<List<User>> getUserLikeList(String username){
-        return Result.success(userService.getSalesmanLikeList(username));
+    public Result<List<User>> getUserLikeList(String username,Long userType){
+        return Result.success(userService.getUsernameLikeList(username,userType));
     }
 
 }

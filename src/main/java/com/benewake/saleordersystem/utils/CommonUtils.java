@@ -3,12 +3,10 @@ package com.benewake.saleordersystem.utils;
 import com.alibaba.excel.EasyExcel;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.benewake.saleordersystem.entity.FilterCriteria;
-import com.benewake.saleordersystem.entity.Inquiry;
+import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.entity.sfexpress.Route;
 import com.benewake.saleordersystem.entity.sfexpress.SF_SEARCH_RESULT;
 import org.apache.commons.lang3.StringUtils;
-import org.apache.poi.ss.formula.functions.T;
 import org.springframework.util.DigestUtils;
 
 import java.io.File;

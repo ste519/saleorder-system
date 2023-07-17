@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -16,7 +17,7 @@ import java.util.Date;
 @Data
 @TableName("fim_inquiry_table")
 public class Inquiry {
-    @TableId("inquiry_id")
+    @TableId(value = "inquiry_id",type = IdType.AUTO)
     private Long inquiryId;
     @TableField("inquiry_code")
     private String inquiryCode;

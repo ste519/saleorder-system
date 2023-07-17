@@ -176,11 +176,11 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
     }
 
     @Override
-    public List<User> getSalesmanLikeList(String username) {
+    public List<User> getUsernameLikeList(String username,Long userType) {
         LambdaQueryWrapper<User> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.select(User::getId,User::getUsername)
                 .like(StringUtils.isNotBlank(username),User::getUsername,username)
-                .eq(User::getUserType,USER_TYPE_SALESMAN);
+                .eq(User::getUserType,userType);
         return userMapper.selectList(queryWrapper);
     }
 

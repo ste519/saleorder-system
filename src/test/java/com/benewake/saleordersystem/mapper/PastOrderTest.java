@@ -1,22 +1,17 @@
 package com.benewake.saleordersystem.mapper;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
-import com.benewake.saleordersystem.entity.FilterCriteria;
-import com.benewake.saleordersystem.entity.Past.PastOrder;
+import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.service.AlphaService;
+import com.benewake.saleordersystem.service.PastOrderService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
-import com.benewake.saleordersystem.utils.CommonUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
 
-import javax.el.ArrayELResolver;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Lcs
@@ -27,15 +22,15 @@ import java.util.Map;
 @ContextConfiguration(classes = SaleOrderSystemApplication.class)
 public class PastOrderTest implements BenewakeConstants {
     @Autowired
-    public PastOrderMapper pastOrderMapper;
+    public PastOrderService pastOrderService;
 
     @Autowired
     public AlphaService alphaService;
 
-    @Test
-    public void testReload(){
-        pastOrderMapper.reloadLocalOrders();
-    }
+//    @Test
+//    public void testReload(){
+//        pastOrderMapper.reloadLocalOrders();
+//    }
     @Test
     public void testList(){
         List<FilterCriteria> filters = new ArrayList<>();
@@ -45,6 +40,11 @@ public class PastOrderTest implements BenewakeConstants {
         filters.add(new FilterCriteria("customer_name",LIKE,"A"));
 
 
-        alphaService.getList(filters).forEach(System.out::println);
+        //alphaService.getList(filters).forEach(System.out::println);
+    }
+
+    @Test
+    public void testUnion(){
+        System.out.println(pastOrderService.savePastOrder(true));
     }
 }

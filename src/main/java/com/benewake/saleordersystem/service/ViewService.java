@@ -13,6 +13,25 @@ import java.util.Map;
  */
 public interface ViewService {
 
+    /**
+     * 根据用户id和表id获取用户视图
+     * @param userId
+     * @param tableId
+     * @return
+     */
     List<View> getUserView(Long userId,Long tableId);
 
+    /**
+     * 保存用户新增方案
+     * @param view
+     * @return
+     */
+    int saveView(View view);
+
+    /**
+     * 获取所有列信息
+     * @param tableId
+     * @return
+     */
+    List<Map<String, Object>> getAllCols(Long tableId);
 }

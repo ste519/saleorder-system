@@ -1,7 +1,15 @@
 package com.benewake.saleordersystem.controller;
 
+import com.benewake.saleordersystem.entity.User;
+import com.benewake.saleordersystem.service.UserService;
+import com.benewake.saleordersystem.utils.Result;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import java.util.Map;
 
 /**
  * @author Lcs
@@ -10,8 +18,23 @@ import org.springframework.web.bind.annotation.ResponseBody;
  */
 @ResponseBody
 @RequestMapping("/admin")
+@Controller
 public class AdminController {
 
+    @Autowired
+    private UserService userService;
+
+    /**
+     * 添加新用户（需管理员权限 目前没设置)
+     * @param user
+     * @return
+     */
+    @PostMapping("/add")
+    public Result<Map<String, Object>> add(User user) {
+        //System.out.println("新增用户信息："+user.toString());
+
+        return userService.addUser(user);
+    }
 
 
 }

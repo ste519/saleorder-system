@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -13,7 +14,7 @@ import lombok.Data;
 @Data
 @TableName("fim_item_table")
 public class Item {
-    @TableId("item_id")
+    @TableId(value = "item_id",type = IdType.AUTO)
     private Long id;
     @TableField("item_code")
     private String itemCode;

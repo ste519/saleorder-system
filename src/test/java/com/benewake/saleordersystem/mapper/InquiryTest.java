@@ -1,9 +1,8 @@
 package com.benewake.saleordersystem.mapper;
 
-import com.alibaba.fastjson2.JSON;
 import com.alibaba.fastjson2.JSONObject;
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
-import com.benewake.saleordersystem.entity.FilterCriteria;
+import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
 import com.benewake.saleordersystem.service.InquiryService;
 import com.benewake.saleordersystem.service.ViewService;

@@ -1,7 +1,6 @@
 package com.benewake.saleordersystem.entity.VO;
 
-import com.benewake.saleordersystem.entity.Col;
-import com.benewake.saleordersystem.entity.FilterCriteria;
+import com.benewake.saleordersystem.entity.ViewCol;
 import lombok.Data;
 
 import java.util.List;
@@ -15,6 +14,7 @@ import java.util.List;
 public class FilterVo {
     Long tableId;
     Long viewId;
+    String viewName;
     List<FilterCriteria> filterCriterias;
-    List<Col> cols;
+    List<ViewCol> cols;
 }

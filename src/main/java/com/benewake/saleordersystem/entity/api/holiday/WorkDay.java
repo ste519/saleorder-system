@@ -1,4 +1,4 @@
-package com.benewake.saleordersystem.entity;
+package com.benewake.saleordersystem.entity.api.holiday;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

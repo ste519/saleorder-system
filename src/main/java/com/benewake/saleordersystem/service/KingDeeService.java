@@ -1,8 +1,10 @@
 package com.benewake.saleordersystem.service;
 
-import com.benewake.saleordersystem.model.SaleOut;
-import com.benewake.saleordersystem.model.Withdraw;
+import com.benewake.saleordersystem.entity.Delivery;
+import com.benewake.saleordersystem.entity.Past.SaleOut;
+import com.benewake.saleordersystem.entity.Past.Withdraw;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -45,7 +47,7 @@ public interface KingDeeService {
      * @return
      * @throws Exception
      */
-    List<SaleOut> searchSaleOutList1(int limit) throws Exception;
+    List<SaleOut> searchSaleOutList1(int limit, String time) throws Exception;
 
     /**
      * 拉取表2数据
@@ -53,7 +55,7 @@ public interface KingDeeService {
      * @return
      * @throws Exception
      */
-    List<SaleOut> searchSaleOutList2(int limit) throws Exception;
+    List<SaleOut> searchSaleOutList2(int limit, String time) throws Exception;
 
     /**
      * 拉取销售退货单列表
@@ -69,7 +71,7 @@ public interface KingDeeService {
      * @return
      * @throws Exception
      */
-    List<Withdraw> searcWithdrawList1(int limit) throws Exception;
+    List<Withdraw> searcWithdrawList1(int limit, String time) throws Exception;
 
     /**
      * 拉取表5数据
@@ -77,11 +79,11 @@ public interface KingDeeService {
      * @return
      * @throws Exception
      */
-    List<Withdraw> searcWithdrawList2(int limit) throws Exception;
+    List<Withdraw> searcWithdrawList2(int limit, String time) throws Exception;
 
     /**
      * 根据订单单号从销售出库单中取运输单号和收件人电话
      */
-    SaleOut selectFCarriageNO(String FSoorDerno) throws Exception;
+    List<SaleOut> selectFCarriageNO(List<Delivery> deliveries) throws Exception;
 }
 

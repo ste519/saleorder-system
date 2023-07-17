@@ -1,6 +1,7 @@
 package com.benewake.saleordersystem.service;
 
 
+import com.benewake.saleordersystem.entity.Delivery;
 import com.benewake.saleordersystem.entity.sfexpress.Route;
 import com.benewake.saleordersystem.entity.sfexpress.SF_SEARCH_RESULT;
 
@@ -24,9 +25,9 @@ public interface SFExpressService {
 
     /**
      * 根据订单单号获取 当前 最新的顺丰状态信息
-     * @param fCarriageNO
+     * @param delivery
      * @return
      * @throws Exception
      */
-    Route getLastestRouteByFCarriageNO(String fCarriageNO) throws Exception;
+    Route getLastestRouteByFCarriageNO(Delivery delivery);
 }

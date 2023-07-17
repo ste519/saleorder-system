@@ -1,8 +1,11 @@
-package com.benewake.saleordersystem.model;
+package com.benewake.saleordersystem.entity.Past;
 
 import com.alibaba.excel.annotation.ExcelIgnore;
 import com.alibaba.excel.annotation.ExcelProperty;
-import com.alibaba.excel.annotation.format.DateTimeFormat;
+import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
+import com.baomidou.mybatisplus.annotation.TableName;
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -11,14 +14,19 @@ import lombok.Data;
  * 描 述： TODO
  */
 @Data
+@TableName("fim_past_orders_table")
 public class SaleOut {
-    @ExcelProperty("单据编号")
-    private String FBillNo;
+    @TableId("order_id")
+    private Long orderId;
+//    @ExcelProperty("单据编号")
+//    private String FBillNo;
     @ExcelProperty("物料编码")
+    @TableField("item_code")
     private String FMaterialID;
     @ExcelProperty("物料名称")
     private String FMaterialName;
     @ExcelProperty("销售数量")
+    @TableField("sale_num")
     private String FRealQty;
     @ExcelIgnore
     private String FStockOrgId;
@@ -27,12 +35,19 @@ public class SaleOut {
     @ExcelProperty("收件人电话")
     private String F_ora_Text2;
     @ExcelProperty("客户名称")
+    @TableField("customer_name")
     private String FCustomerID;
     @ExcelProperty("销售员")
+    @TableField("salesman_name")
     private String FSalesManID;
     @ExcelProperty("销售日期")
-    @DateTimeFormat("yyyy-MM-dd")
+    //@JsonFormat(pattern = "yyyy-MM-dd", timezone = "GMT+8")
+    @TableField("sale_time")
     private String FDate;
     @ExcelProperty("订单单号")
+    @TableField("order_code")
     private String FSoorDerno;
+
+    @ExcelProperty("fim单据编号")
+    private String FNOTE;
 }

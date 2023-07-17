@@ -115,7 +115,11 @@ public interface BenewakeConstants {
     /**
      * 产品类型：原材料定制
      */
-    int ITEM_TYPE_RAW_MATERIALS_BESPOKE = 3;
+    int ITEM_TYPE_RAW_MATERIALS_BESPOKE = 4;
+    /**
+     * 产品类型：原材料+软件定制
+     */
+    int ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE = 5;
 
 
     /**
@@ -130,4 +134,33 @@ public interface BenewakeConstants {
      * 初始订单类型：供应链预估
      */
     int INQUIRY_INT_TYPE_YG = 3;
+
+
+    /**
+     * 表名：全部订单列表
+     */
+    Long ALL_TABLE = 1L;
+    /**
+     * 表名：订单状态
+     */
+    Long INQUIRY_TYPE_TABLE = 2L;
+    /**
+     * 表名：客户类型
+     */
+    Long CUSTOMER_TYPE_TABLE = 3L;
+    /**
+     * 表名：产品类型
+     */
+    Long ITEM_TYPE_TABLE = 4L;
+    /**
+     * 表名：订单转换
+     */
+    Long INQUIRY_CHANGE_TABLE = 5L;
+    /**
+     * 表名：订单交付进度
+     */
+    Long INQUIRY_DELIVERY_TABLE = 6L;
+
+
+
 }

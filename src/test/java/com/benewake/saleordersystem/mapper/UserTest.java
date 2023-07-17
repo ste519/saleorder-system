@@ -20,7 +20,7 @@ public class UserTest {
     UserService userService;
     @Test
     public void userLike(){
-        System.out.println(userService.getSalesmanLikeList("测"));
+        System.out.println(userService.getUsernameLikeList("测",2L));
     }
 
 }

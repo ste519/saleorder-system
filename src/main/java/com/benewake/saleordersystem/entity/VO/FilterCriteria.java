@@ -1,4 +1,4 @@
-package com.benewake.saleordersystem.entity;
+package com.benewake.saleordersystem.entity.VO;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;

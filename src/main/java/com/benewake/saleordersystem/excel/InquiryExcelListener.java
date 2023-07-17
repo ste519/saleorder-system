@@ -7,6 +7,7 @@ import com.alibaba.excel.exception.ExcelAnalysisStopException;
 import com.alibaba.excel.read.metadata.holder.ReadRowHolder;
 import com.benewake.saleordersystem.entity.Inquiry;
 import com.benewake.saleordersystem.model.InquiryModel;
+import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.service.InquiryService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import lombok.Data;
@@ -29,9 +30,11 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
     private List<Inquiry> lists = new ArrayList<>();
     private Map<String,Object> map = new HashMap<>();
     private InquiryService inquiryService;
+    private DeliveryService deliveryService;
 
-    public InquiryExcelListener(InquiryService inquiryService) {
+    public InquiryExcelListener(InquiryService inquiryService,DeliveryService deliveryService) {
         this.inquiryService = inquiryService;
+        this.deliveryService = deliveryService;
     }
 
     private static List<String> head = new ArrayList<>();
@@ -69,17 +72,22 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
 
     @Override
     public void invoke(InquiryModel inquiryModel, AnalysisContext analysisContext) {
-        log.info("解析到一条数据："+inquiryModel.toString());
+        //log.info("解析到一条数据："+inquiryModel.toString());
+        // 获取行号
         ReadRowHolder readRowHolder = analysisContext.readRowHolder();
         Integer rowIndex = readRowHolder.getRowIndex();
+        // 检查数据是否有效
         map = inquiryService.checkAddByExcel(inquiryModel,rowIndex);
+
         if(!map.containsKey("inquiry")){
+            // 无效 抛出异常 结束操作
             throw new ExcelAnalysisStopException();
         }
+        // 有效 加入集合 等全部解析完后存入数据库
         Inquiry inquiry = (Inquiry) map.get("inquiry");
         map.remove("inquiry");
         lists.add(inquiry);
-        log.info("第"+rowIndex+"行添加完成: "+inquiry.toString());
+        //log.info("第"+rowIndex+"行添加完成: "+inquiry.toString());
     }
 
     @Override
@@ -87,6 +95,7 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
         log.info("解析完成,开始加入数据库");
         try {
             inquiryService.insertLists(lists);
+            deliveryService.insertLists(lists);
         }catch (Exception e) {
             e.printStackTrace();
             map.put("errot","持久化失败");

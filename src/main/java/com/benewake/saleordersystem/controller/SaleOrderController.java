@@ -1,12 +1,12 @@
 package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
-import com.benewake.saleordersystem.entity.FilterCriteria;
-import com.benewake.saleordersystem.entity.Inquiry;
-import com.benewake.saleordersystem.entity.User;
+import com.benewake.saleordersystem.entity.*;
+import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.entity.VO.FilterVo;
-import com.benewake.saleordersystem.entity.View;
-import com.benewake.saleordersystem.service.ColService;
+import com.benewake.saleordersystem.entity.VO.StartInquiryVo;
+import com.benewake.saleordersystem.service.ViewColService;
+import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.service.InquiryService;
 import com.benewake.saleordersystem.service.ViewService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
@@ -15,13 +15,13 @@ import com.benewake.saleordersystem.utils.Result;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.CollectionUtils;
+import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * @author Lcs
@@ -36,9 +36,11 @@ public class SaleOrderController implements BenewakeConstants {
     @Autowired
     private InquiryService inquiryService;
     @Autowired
+    private DeliveryService deliveryService;
+    @Autowired
     private HostHolder hostHolder;
     @Autowired
-    private ColService colService;
+    private ViewColService viewColService;
     @Autowired
     private ViewService viewService;
 
@@ -47,13 +49,20 @@ public class SaleOrderController implements BenewakeConstants {
      * @param tableId
      * @return
      */
-    @GetMapping("/view")
+    @GetMapping("/views")
     @LoginRequired
     public Result<List<View>> getViewByTableId(@Param("tableId")Long tableId){
         User u = hostHolder.getUser();
         List<View> lists = viewService.getUserView(u.getId(),tableId);
 
         return Result.success(lists);
+    }
+    @GetMapping("/cols")
+    public Result<Map<String,Object>> getAllCols(@Param("tableId")Long tableId){
+        Map<String,Object> map = new HashMap<>();
+        List<Map<String,Object>> maps = viewService.getAllCols(tableId);
+        map.put("cols",maps);
+        return Result.success(map);
     }
 
     /**
@@ -66,16 +75,20 @@ public class SaleOrderController implements BenewakeConstants {
     @LoginRequired
     public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
         Map<String,Object> res = new HashMap<>();
+        if(filterVo==null || filterVo.getTableId()==null || filterVo.getViewId()==null){
+            res.put("error","参数错误！");
+            return Result.fail(res);
+        }
         // 当前登录用户
         User loginUser = hostHolder.getUser();
-        if(filterVo.getViewId() == -1){
+        if(filterVo.getViewId() <= 0){
             // 我的视图
             // 列信息
-            List<Map<String,Object>> cols = colService.getCols(-1L, loginUser.getUserType().equals(1L));
+            List<Map<String,Object>> cols = viewColService.getCols(filterVo.getTableId(), filterVo.getViewId(), loginUser.getUserType().equals(1L));
             // 查看我的
             List<Map<String,Object>> lists;
-            if(loginUser.getUserType().equals(1L)){
-                // 管理员
+            if(loginUser.getUserType().equals(1L) || (filterVo.getTableId().equals(1L)&&filterVo.getViewId().equals(-1L))){
+                // 管理员 或系统全部
                 lists = inquiryService.selectSalesOrderVoList(filterVo.getFilterCriterias(),null);
             }else{
                 // 普通用户
@@ -83,41 +96,57 @@ public class SaleOrderController implements BenewakeConstants {
             }
             res.put("lists",lists);
             res.put("cols",cols);
-
-        }else if(filterVo.getViewId() == 0){
-            // 全部视图
-            // 列信息
-            List<Map<String,Object>> cols = colService.getCols(0L,loginUser.getUserType().equals(1L));
-            // 查看全部
-            List<Map<String,Object>> lists = inquiryService.selectSalesOrderVoList(filterVo.getFilterCriterias(),null);
-
-            res.put("lists",lists);
-            res.put("cols",cols);
         }else{
             // 个人设定的视图
             // 列信息
-            List<Map<String,Object>> cols = colService.getCols(filterVo.getViewId(),loginUser.getUserType().equals(1L));
-            List<FilterCriteria> filters = filterVo.getFilterCriterias();
+            List<Map<String,Object>> cols = viewColService.getCols(filterVo.getTableId(),filterVo.getViewId(),loginUser.getUserType().equals(1L));
+            List<FilterCriteria> filters = filterVo.getFilterCriterias()==null?new ArrayList<>():filterVo.getFilterCriterias();
             // 添加方案默认筛选信息
-            cols.forEach(m->{
-                String filterValue = (String) m.get("col_value");
-                if(filterValue!=null){
-                    filters.add(new FilterCriteria((String) m.get("col_name_ENG"),EQUAL,filterValue));
+            for(Map<String,Object> col : cols){
+                String colValue = (String) col.get("col_value");
+                if(!StringUtils.isEmpty(colValue)){
+                    filters.add(new FilterCriteria((String) col.get("col_name_ENG"),EQUAL,colValue));
                 }
-            });
+            }
             // 根据筛选条件获取信息
-            List<Map<String,Object>> lists = inquiryService.selectSalesOrderVoList(filterVo.getFilterCriterias(), loginUser.getUsername());
+            List<Map<String,Object>> lists = inquiryService.selectSalesOrderVoList(filters, loginUser.getUsername());
+
             res.put("lists",lists);
             res.put("cols",cols);
         }
         return Result.success(res);
     }
 
-    @GetMapping("/savePlan")
+    @PostMapping("/savePlan")
     @LoginRequired
-    public Result<Map<String,Object>> savePlan(@RequestBody FilterVo filterVo){
+    @Transactional
+    public Result<String> savePlan(@RequestBody FilterVo filterVo){
+        if(filterVo.getTableId() == null){
+            return Result.fail("表id不能为空！");
+        }
+        if(CollectionUtils.isEmpty(filterVo.getCols())){
+            return Result.fail("新增方案的列信息不能为空！");
+        }
+        // 获取当前用户
+        User u = hostHolder.getUser();
+        // 持久化视图
+        View view = new View();
+        view.setTableId(filterVo.getTableId());
+        view.setViewName(filterVo.getViewName());
+        view.setUserId(u.getId());
+        viewService.saveView(view);
 
-        return Result.success();
+        List<View> views = viewService.getUserView(u.getId(), filterVo.getTableId());
+
+        view = views.get(views.size()-1);
+
+        List<ViewCol> cols = filterVo.getCols();
+        for(ViewCol vc : cols){
+            vc.setViewId(view.getViewId());
+        }
+        viewColService.saveCols(cols);
+
+        return Result.success("方案添加成功！");
     }
 
     /**
@@ -127,16 +156,18 @@ public class SaleOrderController implements BenewakeConstants {
      */
     @PostMapping("/add")
     @LoginRequired
+    @Transactional
     public Result<Map<String,Object>> addInquiries(@RequestBody Map<String,List<Inquiry>> reqMap){
         List<Inquiry> newInquiries = reqMap.get("newInquiries");
 
         Map<String,Object> map = new HashMap<>();
         if(newInquiries == null){
-            map.put("failMsg","请添加至少一条询单信息！");
+            map.put("failMsg","请添加至少一条询单信息");
             return Result.fail(map);
         }
         User user = hostHolder.getUser();
         Date nowTime = new Date();
+        // 获取新增的订单编码
         List<String> inquiryCodeList = inquiryService.getDocumentNumberFormat(newInquiries.get(0).getInquiryType(),1);
         // 逐条分析询单是否合法
         for(Inquiry inq : newInquiries){
@@ -153,10 +184,42 @@ public class SaleOrderController implements BenewakeConstants {
         }
 
         // 全部通过加入数据库
-        map.put("successMsg","保存成功！");
+        inquiryService.insertLists(newInquiries);
+        deliveryService.insertLists(newInquiries);
+        map.put("successMsg",inquiryCodeList.get(0));
 
         return Result.success(map);
     }
+
+    @PostMapping("/startInquiry")
+    @LoginRequired
+    public Result<Map<String,Object>> startInquiry(@RequestBody Map<String,List<StartInquiryVo>> request){
+        Map<String,Object> map = new HashMap<>();
+        List<StartInquiryVo> startInquiries = request.getOrDefault("inquiries",new ArrayList<>());
+        List<String> fail = new ArrayList<>();
+        List<Long> success = new ArrayList<>();
+        for(int i=0;i<startInquiries.size(); i++){
+            Integer type = startInquiries.get(i).getItemType();
+            Integer num = startInquiries.get(i).getSaleNum();
+            // 超出数量限制逻辑还未确定 暂时用 num<0占位
+            if(type.equals(ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE) || type.equals(ITEM_TYPE_RAW_MATERIALS_BESPOKE) || num < 0){
+                fail.add(String.valueOf(1+i));
+            }else{
+                success.add(startInquiries.get(i).getInquiryId());
+            }
+        }
+        if(fail.size() > 0){
+            map.put("fail","序号"+String.join(",",fail)+"。请飞书联系计划！");
+        }
+        if(success.size() > 0){
+            map.put("success",success.size()+"个订单开始询单！");
+
+            // 询单功能（待添加)s
+
+        }
+        return Result.success(map);
+    }
+
 
     @PostMapping("/delete")
     @LoginRequired
@@ -190,12 +253,4 @@ public class SaleOrderController implements BenewakeConstants {
         }
     }
 
-    @GetMapping("/updateDelivery")
-    @LoginRequired
-    public Result<String> updateDelivery(){
-
-
-
-        return Result.success("运输状态更新成功！");
-    }
 }

@@ -1,19 +1,17 @@
 package com.benewake.saleordersystem.KindDee;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
+import com.benewake.saleordersystem.entity.Past.Withdraw;
 import com.benewake.saleordersystem.entity.Ysdd;
 import com.benewake.saleordersystem.model.Md;
 import com.benewake.saleordersystem.entity.Transfer.*;
-import com.benewake.saleordersystem.model.SaleOut;
-import com.benewake.saleordersystem.model.Withdraw;
+import com.benewake.saleordersystem.entity.Past.SaleOut;
 import com.benewake.saleordersystem.service.KingDeeService;
 import com.benewake.saleordersystem.utils.CommonUtils;
 import com.kingdee.bos.webapi.entity.IdentifyInfo;
 import com.kingdee.bos.webapi.entity.QueryParam;
 import com.kingdee.bos.webapi.sdk.K3CloudApi;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
-import org.mockito.internal.util.StringUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
@@ -192,17 +190,17 @@ public class DemoTest {
     @Test
     public void table1() throws Exception {
 //        String filter = String.format("FDate >= '%s'","2023-06-01");
-        List<SaleOut> lists = kingDeeService.searchSaleOutList1(50);
-        //List<Withdraw> lists = kingDeeService.searcWithdrawList1(100);
-        File file = new File("F:/电话.xlsx");
-        CommonUtils.writeExcel(file, lists, SaleOut.class);
-        //CommonUtils.writeExcel(file, lists, Withdraw.class);
+       // List<SaleOut> lists = kingDeeService.searchSaleOutList1(1000000);
+        List<Withdraw> lists = kingDeeService.searcWithdrawList1(10,"2020-01-01");
+        File file = new File("F:/查.xlsx");
+      //  CommonUtils.writeExcel(file, lists, SaleOut.class);
+        CommonUtils.writeExcel(file, lists, Withdraw.class);
     }
 
     @Test
     public void testSelectFCarriageNO() throws Exception {
-        SaleOut fCarriageNo = kingDeeService.selectFCarriageNO("XSDD2306131");
-        System.out.println(fCarriageNo==null ?"无":fCarriageNo);
+//        SaleOut fCarriageNo = kingDeeService.selectFCarriageNO("XSDD2306131");
+//        System.out.println(fCarriageNo==null ?"无":fCarriageNo);
     }
 
 }

@@ -1,6 +1,6 @@
 package com.benewake.saleordersystem;
 
-import com.benewake.saleordersystem.model.SaleOut;
+import com.benewake.saleordersystem.entity.Past.SaleOut;
 import com.kingdee.bos.webapi.entity.QueryParam;
 import com.kingdee.bos.webapi.sdk.K3CloudApi;
 import org.springframework.beans.factory.annotation.Autowired;

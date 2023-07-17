@@ -1,14 +1,12 @@
 package com.benewake.saleordersystem.service.impl;
 
 import com.alibaba.fastjson.JSON;
+import com.benewake.saleordersystem.entity.Delivery;
 import com.benewake.saleordersystem.entity.sfexpress.Route;
 import com.benewake.saleordersystem.entity.sfexpress.SF_SEARCH_RESULT;
-import com.benewake.saleordersystem.model.SaleOut;
 import com.benewake.saleordersystem.service.KingDeeService;
 import com.benewake.saleordersystem.service.SFExpressService;
-import com.benewake.saleordersystem.utils.Result;
 import com.benewake.saleordersystem.utils.api.SFUtils;
-import com.kingdee.bos.webapi.sdk.K3CloudApi;
 import com.sf.csim.express.service.CallExpressServiceTools;
 import com.sf.csim.express.service.HttpClientUtil;
 import com.sf.csim.express.service.IServiceCodeStandard;
@@ -73,7 +71,8 @@ public class SFExpressServiceImpl implements SFExpressService {
     @Override
     public SF_SEARCH_RESULT searchPromitm(String code, String tel) {
         try {
-            IServiceCodeStandard standardService = ExpressServiceCodeEnum.EXP_RECE_SEARCH_PROMITM;//预计派送时间
+            //预计派送时间
+            IServiceCodeStandard standardService = ExpressServiceCodeEnum.EXP_RECE_SEARCH_PROMITM;
             CallExpressServiceTools tools = CallExpressServiceTools.getInstance();
 
             // set common header
@@ -101,14 +100,13 @@ public class SFExpressServiceImpl implements SFExpressService {
     }
 
     @Override
-    public Route getLastestRouteByFCarriageNO(String fCarriageNO) throws Exception {
-        SaleOut saleOut = kingDeeService.selectFCarriageNO(fCarriageNO);
-        if(saleOut != null){
-            if(StringUtils.isBlank(saleOut.getF_ora_Text2())) return null;
-            else{
-                Route route = SFUtils.getLastestRemark(findRoutesByCode(saleOut.getFCarriageNO(),saleOut.getF_ora_Text2()
-                        .substring(saleOut.getF_ora_Text2().length()-4)));
-                return route;
+    public Route getLastestRouteByFCarriageNO(Delivery delivery){
+        //SaleOut saleOut = kingDeeService.selectFCarriageNO(fCarriageNO);
+        if(delivery != null){
+            if(StringUtils.isBlank(delivery.getDeliveryPhone())) {
+                return null;
+            } else{
+                return SFUtils.getLastestRemark(findRoutesByCode(delivery.getDeliveryCode(),delivery.getDeliveryPhone()));
             }
         }else{
             return null;

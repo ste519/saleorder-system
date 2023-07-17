@@ -3,8 +3,9 @@ package com.benewake.saleordersystem.utils.api;
 import com.alibaba.fastjson2.JSONObject;
 import com.benewake.saleordersystem.entity.sfexpress.Route;
 import com.benewake.saleordersystem.entity.sfexpress.SF_SEARCH_RESULT;
-import com.benewake.saleordersystem.model.SaleOut;
+import org.apache.commons.lang3.StringUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -20,9 +21,13 @@ public class SFUtils {
      * @return
      */
     public static List<Route> parseToRoute(SF_SEARCH_RESULT result){
+        List<Route> routes = new ArrayList<>();
+        if(result == null) return routes;
         String msgData = JSONObject.parseObject(result.getApiResultData()).getString("msgData");
+        if(StringUtils.isBlank(msgData)) return routes;
         String routeResps = JSONObject.parseObject(msgData).getJSONArray("routeResps").get(0).toString();
-        List<Route> routes = JSONObject.parseObject(routeResps).getList("routes", Route.class);
+        if(StringUtils.isBlank(routeResps)) return routes;
+        routes = JSONObject.parseObject(routeResps).getList("routes", Route.class);
         return routes;
     }
 

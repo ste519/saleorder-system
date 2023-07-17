@@ -1,19 +1,10 @@
 package com.benewake.saleordersystem.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.benewake.saleordersystem.entity.FilterCriteria;
-import com.benewake.saleordersystem.entity.Past.PastOrder;
-import com.benewake.saleordersystem.mapper.PastOrderMapper;
 import com.benewake.saleordersystem.service.AlphaService;
-import com.benewake.saleordersystem.utils.CommonUtils;
 import com.benewake.saleordersystem.utils.PythonUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
-
-import java.util.List;
-import java.util.Map;
 
 @Service
 @Slf4j
@@ -35,13 +26,5 @@ public class AlphaServiceImpl implements AlphaService {
         System.out.println("已完成python脚本");
     }
 
-    @Autowired
-    private PastOrderMapper pastOrderMapper;
-    public List<PastOrder> getList(List<FilterCriteria> filters){
-        QueryWrapper<PastOrder> queryWrapper = new QueryWrapper<>();
-        queryWrapper.select("order_id","item_code");
-        //,"item_code","customer_name","salesman_name,sale_num"
-        CommonUtils.addFilters(filters,queryWrapper);
-        return pastOrderMapper.selectList(queryWrapper);
-    }
+
 }

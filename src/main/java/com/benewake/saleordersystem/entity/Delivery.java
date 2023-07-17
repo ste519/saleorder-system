@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.entity;
 
+import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
@@ -15,8 +16,8 @@ import java.util.Date;
 @Data
 @TableName("delivery_table")
 public class Delivery {
-    @TableId("deliveryId")
-    private String deliveryId;
+    @TableId(value = "deliveryId",type = IdType.AUTO)
+    private Long deliveryId;
     @TableField("delivery_code")
     private String deliveryCode;
     @TableField("delivery_state")
@@ -27,4 +28,6 @@ public class Delivery {
     private Date receiveTime;
     @TableField("delivery_latest_state")
     private String deliveryLastestState;
+    @TableField("delivery_phone")
+    private String deliveryPhone;
 }
