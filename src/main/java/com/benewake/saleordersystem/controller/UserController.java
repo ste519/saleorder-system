@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lcs
@@ -31,7 +32,11 @@ public class UserController implements BenewakeConstants {
 
     @PostMapping("/updatePwd")
     @LoginRequired
-    public Result<String> updatePassword(HttpServletRequest request,String oldPassword, String newPassword,String rePassword,Long userId){
+    public Result<String> updatePassword(HttpServletRequest request, Map<String,Object> param){
+        String oldPassword = (String) param.get("oldPassword");
+        String newPassword = (String) param.get("newPassword");
+        String rePassword = (String) param.get("rePassword");
+        Long userId = Long.parseLong((String)param.get("userid"));
         // 判断空值
         if(StringUtils.isEmpty(oldPassword) || StringUtils.isEmpty(newPassword) || StringUtils.isEmpty(rePassword)){
             return Result.fail("密码不能为空");
@@ -78,11 +83,12 @@ public class UserController implements BenewakeConstants {
 
     /**
      * 根据用户姓名模糊匹配
-     * @param username
      * @return
      */
     @PostMapping("/likeList")
-    public Result<List<User>> getUserLikeList(String username,Long userType){
+    public Result<List<User>> getUserLikeList(Map<String,Object> param){
+        String username = (String) param.get("username");
+        Long userType = Long.parseLong((String) param.get("userType"));
         return Result.success(userService.getUsernameLikeList(username,userType));
     }
 

@@ -6,10 +6,12 @@ import com.benewake.saleordersystem.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lcs
@@ -25,7 +27,8 @@ public class ItemController {
     private ItemService itemService;
 
     @PostMapping("/likeList")
-    public Result<List<Item>> getlikeItemList(String itemCode){
+    public Result<List<Item>> getlikeItemList(@RequestBody Map<String,Object> param){
+        String itemCode = (String) param.get("itemCode");
         return Result.success(itemService.itemCodeLikeList(itemCode));
     }
 

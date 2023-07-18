@@ -47,19 +47,20 @@ public class SaleOrderController implements BenewakeConstants {
 
     /**
      * 已登录用户根据tableid获取对应的新增视图，若无新增视图则为空
-     * @param tableId
      * @return
      */
     @GetMapping("/views")
     @LoginRequired
-    public Result<List<View>> getViewByTableId(@Param("tableId")Long tableId){
+    public Result<List<View>> getViewByTableId(@RequestBody Map<String,Object> param){
+        Long tableId = Long.parseLong((String) param.get("tableId"));
         User u = hostHolder.getUser();
         List<View> lists = viewService.getUserView(u.getId(),tableId);
 
         return Result.success(lists);
     }
     @GetMapping("/cols")
-    public Result<Map<String,Object>> getAllCols(@Param("tableId")Long tableId){
+    public Result<Map<String,Object>> getAllCols(@RequestBody Map<String,Object> param){
+        Long tableId = Long.parseLong((String) param.get("tableId"));
         Map<String,Object> map = new HashMap<>();
         List<Map<String,Object>> maps = viewService.getAllCols(tableId);
         map.put("cols",maps);

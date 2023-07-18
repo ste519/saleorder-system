@@ -59,7 +59,9 @@ public class HomeController implements BenewakeConstants {
      * @return 登录信息
      */
     @PostMapping("/login")
-    public Result<Map<String,Object>> login(String username, String password, HttpServletResponse response){
+    public Result<Map<String,Object>> login(Map<String,Object> param,HttpServletResponse response){
+        String username = (String) param.get("username");
+        String password = (String) param.get("password");
         if(hostHolder.getUser() != null) {
             // 当前已存在登录用户
             Map<String,Object> map = new HashMap<>(1);

@@ -6,6 +6,7 @@ import com.benewake.saleordersystem.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -30,7 +31,7 @@ public class AdminController {
      * @return
      */
     @PostMapping("/add")
-    public Result<Map<String, Object>> add(User user) {
+    public Result<Map<String, Object>> add(@RequestBody User user) {
         //System.out.println("新增用户信息："+user.toString());
 
         return userService.addUser(user);
