@@ -27,13 +27,12 @@ public class AdminController {
 
     /**
      * 添加新用户（需管理员权限 目前没设置)
-     * @param user
      * @return
      */
     @PostMapping("/add")
-    public Result<Map<String, Object>> add(@RequestBody User user) {
+    public Result<Map<String, Object>> add(@RequestBody Map<String,Object> param) {
         //System.out.println("新增用户信息："+user.toString());
-
+        User user = (User) param.get("user");
         return userService.addUser(user);
     }
 
