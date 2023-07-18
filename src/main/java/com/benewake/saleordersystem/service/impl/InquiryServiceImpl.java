@@ -259,7 +259,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             map.put("saleNumMsg","销售数量为空或不合法！");
         }
         if(inquiry.getCustomerId() == null || null == customerService.findCustomerById(inquiry.getCustomerId())){
-            map.put("customerMsb","客户不存在！");
+            map.put("customerMsg","客户为空或不存在！");
         }
         if(inquiry.getInquiryType() == null || !isValidType(inquiry.getInquiryType())){
             map.put("inquiryTypeMsg","订单状态为空或不合法！");
@@ -268,7 +268,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             map.put("expectedTimeMsg","期待发货日期不存在或早于当前时间");
         }
         if(inquiry.getSalesmanId()!=null&&userService.findUserById(inquiry.getSalesmanId())==null){
-            map.put("salesmanMsg","销售员不存在！");
+            map.put("salesmanMsg","销售员为空或不存在！");
         }
         return map;
     }

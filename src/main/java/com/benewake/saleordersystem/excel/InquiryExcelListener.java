@@ -98,7 +98,7 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
             deliveryService.insertLists(lists);
         }catch (Exception e) {
             e.printStackTrace();
-            map.put("errot","持久化失败");
+            map.put("error","持久化失败");
             throw new ExcelAnalysisException("持久化失败");
         }
         map.put("success","全部数据导入成功！");

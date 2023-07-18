@@ -23,5 +23,5 @@ public class ViewCol {
     @TableField("view_id")
     private Long viewId;
     @TableField("col_seq")
-        private Integer colSeq;
+    private Integer colSeq;
 }

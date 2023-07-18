@@ -12,6 +12,7 @@ import com.benewake.saleordersystem.service.ViewService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
+import lombok.val;
 import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -179,6 +180,7 @@ public class SaleOrderController implements BenewakeConstants {
             inq.setCreatedTime(nowTime);
             inq.setCreatedUser(user.getId());
             inq.setInquiryCode(inquiryCodeList.get(0));
+            inq.setState(0);
 
             System.out.println(inq.toString());
         }
@@ -221,10 +223,9 @@ public class SaleOrderController implements BenewakeConstants {
     }
 
 
-    @PostMapping("/delete")
+    @GetMapping("/delete/{orderId}")
     @LoginRequired
-    public Result<Map<String, Object>> deleteOrder(@RequestParam Map<String,Long> request){
-        Long orderId = request.get("orderId");
+    public Result<Map<String, Object>> deleteOrder(@PathVariable("orderId")Long orderId){
         System.out.println(orderId);
         boolean res = inquiryService.deleteOrder(orderId);
         Map<String,Object> map = new HashMap<>();
@@ -241,6 +242,15 @@ public class SaleOrderController implements BenewakeConstants {
     @LoginRequired
     public Result<Map<String, Object>> addOrdersByExcel(@RequestParam("file")MultipartFile file){
         Map<String,Object> map = new HashMap<>();
+        if(file==null){
+            map.put("error","文件为空！");
+            return Result.fail(map);
+        }
+        val split = file.getOriginalFilename().split("\\.");
+        if(!split[1].equals("xlsx") && !split[1].equals("xls")){
+            map.put("error","请提供.xlsx或.xls为后缀的Excel文件");
+            return Result.fail(map);
+        }
         try {
             map = inquiryService.saveData(file);
         }catch (Exception e) {
