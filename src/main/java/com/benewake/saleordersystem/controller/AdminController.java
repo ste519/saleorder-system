@@ -30,9 +30,9 @@ public class AdminController {
      * @return
      */
     @PostMapping("/add")
-    public Result<Map<String, Object>> add(@RequestBody Map<String,Object> param) {
+    public Result<Map<String, Object>> add(@RequestBody User user) {
         //System.out.println("新增用户信息："+user.toString());
-        User user = (User) param.get("user");
+
         return userService.addUser(user);
     }
 
