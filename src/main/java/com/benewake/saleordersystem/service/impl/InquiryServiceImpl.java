@@ -58,7 +58,11 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
 
     @Override
     public Map<String, Object> saveData(MultipartFile file) {
-        InquiryExcelListener listener = new InquiryExcelListener(this,deliveryService);
+        LambdaQueryWrapper<Inquiry> lqw = new LambdaQueryWrapper<>();
+        lqw.and(a->a.eq(Inquiry::getSalesmanId,hostHolder.getUser().getId()).
+                or().eq(Inquiry::getCreatedUser,hostHolder.getUser().getId()));
+        List<Inquiry> existList = inquiryMapper.selectList(lqw);
+        InquiryExcelListener listener = new InquiryExcelListener(this,deliveryService,existList);
         Map<String,Object> map;
         try{
             EasyExcel.read(file.getInputStream(), InquiryModel.class,listener).sheet().headRowNumber(1).doRead();
@@ -423,11 +427,11 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             return map;
         }
         // 判断是否重复
-        if(isExist(inquiry)){
-            map.put("error","第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
-            log.error("第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
-            return map;
-        }
+//        if(isExist(inquiry)){
+//            map.put("error","第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
+//            log.error("第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
+//            return map;
+//        }
         map.put("inquiry",inquiry);
         return map;
     }

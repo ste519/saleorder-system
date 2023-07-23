@@ -28,7 +28,8 @@ public class ViewServiceImpl implements ViewService {
 
     @Override
     public int saveView(View view) {
-        return viewMapper.insertView(view);
+        //return viewMapper.insertView(view);
+        return viewMapper.insert(view);
     }
 
     @Override

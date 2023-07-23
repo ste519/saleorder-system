@@ -29,12 +29,14 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
 
     private List<Inquiry> lists = new ArrayList<>();
     private Map<String,Object> map = new HashMap<>();
+    private List<Inquiry> existList = new ArrayList<>();
     private InquiryService inquiryService;
     private DeliveryService deliveryService;
 
-    public InquiryExcelListener(InquiryService inquiryService,DeliveryService deliveryService) {
+    public InquiryExcelListener(InquiryService inquiryService,DeliveryService deliveryService,List<Inquiry> existList) {
         this.inquiryService = inquiryService;
         this.deliveryService = deliveryService;
+        this.existList = existList;
     }
 
     private static List<String> head = new ArrayList<>();
@@ -85,6 +87,12 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
         }
         // 有效 加入集合 等全部解析完后存入数据库
         Inquiry inquiry = (Inquiry) map.get("inquiry");
+        // 判断是否重复
+        if(isExist(inquiry)){
+            map.put("error","第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
+            log.error("第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
+            throw new ExcelAnalysisStopException();
+        }
         map.remove("inquiry");
         lists.add(inquiry);
         //log.info("第"+rowIndex+"行添加完成: "+inquiry.toString());
@@ -104,5 +112,13 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
         map.put("success","全部数据导入成功！");
     }
 
+    private boolean isExist(Inquiry iq){
+        for(Inquiry i : existList){
+            if(i.exist(iq)){
+                return true;
+            }
+        }
+        return false;
+    }
 
 }

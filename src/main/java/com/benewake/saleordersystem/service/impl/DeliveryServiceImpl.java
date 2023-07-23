@@ -1,6 +1,5 @@
 package com.benewake.saleordersystem.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.benewake.saleordersystem.entity.Delivery;
 import com.benewake.saleordersystem.entity.Inquiry;
@@ -10,11 +9,13 @@ import com.benewake.saleordersystem.entity.Past.SaleOut;
 import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.service.KingDeeService;
 import com.benewake.saleordersystem.service.SFExpressService;
+import com.benewake.saleordersystem.utils.HostHolder;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -32,57 +33,33 @@ public class DeliveryServiceImpl implements DeliveryService {
     private KingDeeService kingDeeService;
     @Autowired
     private SFExpressService sFExpressService;
+    @Autowired
+    private HostHolder hostHolder;
 
-    /**
-     * 获取未签收的运输单号列表
-     * @return
-     */
-    public List<Delivery> findUnfinished() {
-        LambdaQueryWrapper<Delivery> lqw = new LambdaQueryWrapper<>();
-        lqw.select(Delivery::getDeliveryCode,Delivery::getInquiryCode,Delivery::getDeliveryPhone)
-                .isNull(Delivery::getReceiveTime)
-                .isNotNull(Delivery::getDeliveryCode);
-        return deliveryMapper.selectList(lqw);
-    }
-
-    /**
-     * 更新信息订单号和手机号
-     * @param delivery
-     * @return
-     */
-    public int updateDelivery(Delivery delivery) {
-        LambdaUpdateWrapper<Delivery> luw = new LambdaUpdateWrapper<>();
-        luw.eq(Delivery::getInquiryCode,delivery.getInquiryCode())
-                .set(Delivery::getDeliveryCode,delivery.getDeliveryCode())
-                .set(Delivery::getDeliveryPhone,delivery.getDeliveryPhone());
-        return deliveryMapper.update(null,luw);
-    }
 
     @Override
     public boolean updateDelivery() {
         try{
             // 尝试获取没有运输单号或手机号的订单号
-            LambdaQueryWrapper<Delivery> lqw = new LambdaQueryWrapper<>();
-            lqw.select(Delivery::getInquiryCode)
-                    .and(a->a.isNull(Delivery::getDeliveryCode).or().eq(Delivery::getDeliveryCode,"").or()
-                            .isNull(Delivery::getDeliveryPhone).or().eq(Delivery::getDeliveryPhone,""));
-            List<Delivery> lists = deliveryMapper.selectList(lqw);
+            List<Delivery> lists = deliveryMapper.selectUnFindDeliveriesByUser(hostHolder.getUser().getId());
             // 获取订单对应的运输单号和手机号
             List<SaleOut> saleOuts = kingDeeService.selectFCarriageNO(lists);
-            System.out.println(saleOuts.size());
+//            System.out.println(saleOuts.size());
             // 在数据库中更新运输单号和手机号
+            List<Delivery> nDeliveries = new ArrayList<>();
             saleOuts.forEach(s->{
-                System.out.println(s.toString());
+                //System.out.println(s.toString());
                 Delivery delivery = new Delivery();
                 delivery.setInquiryCode(s.getFNOTE());
                 delivery.setDeliveryCode(s.getFCarriageNO());
                 delivery.setDeliveryPhone(StringUtils.isBlank(s.getF_ora_Text2())?null:s.getF_ora_Text2()
                         .substring(s.getF_ora_Text2().length()-4));
-                updateDelivery(delivery);
+                nDeliveries.add(delivery);
             });
+            deliveryMapper.updateDeliveriesCode(nDeliveries);
 
             // 获取所有状态未签收的订单信息
-            List<Delivery> deliveries = findUnfinished();
+            List<Delivery> deliveries = deliveryMapper.selectUnFinisheDeliveriesByUser(hostHolder.getUser().getId());
             System.out.println(deliveries.size());
             // 获取最新运输状态 并更新
             deliveries.forEach(c->{
@@ -101,7 +78,7 @@ public class DeliveryServiceImpl implements DeliveryService {
                 }
             });
             // 存入数据库
-            deliveryMapper.updateDeliveries(deliveries);
+            deliveryMapper.updateDeliveriesState(deliveries);
             log.info("运输信息更新完成！");
         }catch (Exception e) {
             e.printStackTrace();

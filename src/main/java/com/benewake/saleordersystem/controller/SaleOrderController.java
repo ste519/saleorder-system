@@ -1,19 +1,21 @@
 package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
-import com.benewake.saleordersystem.entity.*;
+import com.benewake.saleordersystem.entity.Inquiry;
+import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.entity.VO.FilterVo;
 import com.benewake.saleordersystem.entity.VO.StartInquiryVo;
-import com.benewake.saleordersystem.service.ViewColService;
+import com.benewake.saleordersystem.entity.View;
+import com.benewake.saleordersystem.entity.ViewCol;
 import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.service.InquiryService;
+import com.benewake.saleordersystem.service.ViewColService;
 import com.benewake.saleordersystem.service.ViewService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
 import lombok.val;
-import org.apache.ibatis.annotations.Param;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.transaction.annotation.Transactional;
@@ -49,7 +51,7 @@ public class SaleOrderController implements BenewakeConstants {
      * 已登录用户根据tableid获取对应的新增视图，若无新增视图则为空
      * @return
      */
-    @GetMapping("/views")
+    @PostMapping("/views")
     @LoginRequired
     public Result<List<View>> getViewByTableId(@RequestBody Map<String,Object> param){
         Long tableId = Long.parseLong((String) param.get("tableId"));
@@ -58,7 +60,7 @@ public class SaleOrderController implements BenewakeConstants {
 
         return Result.success(lists);
     }
-    @GetMapping("/cols")
+    @PostMapping("/cols")
     public Result<Map<String,Object>> getAllCols(@RequestBody Map<String,Object> param){
         Long tableId = Long.parseLong((String) param.get("tableId"));
         Map<String,Object> map = new HashMap<>();
@@ -119,7 +121,7 @@ public class SaleOrderController implements BenewakeConstants {
         return Result.success(res);
     }
 
-    @PostMapping("/savePlan")
+    @PostMapping("/saveView")
     @LoginRequired
     @Transactional
     public Result<String> savePlan(@RequestBody FilterVo filterVo){
@@ -138,10 +140,6 @@ public class SaleOrderController implements BenewakeConstants {
         view.setUserId(u.getId());
         viewService.saveView(view);
 
-        List<View> views = viewService.getUserView(u.getId(), filterVo.getTableId());
-
-        view = views.get(views.size()-1);
-
         List<ViewCol> cols = filterVo.getCols();
         for(ViewCol vc : cols){
             vc.setViewId(view.getViewId());
@@ -153,80 +151,126 @@ public class SaleOrderController implements BenewakeConstants {
 
     /**
      * 保存询单信息
-     * @param reqMap 待添加的询单列表map
      * @return
      */
-    @PostMapping("/add")
+    @PostMapping("/save")
     @LoginRequired
     @Transactional
-    public Result<Map<String,Object>> addInquiries(@RequestBody Map<String,List<Inquiry>> reqMap){
-        List<Inquiry> newInquiries = reqMap.get("newInquiries");
-
+    public Result<Map<String,Object>> addInquiries(@RequestBody StartInquiryVo param){
+        List<Inquiry> newInquiries = param.getInquiryList();
+        Integer startInquiry = param.getStartInquiry();
+//        for(Inquiry inquiry : newInquiries){
+//            System.out.println(inquiry.toString());
+//        }
         Map<String,Object> map = new HashMap<>();
         if(newInquiries == null){
             map.put("failMsg","请添加至少一条询单信息");
             return Result.fail(map);
         }
-        User user = hostHolder.getUser();
-        Date nowTime = new Date();
-        // 获取新增的订单编码
-        List<String> inquiryCodeList = inquiryService.getDocumentNumberFormat(newInquiries.get(0).getInquiryType(),1);
-        // 逐条分析询单是否合法
-        for(Inquiry inq : newInquiries){
-            Map<String,Object> res = inquiryService.addValid(inq);
-            if(res.size()>0){
-                return Result.fail(res);
+        if(newInquiries.get(0).getInquiryCode()==null){
+            User user = hostHolder.getUser();
+            Date nowTime = new Date();
+            if(newInquiries.get(0).getInquiryType()==null){
+                map.put("failMsg","请选择订单类型");
+                return Result.fail(map);
             }
-            // 设置创建人信息以及单据编号
-            inq.setCreatedTime(nowTime);
-            inq.setCreatedUser(user.getId());
-            inq.setInquiryCode(inquiryCodeList.get(0));
-            inq.setState(0);
+            // 获取新增的订单编码
+            List<String> inquiryCodeList = inquiryService.getDocumentNumberFormat(newInquiries.get(0).getInquiryType(),1);
+            // 逐条分析询单是否合法
+            for(Inquiry inq : newInquiries){
+                Map<String,Object> res = inquiryService.addValid(inq);
+                if(res.size()>0){
+                    return Result.fail(res);
+                }
+                // 设置创建人信息以及单据编号
+                inq.setCreatedTime(nowTime);
+                inq.setCreatedUser(user.getId());
+                inq.setInquiryCode(inquiryCodeList.get(0));
+                inq.setState(0);
 
-            System.out.println(inq.toString());
+                System.out.println(inq.toString());
+            }
+            map.put("successMsg",inquiryCodeList.get(0));
+            // 添加运输信息
+            deliveryService.insertLists(newInquiries);
+            // 全部通过加入数据库
+            inquiryService.insertLists(newInquiries);
+        }
+        // 询单
+        if(startInquiry!=null && startInquiry != 0){
+            List<String> fail = new ArrayList<>();
+            List<Inquiry> success = new ArrayList<>();
+            int ind = 1;
+            for(int i=0;i<newInquiries.size();++i){
+                Inquiry inquiry = newInquiries.get(i);
+                if(inquiry.getInquiryType().equals(ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE) ||
+                        inquiry.getInquiryType().equals(ITEM_TYPE_RAW_MATERIALS_BESPOKE) || inquiry.getSaleNum()<=0){
+                    fail.add(String.valueOf(ind));
+                }else{
+                    success.add(inquiry);
+                }
+            }
+            if(fail.size() > 0){
+                map.put("fail","序号"+String.join(",",fail)+"。请飞书联系计划！");
+            }
+            if(success.size() > 0){
+                map.put("success",success.size()+"个订单开始询单！");
+
+                // 询单功能（待添加)   异步
+
+                // 设置state+1
+            }
         }
 
-        // 全部通过加入数据库
-        inquiryService.insertLists(newInquiries);
-        deliveryService.insertLists(newInquiries);
-        map.put("successMsg",inquiryCodeList.get(0));
 
         return Result.success(map);
     }
 
-    @PostMapping("/startInquiry")
-    @LoginRequired
-    public Result<Map<String,Object>> startInquiry(@RequestBody Map<String,List<StartInquiryVo>> request){
-        Map<String,Object> map = new HashMap<>();
-        List<StartInquiryVo> startInquiries = request.getOrDefault("inquiries",new ArrayList<>());
-        List<String> fail = new ArrayList<>();
-        List<Long> success = new ArrayList<>();
-        for(int i=0;i<startInquiries.size(); i++){
-            Integer type = startInquiries.get(i).getItemType();
-            Integer num = startInquiries.get(i).getSaleNum();
-            // 超出数量限制逻辑还未确定 暂时用 num<0占位
-            if(type.equals(ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE) || type.equals(ITEM_TYPE_RAW_MATERIALS_BESPOKE) || num < 0){
-                fail.add(String.valueOf(1+i));
-            }else{
-                success.add(startInquiries.get(i).getInquiryId());
-            }
-        }
-        if(fail.size() > 0){
-            map.put("fail","序号"+String.join(",",fail)+"。请飞书联系计划！");
-        }
-        if(success.size() > 0){
-            map.put("success",success.size()+"个订单开始询单！");
+    /**
+     * 检查新增订单是否有效
+     * @param inquiry
+     * @return
+     */
+    private boolean checkInquiry(Inquiry inquiry) {
+        return true;
 
-            // 询单功能（待添加)s
-
-        }
-        return Result.success(map);
     }
 
+//    @PostMapping("/startInquiry")
+//    @LoginRequired
+//    @Deprecated
+//    public Result<Map<String,Object>> startInquiry(@RequestBody Map<String,List<StartInquiryVo>> request){
+//        Map<String,Object> map = new HashMap<>();
+//        List<StartInquiryVo> startInquiries = request.getOrDefault("inquiries",new ArrayList<>());
+//        List<String> fail = new ArrayList<>();
+//        List<Long> success = new ArrayList<>();
+//        for(int i=0;i<startInquiries.size(); i++){
+//            Integer type = startInquiries.get(i).getItemType();
+//            Integer num = startInquiries.get(i).getSaleNum();
+//            // 超出数量限制逻辑还未确定 暂时用 num<0占位
+//            if(type.equals(ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE) || type.equals(ITEM_TYPE_RAW_MATERIALS_BESPOKE) || num < 0){
+//                fail.add(String.valueOf(1+i));
+//            }else{
+//                success.add(startInquiries.get(i).getInquiryId());
+//            }
+//        }
+//        if(fail.size() > 0){
+//            map.put("fail","序号"+String.join(",",fail)+"。请飞书联系计划！");
+//        }
+//        if(success.size() > 0){
+//            map.put("success",success.size()+"个订单开始询单！");
+//
+//            // 询单功能（待添加)
+//
+//        }
+//        return Result.success(map);
+//    }
 
-    @GetMapping("/delete/{orderId}")
+
+    @PostMapping("/delete")
     @LoginRequired
-    public Result<Map<String, Object>> deleteOrder(@PathVariable("orderId")Long orderId){
+    public Result<Map<String, Object>> deleteOrder(@RequestBody Map<String,Long> param){
+        Long orderId = param.get("orderId");
         System.out.println(orderId);
         boolean res = inquiryService.deleteOrder(orderId);
         Map<String,Object> map = new HashMap<>();
@@ -248,7 +292,7 @@ public class SaleOrderController implements BenewakeConstants {
             return Result.fail(map);
         }
         val split = file.getOriginalFilename().split("\\.");
-        if(!split[1].equals("xlsx") && !split[1].equals("xls")){
+        if(!"xlsx".equals(split[1]) && !"xls".equals(split[1])){
             map.put("error","请提供.xlsx或.xls为后缀的Excel文件");
             return Result.fail(map);
         }

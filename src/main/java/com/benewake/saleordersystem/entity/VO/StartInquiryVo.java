@@ -1,6 +1,9 @@
 package com.benewake.saleordersystem.entity.VO;
 
+import com.benewake.saleordersystem.entity.Inquiry;
 import lombok.Data;
+
+import java.util.List;
 
 /**
  * @author Lcs
@@ -9,9 +12,6 @@ import lombok.Data;
  */
 @Data
 public class StartInquiryVo {
-    private Integer inquirySeq;
-    private Long inquiryId;
-    private String itemCode;
-    private Integer saleNum;
-    private Integer itemType;
+    private List<Inquiry> inquiryList;
+    private Integer startInquiry;
 }
