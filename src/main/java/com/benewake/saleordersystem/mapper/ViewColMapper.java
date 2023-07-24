@@ -2,10 +2,7 @@ package com.benewake.saleordersystem.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.benewake.saleordersystem.entity.ViewCol;
-import org.apache.ibatis.annotations.Insert;
-import org.apache.ibatis.annotations.Mapper;
-import org.apache.ibatis.annotations.Param;
-import org.apache.ibatis.annotations.Select;
+import org.apache.ibatis.annotations.*;
 
 import java.util.List;
 import java.util.Map;
@@ -36,4 +33,15 @@ public interface ViewColMapper extends BaseMapper<ViewCol> {
             "</foreach>" +
             "</script>")
     int saveViewColList(@Param("cols") List<ViewCol> cols);
+
+    /**
+     * 删除对应ViewId下的所有列
+     * @param viewId
+     * @return
+     */
+    @Delete("<script>" +
+            "delete from fim_view_col_table " +
+            "where view_id = #{viewId} " +
+            "</script>")
+    int deleteByViewId(@Param("viewId") Long viewId);
 }

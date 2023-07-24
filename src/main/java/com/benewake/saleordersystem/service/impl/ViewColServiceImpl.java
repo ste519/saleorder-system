@@ -130,4 +130,9 @@ public class ViewColServiceImpl implements ViewColService , BenewakeConstants {
     public int saveCols(List<ViewCol> cols) {
         return viewColMapper.saveViewColList(cols);
     }
+
+    @Override
+    public int deleteCols(Long viewId) {
+        return viewColMapper.deleteByViewId(viewId);
+    }
 }

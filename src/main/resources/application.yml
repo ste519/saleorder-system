@@ -7,6 +7,12 @@ server:
 spring:
   application:
     name: SaleOrderSystem
+  rabbitmq:
+    host: 47.93.30.99
+    port: 5672
+    username: guest
+    password: guest
+    virtual-host: /
   datasource:
     url: jdbc:mysql://localhost:3306/fim_aps_system?characterEncoding=utf-8&useSSL=false&serverTimezone=Hongkong&allowMultiQueries=true
     username: root

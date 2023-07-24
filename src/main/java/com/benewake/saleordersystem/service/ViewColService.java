@@ -32,4 +32,5 @@ public interface ViewColService {
      */
     int saveCols(List<ViewCol> cols);
 
+    int deleteCols(Long viewId);
 }

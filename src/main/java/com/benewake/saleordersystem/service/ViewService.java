@@ -34,4 +34,11 @@ public interface ViewService {
      * @return
      */
     List<Map<String, Object>> getAllCols(Long tableId);
+
+    /**
+     * 更新视图信息
+     * @param view
+     * @return
+     */
+    int updateView(View view);
 }

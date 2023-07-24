@@ -135,6 +135,12 @@
             <systemPath>${basedir}/libs/SF-CSIM-EXPRESS-SDK-V2.1.7.jar</systemPath>
             <scope>system</scope>
         </dependency>
+
+<!--        rabbitMq 消息队列-->
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
     </dependencies>
 
     <dependencyManagement>

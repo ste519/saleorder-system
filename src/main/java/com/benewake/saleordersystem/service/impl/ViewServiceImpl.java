@@ -1,9 +1,11 @@
 package com.benewake.saleordersystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.benewake.saleordersystem.entity.View;
 import com.benewake.saleordersystem.mapper.ViewMapper;
 import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
 import com.benewake.saleordersystem.service.ViewService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -36,5 +38,16 @@ public class ViewServiceImpl implements ViewService {
     public List<Map<String, Object>> getAllCols(Long tableId) {
         if(tableId==null) return new ArrayList<>();
         return viewMapper.getAllCols(tableId);
+    }
+
+    @Override
+    public int updateView(View view) {
+        if(view.getViewId()==null) return 0;
+        LambdaUpdateWrapper<View> luw = new LambdaUpdateWrapper<>();
+        luw.eq(View::getViewId,view.getViewId())
+                .set(StringUtils.isNotBlank(view.getViewName()),View::getViewName,view.getViewName())
+                .set(view.getTableId()!=null,View::getTableId,view.getTableId())
+                .set(view.getUserId()!=null,View::getUserId,view.getUserId());
+        return viewMapper.update(view,luw);
     }
 }

@@ -138,15 +138,26 @@ public class SaleOrderController implements BenewakeConstants {
         view.setTableId(filterVo.getTableId());
         view.setViewName(filterVo.getViewName());
         view.setUserId(u.getId());
-        viewService.saveView(view);
+        if(filterVo.getViewId()==null){
+            viewService.saveView(view);
+        }else{
+            view.setViewId(filterVo.getViewId());
+            viewService.updateView(view);
+        }
 
         List<ViewCol> cols = filterVo.getCols();
         for(ViewCol vc : cols){
             vc.setViewId(view.getViewId());
         }
+        // 删掉原来的列信息
+        viewColService.deleteCols(view.getViewId());
+        // 保存新增列信息
         viewColService.saveCols(cols);
-
-        return Result.success("方案添加成功！");
+        if(filterVo.getViewId()==null) {
+            return Result.success("方案添加成功！");
+        } else {
+            return Result.success("方案修改成功！");
+        }
     }
 
     /**
