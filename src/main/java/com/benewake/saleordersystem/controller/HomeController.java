@@ -63,8 +63,8 @@ public class HomeController implements BenewakeConstants {
         if(hostHolder.getUser() != null) {
             // 当前已存在登录用户
             Map<String,Object> map = new HashMap<>(1);
-            map.put("loginMessage","当前已有账号登录，请先退出当前账号！");
-            return Result.fail(map);
+            // map.put("loginMessage","当前已有账号登录，请先退出当前账号！");
+            return Result.fail(202,"当前已有账号登录，请先退出当前账号！",null);
         }
         // 尝试登录
         Map<String,Object> map = userService.login(username,password);
@@ -75,10 +75,10 @@ public class HomeController implements BenewakeConstants {
             cookie.setMaxAge(DEFAULT_EXPIRED_SECONDS);
             response.addCookie(cookie);
 
-            return Result.success(map);
+            return Result.success(200,"success",map);
         }else{
             // 验证失败 返回失败信息
-            return Result.fail(map);
+            return Result.fail(400, (String) map.get("error"),null);
         }
     }
 
@@ -89,6 +89,6 @@ public class HomeController implements BenewakeConstants {
      */
     @GetMapping("/logout")
     public Result<Map<String,Object>> logout(@CookieValue("ticket") String ticket){
-        return Result.success(userService.logout(ticket));
+        return Result.success(200, (String) userService.logout(ticket).get("ticketMessage"),null);
     }
 }

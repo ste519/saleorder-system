@@ -32,7 +32,7 @@ public class CustomerTypeServiceImpl implements CustomerTypeService {
 
         CustomerType customerType = customerTypeMapper.selectOne(queryWrapper);
         if(customerType == null) {
-            return null;
+            return "无匹配的客户类型，请飞书联系管理员";
         }
         return customerType.getCustomerType();
     }

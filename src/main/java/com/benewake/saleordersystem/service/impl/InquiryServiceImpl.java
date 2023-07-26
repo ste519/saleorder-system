@@ -57,7 +57,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     private HostHolder hostHolder;
 
     @Override
-    public Map<String, Object> saveData(MultipartFile file) {
+    public Map<String, Object> saveDataByExcel(MultipartFile file) {
         LambdaQueryWrapper<Inquiry> lqw = new LambdaQueryWrapper<>();
         lqw.and(a->a.eq(Inquiry::getSalesmanId,hostHolder.getUser().getId()).
                 or().eq(Inquiry::getCreatedUser,hostHolder.getUser().getId()));
@@ -257,22 +257,28 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     public Map<String,Object> addValid(Inquiry inquiry) {
         Map<String,Object> map = new HashMap<>();
         if(inquiry.getItemId() == null || null == itemService.findItemById(inquiry.getItemId())) {
-            map.put("itemIdMsg","物料不存在！");
+            map.put("error","物料不存在！");
+            return map;
         }
         if(inquiry.getSaleNum() == null || inquiry.getSaleNum() < 1){
-            map.put("saleNumMsg","销售数量为空或不合法！");
+            map.put("error","销售数量为空或不合法！");
+            return map;
         }
         if(inquiry.getCustomerId() == null || null == customerService.findCustomerById(inquiry.getCustomerId())){
-            map.put("customerMsg","客户为空或不存在！");
+            map.put("error","客户为空或不存在！");
+            return map;
         }
         if(inquiry.getInquiryType() == null || !isValidType(inquiry.getInquiryType())){
-            map.put("inquiryTypeMsg","订单状态为空或不合法！");
+            map.put("error","订单状态为空或不合法！");
+            return map;
         }
         if(inquiry.getExpectedTime() == null || inquiry.getExpectedTime().before(new Date())){
-            map.put("expectedTimeMsg","期待发货日期不存在或早于当前时间");
+            map.put("error","期待发货日期不存在或早于当前时间");
+            return map;
         }
         if(inquiry.getSalesmanId()!=null&&userService.findUserById(inquiry.getSalesmanId())==null){
-            map.put("salesmanMsg","销售员为空或不存在！");
+            map.put("error","销售员为空或不存在！");
+            return map;
         }
         return map;
     }
@@ -306,7 +312,8 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
                 .eq(Inquiry::getCustomerId,inquiry.getCustomerId())
                 .eq(Inquiry::getSaleNum,inquiry.getSaleNum())
                 .eq(Inquiry::getItemId,inquiry.getItemId())
-                .eq(Inquiry::getSalesmanId,inquiry.getSalesmanId());
+                .eq(Inquiry::getSalesmanId,inquiry.getSalesmanId())
+                .ne(Inquiry::getState,-1);
         return inquiryMapper.selectOne(queryWrapper)!=null;
     }
 
@@ -434,5 +441,16 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
 //        }
         map.put("inquiry",inquiry);
         return map;
+    }
+
+    @Override
+    public boolean containsCode(String inquiryCode) {
+        if(StringUtils.isBlank(inquiryCode)) {
+            return false;
+        }
+        LambdaQueryWrapper<Inquiry> lqw = new LambdaQueryWrapper<>();
+        lqw.select(Inquiry::getInquiryCode).eq(Inquiry::getInquiryCode,inquiryCode)
+                .ne(Inquiry::getState,-1);
+        return inquiryMapper.selectList(lqw).size()>0;
     }
 }

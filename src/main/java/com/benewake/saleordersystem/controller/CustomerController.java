@@ -41,9 +41,9 @@ public class CustomerController {
         try{
             Long itemId = Long.parseLong((String) param.get("itemId"));
             Long customerId = Long.parseLong((String) param.get("customerId"));
-            return Result.success(customerTypeService.getCustomerTypeByRule(customerId,itemId));
+            return Result.success(customerTypeService.getCustomerTypeByRule(customerId,itemId),null);
         }catch (Exception e) {
-            return Result.fail("输入格式有误！请输入数字");
+            return Result.fail("输入格式有误！请输入数字",null);
         }
     }
 

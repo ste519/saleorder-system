@@ -80,8 +80,7 @@ public class SaleOrderController implements BenewakeConstants {
     public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
         Map<String,Object> res = new HashMap<>();
         if(filterVo==null || filterVo.getTableId()==null || filterVo.getViewId()==null){
-            res.put("error","参数错误！");
-            return Result.fail(res);
+            return Result.fail("未选择表或视图！",null);
         }
         // 当前登录用户
         User loginUser = hostHolder.getUser();
@@ -126,10 +125,10 @@ public class SaleOrderController implements BenewakeConstants {
     @Transactional
     public Result<String> savePlan(@RequestBody FilterVo filterVo){
         if(filterVo.getTableId() == null){
-            return Result.fail("表id不能为空！");
+            return Result.fail("表id不能为空！",null);
         }
         if(CollectionUtils.isEmpty(filterVo.getCols())){
-            return Result.fail("新增方案的列信息不能为空！");
+            return Result.fail("新增方案的列信息不能为空！",null);
         }
         // 获取当前用户
         User u = hostHolder.getUser();
@@ -154,9 +153,9 @@ public class SaleOrderController implements BenewakeConstants {
         // 保存新增列信息
         viewColService.saveCols(cols);
         if(filterVo.getViewId()==null) {
-            return Result.success("方案添加成功！");
+            return Result.success("方案添加成功！",null);
         } else {
-            return Result.success("方案修改成功！");
+            return Result.success("方案修改成功！",null);
         }
     }
 
@@ -175,37 +174,44 @@ public class SaleOrderController implements BenewakeConstants {
 //        }
         Map<String,Object> map = new HashMap<>();
         if(newInquiries == null){
-            map.put("failMsg","请添加至少一条询单信息");
-            return Result.fail(map);
+            return Result.fail("请添加至少一条询单信息",null);
         }
-        if(newInquiries.get(0).getInquiryCode()==null){
+        if(startInquiry == 0 || newInquiries.get(0).getInquiryCode()==null){
             User user = hostHolder.getUser();
             Date nowTime = new Date();
             if(newInquiries.get(0).getInquiryType()==null){
-                map.put("failMsg","请选择订单类型");
-                return Result.fail(map);
+                return Result.fail("请选择订单类型",null);
+            }
+            if(newInquiries.get(0).getInquiryCode()!=null && !inquiryService.containsCode(newInquiries.get(0).getInquiryCode())){
+                return Result.fail("单据编号不存在！",null);
             }
             // 获取新增的订单编码
-            List<String> inquiryCodeList = inquiryService.getDocumentNumberFormat(newInquiries.get(0).getInquiryType(),1);
+            String inquiryCode_ = newInquiries.get(0).getInquiryCode()!=null?newInquiries.get(0).getInquiryCode()
+                    :inquiryService.getDocumentNumberFormat(newInquiries.get(0).getInquiryType(),1).get(0);
             // 逐条分析询单是否合法
             for(Inquiry inq : newInquiries){
                 Map<String,Object> res = inquiryService.addValid(inq);
                 if(res.size()>0){
-                    return Result.fail(res);
+                    return Result.fail((String) res.get("error"),null);
                 }
                 // 设置创建人信息以及单据编号
                 inq.setCreatedTime(nowTime);
                 inq.setCreatedUser(user.getId());
-                inq.setInquiryCode(inquiryCodeList.get(0));
+                inq.setInquiryCode(inquiryCode_);
                 inq.setState(0);
 
-                System.out.println(inq.toString());
+                //System.out.println(inq.toString());
             }
-            map.put("successMsg",inquiryCodeList.get(0));
+            map.put("inquiryCode",inquiryCode_);
             // 添加运输信息
             deliveryService.insertLists(newInquiries);
             // 全部通过加入数据库
             inquiryService.insertLists(newInquiries);
+            List<Long> ids = new ArrayList<>();
+            for(Inquiry inq:newInquiries){
+                ids.add(inq.getInquiryId());
+            }
+            map.put("ids",ids);
         }
         // 询单
         if(startInquiry!=null && startInquiry != 0){
@@ -222,30 +228,22 @@ public class SaleOrderController implements BenewakeConstants {
                 }
             }
             if(fail.size() > 0){
-                map.put("fail","序号"+String.join(",",fail)+"。请飞书联系计划！");
+                map.put("序号"+String.join(",",fail)+"。请飞书联系计划！",null);
+                return Result.fail("序号"+String.join(",",fail)+"。请飞书联系计划！",null);
             }
             if(success.size() > 0){
-                map.put("success",success.size()+"个订单开始询单！");
+                //map.put("success",success.size()+"个订单开始询单！");
 
                 // 询单功能（待添加)   异步
-
                 // 设置state+1
+
+                return Result.success("已开始询单！",map);
             }
         }
-
-
-        return Result.success(map);
+        return Result.success("操作成功！",map);
     }
 
-    /**
-     * 检查新增订单是否有效
-     * @param inquiry
-     * @return
-     */
-    private boolean checkInquiry(Inquiry inquiry) {
-        return true;
 
-    }
 
 //    @PostMapping("/startInquiry")
 //    @LoginRequired
@@ -280,17 +278,14 @@ public class SaleOrderController implements BenewakeConstants {
 
     @PostMapping("/delete")
     @LoginRequired
-    public Result<Map<String, Object>> deleteOrder(@RequestBody Map<String,Long> param){
+    public Result<String> deleteOrder(@RequestBody Map<String,Long> param){
         Long orderId = param.get("orderId");
         System.out.println(orderId);
         boolean res = inquiryService.deleteOrder(orderId);
-        Map<String,Object> map = new HashMap<>();
         if(!res){
-            map.put("error","订单不存在！");
-            return Result.fail(map);
+            return Result.fail("订单不存在！",null);
         }else {
-            map.put("success","删除成功！");
-            return Result.success(map);
+            return Result.success("删除成功！",null);
         }
     }
 
@@ -298,24 +293,22 @@ public class SaleOrderController implements BenewakeConstants {
     @LoginRequired
     public Result<Map<String, Object>> addOrdersByExcel(@RequestParam("file")MultipartFile file){
         Map<String,Object> map = new HashMap<>();
-        if(file==null){
-            map.put("error","文件为空！");
-            return Result.fail(map);
+        if(file.isEmpty()){
+            return Result.fail("文件为空！",null);
         }
         val split = file.getOriginalFilename().split("\\.");
         if(!"xlsx".equals(split[1]) && !"xls".equals(split[1])){
-            map.put("error","请提供.xlsx或.xls为后缀的Excel文件");
-            return Result.fail(map);
+            return Result.fail("请提供.xlsx或.xls为后缀的Excel文件",null);
         }
         try {
-            map = inquiryService.saveData(file);
+            map = inquiryService.saveDataByExcel(file);
         }catch (Exception e) {
             e.printStackTrace();
         }
         if(map.containsKey("error")){
-            return Result.fail(map);
+            return Result.fail((String) map.get("error"),null);
         }else{
-            return Result.success(map);
+            return Result.success((String) map.get("success"),null);
         }
     }
 

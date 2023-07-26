@@ -33,9 +33,9 @@ public class InstrumentPanelsController {
         }else if(isAll == 0){
             pastOrderService.savePastOrder(false);
         }else{
-            return Result.fail("参数错误！");
+            return Result.fail("参数错误！",null);
         }
-        return Result.success("历史数据更新成功！");
+        return Result.success("历史数据更新成功！",null);
     }
 
 }

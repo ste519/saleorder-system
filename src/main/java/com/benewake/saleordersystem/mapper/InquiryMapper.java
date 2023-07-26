@@ -29,6 +29,7 @@ public interface InquiryMapper extends BaseMapper<Inquiry> {
             ")" +
             "</foreach>" +
             "</script>")
+    @Options(useGeneratedKeys = true,keyProperty = "inquiryId")
     int insertInquiries(@Param("lists") List<Inquiry> lists);
 
 

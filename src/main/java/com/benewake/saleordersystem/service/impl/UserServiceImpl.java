@@ -37,20 +37,17 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         Map<String,Object> map = new HashMap<>();
         // 空处理 程序错误 抛出异常
         if(null == user){
-            throw new IllegalArgumentException("User cannot be null");
+            return Result.fail("用户信息不能为空！",null);
         }
         // 内容缺失
         if(StringUtils.isBlank(user.getUsername())){
-            map.put("usernameMsg","用户名不能为空！");
-            return Result.fail(map);
+            return Result.fail("用户名不能为空！",null);
         }
         if(StringUtils.isBlank(user.getPassword())){
-            map.put("passwordMsg","密码不能为空!");
-            return Result.fail(map);
+            return Result.fail("密码不能为空!",null);
         }
         if(user.getUserType()==null){
-            map.put("typeMsg","用户类型不能为空！");
-            return Result.fail(map);
+            return Result.fail("用户类型不能为空！",null);
         }
 
         // 验证用户名是否唯一
@@ -58,8 +55,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         queryWrap.eq("FIM_user_name",user.getUsername());
         User u = userMapper.selectOne(queryWrap);
         if(u != null){
-            map.put("usernameMsg","用户已存在！");
-            return Result.fail(map);
+            return Result.fail("用户已存在！",null);
         }else{
             // 加密
             user.setSalt(CommonUtils.generateUUID().substring(0, 5));
@@ -82,11 +78,11 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
 
         //空值处理
         if (StringUtils.isBlank(username)) {
-            map.put("usernameMsg", "未注册无法登录，注册请飞书联系管理员！");
+            map.put("error", "未注册无法登录，注册请飞书联系管理员！");
             return map;
         }
         if (StringUtils.isBlank(password)) {
-            map.put("passwordMsg", "密码不能为空！");
+            map.put("error", "密码不能为空！");
             return map;
         }
         // 根据用户名查询用户信息
@@ -95,13 +91,13 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         User u = userMapper.selectOne(queryWrapper);
         // 用户不存在
         if (null == u) {
-            map.put("usernameMsg", "未注册无法登录，注册请飞书联系管理员!");
+            map.put("error", "未注册无法登录，注册请飞书联系管理员!");
             return map;
         }
         // 验证密码
         password = CommonUtils.md5(password + u.getSalt());
         if (!password.equals(u.getPassword())) {
-            map.put("passwordMsg", "密码错误！");
+            map.put("error", "密码错误！");
             return map;
         }
 
@@ -115,6 +111,10 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         loginTicketMapper.insert(loginTicket);
 
         map.put("ticket",loginTicket.getTicket());
+        map.put("userId",u.getId());
+        map.put("username",u.getUsername());
+        map.put("userType",u.getUserType());
+        map.put("collection",u.getUserConllection());
         return map;
 
     }

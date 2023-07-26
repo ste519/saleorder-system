@@ -53,32 +53,32 @@ public class UserController implements BenewakeConstants {
         if(user.getUserType().equals(USER_TYPE_SALESMAN) || user.getUserType().equals(USER_TYPE_VISITOR)){
             String password = CommonUtils.md5(oldPassword+user.getSalt());
             if(!password.equals(user.getPassword())){
-                return Result.fail("旧密码错误,请输入正确的密码!");
+                return Result.fail("旧密码错误,请输入正确的密码!",null);
             }
             // 修改密码
             userService.updatePassword(user.getId(),newPassword);
             // 设置ticket过期 则重新登录
             String ticket = CookieUtil.getValue(request,"ticket");
             userService.logout(ticket);
-            return Result.success("修改成功,请重新登录!");
+            return Result.success("修改成功,请重新登录!",null);
         }else if(user.getUserType().equals(USER_TYPE_ADMIN)){
             // 空值处理
             if(userId == null){
-                return Result.fail("要修改的用户id为空");
+                return Result.fail("要修改的用户id为空",null);
             }
             // 管理员修改用户密码
             int res = userService.updatePassword(userId,newPassword);
             if(res != -1){
-                return Result.success("修改成功！");
+                return Result.success("修改成功！",null);
             }else{
-                return Result.fail("用户id不存在！");
+                return Result.fail("用户id不存在！",null);
             }
         }else if(user.getUserType().equals(USER_TYPE_SYSTEM)){
             // 无效 或 系统
-            return Result.success("系统修改密码模块");
+            return Result.success("系统修改密码模块",null);
         }
 
-        return Result.fail("无效用户！");
+        return Result.fail("无效用户！",null);
     }
 
     /**

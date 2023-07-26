@@ -31,9 +31,9 @@ public class DeliveryController {
     public Result<String> updateDelivery(){
         boolean flag = deliveryService.updateDelivery();
         if(flag){
-            return Result.success("运输状态更新成功！");
+            return Result.success("运输状态更新成功！",null);
         }
-        return Result.fail("运输状态更新失败，请重试！");
+        return Result.fail("运输状态更新失败，请重试！",null);
     }
 
 

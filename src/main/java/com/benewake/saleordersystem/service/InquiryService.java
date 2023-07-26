@@ -19,7 +19,7 @@ public interface InquiryService {
      * @param file
      * @return
      */
-    Map<String, Object> saveData(MultipartFile file);
+    Map<String, Object> saveDataByExcel(MultipartFile file);
 
     /**
      * 批量加入数据库
@@ -94,4 +94,11 @@ public interface InquiryService {
      * @return
      */
     Map<String,Object> checkAddByExcel(InquiryModel inquiryModel, int rowIndex);
+
+    /**
+     * 判断单据编号是否存在
+     * @param inquiryCode
+     * @return
+     */
+    boolean containsCode(String inquiryCode);
 }
