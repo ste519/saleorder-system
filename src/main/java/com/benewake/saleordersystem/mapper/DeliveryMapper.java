@@ -73,10 +73,10 @@ public interface DeliveryMapper extends BaseMapper<Delivery> {
     @Select("<script>" +
             "select inquiry_code " +
             "from delivery_table " +
-            "where inquiry_code in{" +
+            "where inquiry_code in(" +
             "select inquiry_code from fim_inquiry_table " +
             "where (created_user = #{userId} or salesman_id = #{userId}) and state >= 0" +
-            "} and (" +
+            ") and (" +
             "delivery_code is null or delivery_code = '' or delivery_phone is null " +
             "or delivery_phone = ''" +
             ")" +
@@ -91,10 +91,10 @@ public interface DeliveryMapper extends BaseMapper<Delivery> {
     @Select("<script>" +
             "select inquiry_code,delivery_code,delivery_phone " +
             "from delivery_table " +
-            "where inquiry_code in{" +
+            "where inquiry_code in(" +
             "select inquiry_code from fim_inquiry_table " +
             "where (created_user = #{userId} or salesman_id = #{userId}) and state >= 0 " +
-            "} and (" +
+            ") and (" +
             "delivery_code is not null and delivery_phone is not null " +
             "and delivery_state != 80 " +
             ")" +

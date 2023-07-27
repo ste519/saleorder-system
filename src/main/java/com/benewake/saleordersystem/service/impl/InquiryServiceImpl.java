@@ -5,6 +5,7 @@ import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.benewake.saleordersystem.annotation.TrackingTime;
 import com.benewake.saleordersystem.entity.Customer;
 import com.benewake.saleordersystem.entity.Inquiry;
 import com.benewake.saleordersystem.entity.Item;
@@ -57,6 +58,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     private HostHolder hostHolder;
 
     @Override
+    @TrackingTime
     public Map<String, Object> saveDataByExcel(MultipartFile file) {
         LambdaQueryWrapper<Inquiry> lqw = new LambdaQueryWrapper<>();
         lqw.and(a->a.eq(Inquiry::getSalesmanId,hostHolder.getUser().getId()).

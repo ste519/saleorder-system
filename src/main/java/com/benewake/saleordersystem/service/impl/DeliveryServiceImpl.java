@@ -56,11 +56,13 @@ public class DeliveryServiceImpl implements DeliveryService {
                         .substring(s.getF_ora_Text2().length()-4));
                 nDeliveries.add(delivery);
             });
-            deliveryMapper.updateDeliveriesCode(nDeliveries);
+            // 待添加列表不为空则更新运输单号
+            if(!nDeliveries.isEmpty()) {
+                deliveryMapper.updateDeliveriesCode(nDeliveries);
+            }
 
             // 获取所有状态未签收的订单信息
             List<Delivery> deliveries = deliveryMapper.selectUnFinisheDeliveriesByUser(hostHolder.getUser().getId());
-            System.out.println(deliveries.size());
             // 获取最新运输状态 并更新
             deliveries.forEach(c->{
                 try {
@@ -77,9 +79,11 @@ public class DeliveryServiceImpl implements DeliveryService {
                     throw new RuntimeException(e);
                 }
             });
-            // 存入数据库
-            deliveryMapper.updateDeliveriesState(deliveries);
-            log.info("运输信息更新完成！");
+            if(!deliveries.isEmpty()){
+                // 存入数据库
+                deliveryMapper.updateDeliveriesState(deliveries);
+                log.info("运输信息更新完成！");
+            }
         }catch (Exception e) {
             e.printStackTrace();
             return false;

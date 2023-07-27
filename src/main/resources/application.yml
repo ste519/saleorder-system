@@ -30,3 +30,10 @@ mybatis-plus:
     map-underscore-to-camel-case: true
    # log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
 
+# 日志管理
+logging:
+  config: classpath:logback-spring.xml
+  file:
+    path: ./logs
+
+

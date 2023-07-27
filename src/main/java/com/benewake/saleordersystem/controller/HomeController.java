@@ -71,10 +71,9 @@ public class HomeController implements BenewakeConstants {
         if (map.containsKey("ticket")) {
             //验证成功 设置Cookie并返回成功信息
             Cookie cookie = new Cookie("ticket", map.get("ticket").toString());
-            cookie.setPath(contextPath);
+            cookie.setPath("/");
             cookie.setMaxAge(DEFAULT_EXPIRED_SECONDS);
             response.addCookie(cookie);
-
             return Result.success(200,"success",map);
         }else{
             // 验证失败 返回失败信息

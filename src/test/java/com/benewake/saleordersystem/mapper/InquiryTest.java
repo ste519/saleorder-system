@@ -59,4 +59,14 @@ public class InquiryTest implements BenewakeConstants {
     public void testView(){
         viewService.getUserView(6L,1L).forEach(c-> JSONObject.toJSONString(c).toString());
     }
+
+    @Autowired
+    InquiryMapper inquiryMapper;
+    @Test
+    public void testkucun(){
+        inquiryMapper.getItemNum().forEach(c-> {
+            c.forEach((k, v) -> System.out.print(k + ":" + v + " "));
+            System.out.println();
+        });
+    }
 }

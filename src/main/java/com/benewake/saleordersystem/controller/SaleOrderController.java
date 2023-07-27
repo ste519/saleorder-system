@@ -1,6 +1,7 @@
 package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
+import com.benewake.saleordersystem.annotation.TrackingTime;
 import com.benewake.saleordersystem.entity.Inquiry;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
@@ -77,6 +78,7 @@ public class SaleOrderController implements BenewakeConstants {
      */
     @PostMapping("/Lists")
     @LoginRequired
+    @TrackingTime
     public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
         Map<String,Object> res = new HashMap<>();
         if(filterVo==null || filterVo.getTableId()==null || filterVo.getViewId()==null){

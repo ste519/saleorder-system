@@ -1,0 +1,176 @@
+09:25:41.386 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 19332 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+09:25:41.389 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+09:25:42.701 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+09:25:42.702 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+09:25:42.702 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+09:25:42.778 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+09:25:45.623 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+09:25:45.945 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.967 seconds (JVM running for 5.857)
+2023-07-27 09:27:16.158 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 10324 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 09:27:16.161 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 09:27:17.401 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 09:27:17.402 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 09:27:17.402 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 09:27:17.473 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 09:27:20.019 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 09:27:20.342 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.552 seconds (JVM running for 5.378)
+2023-07-27 09:27:39.207 [http-nio-8080-exec-7] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 09:27:39.287 [http-nio-8080-exec-7] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 09:27:39.424 [http-nio-8080-exec-7] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 09:27:39.546 [http-nio-8080-exec-7] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 09:07:39],访问了[com.benewake.saleordersystem.controller.HomeController]的[login]方法，参数为[[{username=利拉德, password=123456, userType=}, org.apache.catalina.connector.ResponseFacade@577ce90f]].
+2023-07-27 09:28:51.851 [http-nio-8080-exec-3] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 09:07:51],访问了[com.benewake.saleordersystem.controller.CustomerController]的[getCustomerType]方法，参数为[[{itemId=11, customerId=15}]].
+2023-07-27 09:28:58.561 [http-nio-8080-exec-5] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 09:07:58],访问了[com.benewake.saleordersystem.controller.CustomerController]的[getCustomerType]方法，参数为[[{itemId=15, customerId=15}]].
+2023-07-27 09:30:20.322 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+2023-07-27 09:30:20.328 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+2023-07-27 09:40:32.187 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 11540 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 09:40:32.190 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 09:40:33.418 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 09:40:33.419 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 09:40:33.419 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 09:40:33.485 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 09:40:35.989 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 09:40:36.457 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.632 seconds (JVM running for 5.522)
+2023-07-27 09:41:21.052 [http-nio-8080-exec-6] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 09:41:21.162 [http-nio-8080-exec-6] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 09:41:21.301 [http-nio-8080-exec-6] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 09:41:21.365 [http-nio-8080-exec-6] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 09:07:21],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[addOrdersByExcel]方法，参数为[[org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@7ad0717b]].
+2023-07-27 09:41:21.375 [http-nio-8080-exec-6] INFO  c.b.s.a.TrackingTimeAspectj - [trackingTimeAdvice,29] - Start execute method (public java.util.Map com.benewake.saleordersystem.service.impl.InquiryServiceImpl.saveDataByExcel(org.springframework.web.multipart.MultipartFile)) at Thu Jul 27 09:41:21 GMT+08:00 2023
+2023-07-27 09:41:22.192 [http-nio-8080-exec-6] INFO  c.b.s.a.TrackingTimeAspectj - [trackingTimeAdvice,31] - Call method (public java.util.Map com.benewake.saleordersystem.service.impl.InquiryServiceImpl.saveDataByExcel(org.springframework.web.multipart.MultipartFile)) used time:817
+2023-07-27 09:42:55.404 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+2023-07-27 09:42:55.424 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+2023-07-27 09:43:02.615 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 21900 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 09:43:02.618 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 09:43:03.899 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 09:43:03.900 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 09:43:03.900 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 09:43:03.973 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 09:43:06.560 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 09:43:06.887 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.642 seconds (JVM running for 5.466)
+2023-07-27 09:43:19.379 [http-nio-8080-exec-5] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 09:43:19.486 [http-nio-8080-exec-5] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 09:43:19.620 [http-nio-8080-exec-5] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 09:43:19.683 [http-nio-8080-exec-5] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 09:07:19],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[addOrdersByExcel]方法，参数为[[org.springframework.web.multipart.support.StandardMultipartHttpServletRequest$StandardMultipartFile@4d620f11]].
+2023-07-27 09:43:20.926 [http-nio-8080-exec-5] INFO  c.b.s.e.InquiryExcelListener - [doAfterAllAnalysed,103] - 解析完成,开始加入数据库
+2023-07-27 09:43:20.965 [http-nio-8080-exec-5] INFO  c.b.s.a.TrackingTimeAspectj - [trackingTimeAdvice,31] - Call method (public java.util.Map com.benewake.saleordersystem.service.impl.InquiryServiceImpl.saveDataByExcel(org.springframework.web.multipart.MultipartFile)) used time:1271
+2023-07-27 09:45:05.358 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+2023-07-27 09:45:05.361 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+2023-07-27 10:00:34.130 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 22984 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 10:00:34.133 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 10:00:35.456 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:00:35.457 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 10:00:35.457 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 10:00:35.526 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 10:00:38.196 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:00:38.605 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.879 seconds (JVM running for 5.738)
+2023-07-27 10:06:19.569 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 10:22:04.265 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 16736 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 10:22:04.268 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 10:22:05.830 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:22:05.831 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 10:22:05.831 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 10:22:05.917 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 10:22:09.259 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:22:09.556 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 5.792 seconds (JVM running for 6.99)
+2023-07-27 10:22:17.966 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 10:23:11.600 [http-nio-8080-exec-4] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:11],访问了[com.benewake.saleordersystem.controller.HomeController]的[toLogin]方法，参数为[[]].
+2023-07-27 10:23:46.497 [http-nio-8080-exec-5] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:46],访问了[com.benewake.saleordersystem.controller.HomeController]的[toLogin]方法，参数为[[]].
+2023-07-27 10:24:13.136 [http-nio-8080-exec-3] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:13],访问了[com.benewake.saleordersystem.controller.HomeController]的[toLogin]方法，参数为[[]].
+2023-07-27 10:24:17.378 [http-nio-8080-exec-7] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:17],访问了[com.benewake.saleordersystem.controller.HomeController]的[toLogin]方法，参数为[[]].
+2023-07-27 10:25:20.283 [http-nio-8080-exec-10] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:20],访问了[com.benewake.saleordersystem.controller.HomeController]的[toLogin]方法，参数为[[]].
+2023-07-27 10:25:53.344 [http-nio-8080-exec-1] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:53],访问了[com.benewake.saleordersystem.controller.HomeController]的[toLogin]方法，参数为[[]].
+2023-07-27 10:27:43.937 [http-nio-8080-exec-6] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:43],访问了[com.benewake.saleordersystem.controller.HomeController]的[toLogin]方法，参数为[[]].
+2023-07-27 10:28:39.051 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 17132 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 10:28:39.056 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 10:28:40.449 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:28:40.449 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 10:28:40.450 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 10:28:40.519 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 10:28:43.318 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:28:43.756 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 5.136 seconds (JVM running for 6.085)
+2023-07-27 10:28:44.667 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 10:29:32.259 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 9784 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 10:29:32.264 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 10:29:33.560 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:29:33.561 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 10:29:33.561 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 10:29:33.630 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 10:29:36.297 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:29:36.637 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.869 seconds (JVM running for 5.752)
+2023-07-27 10:29:41.037 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 10:29:41.079 [http-nio-8080-exec-1] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:41],访问了[com.benewake.saleordersystem.controller.HomeController]的[login]方法，参数为[[{}, org.apache.catalina.connector.ResponseFacade@1ffd5713]].
+2023-07-27 10:29:41.162 [http-nio-8080-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 10:29:41.314 [http-nio-8080-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 10:30:30.664 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+2023-07-27 10:30:30.673 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+2023-07-27 10:30:38.494 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 17700 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 10:30:38.498 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 10:30:39.787 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:30:39.788 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 10:30:39.788 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 10:30:39.861 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 10:30:42.543 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:30:42.846 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.745 seconds (JVM running for 5.593)
+2023-07-27 10:32:08.227 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 10:32:45.699 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 4484 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 10:32:45.704 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 10:32:47.002 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:32:47.003 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 10:32:47.004 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 10:32:47.073 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 10:32:49.720 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 10:32:50.084 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.782 seconds (JVM running for 5.651)
+2023-07-27 10:33:02.556 [http-nio-8080-exec-6] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 10:33:02.651 [http-nio-8080-exec-6] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 10:33:02.811 [http-nio-8080-exec-6] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 10:33:02.995 [http-nio-8080-exec-6] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:02],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[selectList]方法，参数为[[FilterVo(tableId=1, viewId=-1, viewName=null, filterCriterias=null, cols=null)]].
+2023-07-27 10:52:21.652 [http-nio-8080-exec-4] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:21],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[selectList]方法，参数为[[FilterVo(tableId=1, viewId=-1, viewName=null, filterCriterias=[FilterCriteria(colName=inquiry_code, condition=eq, value=XSYG202301070001)], cols=null)]].
+2023-07-27 10:55:26.788 [http-nio-8080-exec-2] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 10:07:26],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[selectList]方法，参数为[[FilterVo(tableId=1, viewId=-1, viewName=null, filterCriterias=[], cols=null)]].
+2023-07-27 11:08:50.500 [http-nio-8080-exec-6] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:50],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[selectList]方法，参数为[[FilterVo(tableId=1, viewId=-1, viewName=null, filterCriterias=[FilterCriteria(colName=inquiry_code, condition=eq, value=XSYG202301070001)], cols=null)]].
+2023-07-27 11:13:02.669 [http-nio-8080-exec-7] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:02],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[selectList]方法，参数为[[FilterVo(tableId=1, viewId=-1, viewName=null, filterCriterias=[], cols=null)]].
+2023-07-27 11:15:31.935 [http-nio-8080-exec-7] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:31],访问了[com.benewake.saleordersystem.controller.DeliveryController]的[updateDelivery]方法，参数为[[]].
+2023-07-27 11:18:29.221 [http-nio-8080-exec-15] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:29],访问了[com.benewake.saleordersystem.controller.DeliveryController]的[updateDelivery]方法，参数为[[]].
+2023-07-27 11:19:40.195 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+2023-07-27 11:19:40.198 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+2023-07-27 11:19:47.924 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 23804 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 11:19:47.927 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 11:19:49.211 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 11:19:49.212 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 11:19:49.212 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 11:19:49.287 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 11:19:51.974 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 11:19:52.269 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.717 seconds (JVM running for 5.56)
+2023-07-27 11:19:56.993 [http-nio-8080-exec-1] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 11:19:57.078 [http-nio-8080-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 11:19:57.211 [http-nio-8080-exec-1] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 11:19:57.267 [http-nio-8080-exec-1] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:57],访问了[com.benewake.saleordersystem.controller.DeliveryController]的[updateDelivery]方法，参数为[[]].
+2023-07-27 11:25:47.799 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+2023-07-27 11:25:47.802 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+2023-07-27 11:25:55.011 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 23788 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 11:25:55.014 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 11:25:56.283 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 11:25:56.284 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 11:25:56.285 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 11:25:56.356 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 11:25:59.059 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 11:25:59.473 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.835 seconds (JVM running for 5.698)
+2023-07-27 11:26:03.568 [http-nio-8080-exec-5] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 11:26:03.653 [http-nio-8080-exec-5] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 11:26:03.785 [http-nio-8080-exec-5] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 11:26:03.840 [http-nio-8080-exec-5] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:03],访问了[com.benewake.saleordersystem.controller.DeliveryController]的[updateDelivery]方法，参数为[[]].
+2023-07-27 11:27:00.542 [http-nio-8080-exec-3] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:00],访问了[com.benewake.saleordersystem.controller.DeliveryController]的[updateDelivery]方法，参数为[[]].
+2023-07-27 11:30:14.179 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,350] - HikariPool-1 - Shutdown initiated...
+2023-07-27 11:30:14.184 [SpringContextShutdownHook] INFO  c.z.h.HikariDataSource - [close,352] - HikariPool-1 - Shutdown completed.
+2023-07-27 11:34:43.554 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarting,55] - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 21440 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-07-27 11:34:43.557 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStartupProfileInfo,651] - No active profile set, falling back to default profiles: default
+2023-07-27 11:34:44.788 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Initializing ProtocolHandler ["http-nio-8080"]
+2023-07-27 11:34:44.789 [restartedMain] INFO  o.a.c.c.StandardService - [log,173] - Starting service [Tomcat]
+2023-07-27 11:34:44.789 [restartedMain] INFO  o.a.c.c.StandardEngine - [log,173] - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-07-27 11:34:44.859 [restartedMain] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring embedded WebApplicationContext
+2023-07-27 11:34:47.599 [restartedMain] INFO  o.a.c.h.Http11NioProtocol - [log,173] - Starting ProtocolHandler ["http-nio-8080"]
+2023-07-27 11:34:47.903 [restartedMain] INFO  c.b.s.SaleOrderSystemApplication - [logStarted,61] - Started SaleOrderSystemApplication in 4.708 seconds (JVM running for 5.599)
+2023-07-27 11:34:55.162 [http-nio-8080-exec-2] INFO  o.a.c.c.C.[.[.[/benewake] - [log,173] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-07-27 11:34:55.245 [http-nio-8080-exec-2] INFO  c.z.h.HikariDataSource - [getConnection,110] - HikariPool-1 - Starting...
+2023-07-27 11:34:55.377 [http-nio-8080-exec-2] INFO  c.z.h.HikariDataSource - [getConnection,123] - HikariPool-1 - Start completed.
+2023-07-27 11:34:55.486 [http-nio-8080-exec-2] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:55],访问了[com.benewake.saleordersystem.controller.HomeController]的[login]方法，参数为[[{username=利拉德, password=123456, userType=}, org.apache.catalina.connector.ResponseFacade@54e36d03]].
+2023-07-27 11:35:09.408 [http-nio-8080-exec-4] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:09],访问了[com.benewake.saleordersystem.controller.HomeController]的[logout]方法，参数为[[1a8777789e57452794cf06c9ef8f4685]].
+2023-07-27 11:35:25.650 [http-nio-8080-exec-5] INFO  c.b.s.a.LogAspect - [before,71] - 用户[0:0:0:0:0:0:0:1],在[2023-07-27 11:07:25],访问了[com.benewake.saleordersystem.controller.HomeController]的[login]方法，参数为[[{username=利拉德, password=123456, userType=}, org.apache.catalina.connector.ResponseFacade@54e36d03]].
