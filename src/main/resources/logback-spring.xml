@@ -42,8 +42,9 @@ logging.config=classpath:logging-config.xml
 
         logging.level.org.springframework.web=DEBUG
         logging.level.org.hibernate=ERROR
+        <include resource="org/springframework/boot/logging/logback/base.xml"/>
     -->
-    <include resource="org/springframework/boot/logging/logback/base.xml"/>
+
     <!--
         设置变量： <property> 用来定义变量值的标签，<property> 有两个属性name和value；
         name: 变量的名称
@@ -235,7 +236,7 @@ logging.config=classpath:logging-config.xml
     <loger>和<root>可以包含零个或多个<appender-ref>元素，标识这个appender将会添加到这个loger。
     -->
     <root level="info">
-<!--        <appender-ref ref="CONSOLE"/>-->
+        <appender-ref ref="CONSOLE"/>
         <appender-ref ref="DEBUG_FILE"/>
         <appender-ref ref="INFO_FILE"/>
         <appender-ref ref="ERROR_FILE"/>
@@ -258,7 +259,7 @@ logging.config=classpath:logging-config.xml
         就会打印两次，因为打印信息向上级传递，logger本身打印一次，root接到后又打印一次。
     -->
     <!--logback.LogbackDemo：类的全路径 -->
-<!--    <logger name="logback.LogbackDemo" level="INFO" additivity="false">-->
-<!--        <appender-ref ref="CONSOLE"/>-->
-<!--    </logger>-->
+    <logger name="logback.LogbackDemo" level="INFO" additivity="false">
+        <appender-ref ref="CONSOLE"/>
+    </logger>
 </configuration>

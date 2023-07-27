@@ -106,7 +106,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         loginTicket.setUserId(u.getId());
         loginTicket.setTicket(CommonUtils.generateUUID());
         loginTicket.setStatus(0);
-        loginTicket.setExpired(new Date(System.currentTimeMillis() + DEFAULT_EXPIRED_SECONDS));
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + DEFAULT_EXPIRED_SECONDS*1000));
         // 持久化
         loginTicketMapper.insert(loginTicket);
 
