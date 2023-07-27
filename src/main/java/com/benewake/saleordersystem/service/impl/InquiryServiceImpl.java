@@ -84,7 +84,9 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
 
     @Override
     public List<Map<String,Object>> selectSalesOrderVoList(List<FilterCriteria> filters, String username) {
-
+        if(filters==null) {
+            filters = new ArrayList<>();
+        }
         // 添加筛选条件
         Map<String,Integer> map = new HashMap<>();
         for(int i=0;i<filters.size();++i){
@@ -96,7 +98,8 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         List<FilterCriteria> f1 = new ArrayList<>();
         // inquiry_init_type 需要int表示
         String[] str1 = {"inquiry_code","sale_num","expected_time","arranged_time",
-                "remark","state","inquiry_init_type"};
+                "remark","inquiry_init_type"};
+        f1.add(new FilterCriteria("state","ge",0));
         for(String s : str1){
             if(map.containsKey(s)){
                 f1.add(filters.get(map.get(s)));
