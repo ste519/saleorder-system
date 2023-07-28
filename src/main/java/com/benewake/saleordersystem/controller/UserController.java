@@ -8,6 +8,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -86,9 +87,9 @@ public class UserController implements BenewakeConstants {
      * @return
      */
     @PostMapping("/likeList")
-    public Result<List<User>> getUserLikeList(Map<String,Object> param){
+    public Result<List<User>> getUserLikeList(@RequestBody Map<String,Object> param){
         String username = (String) param.get("username");
-        Long userType = Long.parseLong((String) param.get("userType"));
+        Long userType = param.get("userType")==null?null:Long.parseLong((String) param.get("userType"));
         return Result.success(userService.getUsernameLikeList(username,userType));
     }
 

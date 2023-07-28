@@ -61,10 +61,10 @@ public class InquiryTest implements BenewakeConstants {
     }
 
     @Autowired
-    InquiryMapper inquiryMapper;
+    ItemMapper itemMapper;
     @Test
     public void testkucun(){
-        inquiryMapper.getItemNum().forEach(c-> {
+        itemMapper.getInventories(null,null,"2023-7-30").forEach(c-> {
             c.forEach((k, v) -> System.out.print(k + ":" + v + " "));
             System.out.println();
         });

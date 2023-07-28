@@ -110,7 +110,8 @@ public class SaleOrderController implements BenewakeConstants {
             for(Map<String,Object> col : cols){
                 String colValue = (String) col.get("col_value");
                 if(!StringUtils.isEmpty(colValue)){
-                    filters.add(new FilterCriteria((String) col.get("col_name_ENG"),EQUAL,colValue));
+                    filters.add(new FilterCriteria((String) col.get("col_name_ENG"),
+                            StringUtils.isEmpty(col.get("value_operator"))?EQUAL: (String) col.get("value_operator"),colValue));
                 }
             }
             // 根据筛选条件获取信息
