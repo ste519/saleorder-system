@@ -115,7 +115,7 @@
             <groupId>com.kyexpress</groupId>
             <artifactId>kye-open-api-sdk</artifactId>
             <version>2.3.0-SNAPSHOT</version>
-            <systemPath>${basedir}/libs/kye-openapi-sdk-2.3.0-SNAPSHOT.jar</systemPath>
+            <systemPath>/Users/stella/Documents/Codes/saleorder-system/libs/kye-openapi-sdk-2.3.0-SNAPSHOT.jar</systemPath>
             <scope>system</scope>
         </dependency>
 <!--        金蝶api-->
@@ -123,7 +123,7 @@
             <groupId>com.k3cloud</groupId>
             <artifactId>kecloud-webapi</artifactId>
             <version>8.0.5</version>
-            <systemPath>${basedir}/libs/k3cloud-webapi-sdk8.0.5.jar</systemPath>
+            <systemPath>/Users/stella/Documents/Codes/saleorder-system/libs/k3cloud-webapi-sdk8.0.5.jar</systemPath>
             <scope>system</scope>
         </dependency>
 
@@ -132,7 +132,7 @@
             <groupId>com.SF</groupId>
             <artifactId>SF-CSIM-EXPRESS</artifactId>
             <version>2.1.7</version>
-            <systemPath>${basedir}/libs/SF-CSIM-EXPRESS-SDK-V2.1.7.jar</systemPath>
+            <systemPath>/Users/stella/Documents/Codes/saleorder-system/libs/SF-CSIM-EXPRESS-SDK-V2.1.7.jar</systemPath>
             <scope>system</scope>
         </dependency>
 
@@ -140,6 +140,12 @@
         <dependency>
             <groupId>org.springframework.boot</groupId>
             <artifactId>spring-boot-starter-amqp</artifactId>
+        </dependency>
+        
+    <dependency>
+            <groupId>com.google.code.gson</groupId>
+            <artifactId>gson</artifactId>
+            <version>2.8.9</version>
         </dependency>
     </dependencies>
 
