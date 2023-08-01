@@ -80,6 +80,7 @@ public class SaleOrderController implements BenewakeConstants {
     @LoginRequired
     @TrackingTime
     public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
+
         Map<String,Object> res = new HashMap<>();
         if(filterVo==null || filterVo.getTableId()==null || filterVo.getViewId()==null){
             return Result.fail("未选择表或视图！",null);

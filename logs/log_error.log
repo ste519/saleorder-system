@@ -4238,3 +4238,5 @@ Caused by: org.xml.sax.SAXParseException: 元素内容必须由格式正确的�
 	at com.sun.org.apache.xerces.internal.jaxp.DocumentBuilderImpl.parse(DocumentBuilderImpl.java:339)
 	at org.apache.ibatis.parsing.XPathParser.createDocument(XPathParser.java:261)
 	... 122 common frames omitted
+2023-07-28 16:50:36.656 [AMQP Connection 47.93.30.99:5672] ERROR [,] o.s.a.rabbit.connection.CachingConnectionFactory - Channel shutdown: connection error
+2023-07-28 16:50:36.657 [AMQP Connection 47.93.30.99:5672] ERROR [,] o.s.a.rabbit.connection.CachingConnectionFactory - Channel shutdown: connection error
