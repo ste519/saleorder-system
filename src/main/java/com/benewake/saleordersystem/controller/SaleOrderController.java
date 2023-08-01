@@ -80,6 +80,7 @@ public class SaleOrderController implements BenewakeConstants {
     @LoginRequired
     @TrackingTime
     public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
+
         Map<String,Object> res = new HashMap<>();
         if(filterVo==null || filterVo.getTableId()==null || filterVo.getViewId()==null){
             return Result.fail("未选择表或视图！",null);
@@ -110,7 +111,8 @@ public class SaleOrderController implements BenewakeConstants {
             for(Map<String,Object> col : cols){
                 String colValue = (String) col.get("col_value");
                 if(!StringUtils.isEmpty(colValue)){
-                    filters.add(new FilterCriteria((String) col.get("col_name_ENG"),EQUAL,colValue));
+                    filters.add(new FilterCriteria((String) col.get("col_name_ENG"),
+                            StringUtils.isEmpty(col.get("value_operator"))?EQUAL: (String) col.get("value_operator"),colValue));
                 }
             }
             // 根据筛选条件获取信息

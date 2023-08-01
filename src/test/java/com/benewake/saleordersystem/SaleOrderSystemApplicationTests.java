@@ -7,6 +7,7 @@ import com.benewake.saleordersystem.mapper.UserMapper;
 import com.benewake.saleordersystem.service.AlphaService;
 import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
+import com.benewake.saleordersystem.utils.CommonUtils;
 import com.benewake.saleordersystem.utils.api.HolidayUtils;
 import jnr.ffi.annotations.In;
 import org.junit.jupiter.api.Test;
@@ -39,9 +40,13 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
 
     @Test
     void testAsync() throws InterruptedException {
-        alphaService.alphaPython();
-        System.out.println("下一个任务开始");
-        Thread.sleep(30000);
+//        alphaService.alphaPython();
+//        System.out.println("下一个任务开始");
+//        Thread.sleep(30000);
+        String code = CommonUtils.generateUUID().substring(0, 5);
+        String password = CommonUtils.md5("123456"+code);
+        System.out.println(code);
+        System.out.println(password);
 
     }
     @Test

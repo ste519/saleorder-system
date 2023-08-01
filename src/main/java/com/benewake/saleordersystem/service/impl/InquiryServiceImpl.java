@@ -99,7 +99,11 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         // inquiry_init_type 需要int表示
         String[] str1 = {"inquiry_code","sale_num","expected_time","arranged_time",
                 "remark","inquiry_init_type"};
-        f1.add(new FilterCriteria("state","ge",0));
+        if(map.containsKey("state")){
+            f1.add(filters.get(map.get("state")));
+        }else{
+            f1.add(new FilterCriteria("state","ge",0));
+        }
         for(String s : str1){
             if(map.containsKey(s)){
                 f1.add(filters.get(map.get(s)));
