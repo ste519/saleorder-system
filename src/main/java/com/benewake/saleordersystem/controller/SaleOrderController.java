@@ -136,6 +136,9 @@ public class SaleOrderController implements BenewakeConstants {
         }
         // 获取当前用户
         User u = hostHolder.getUser();
+        if(filterVo.getViewId()==null && viewService.isExist(filterVo.getTableId(),u.getId(),filterVo.getViewName())){
+            return Result.fail("该视图名称为空或已存在!",null);
+        }
         // 持久化视图
         View view = new View();
         view.setTableId(filterVo.getTableId());
@@ -316,4 +319,12 @@ public class SaleOrderController implements BenewakeConstants {
         }
     }
 
+    @PostMapping("/deleteView")
+    public Result deleteView(@RequestBody View view){
+        if(view.getViewId()==null) {
+            return Result.fail("viewId不能为空！",null);
+        }
+        boolean isSuccess = viewService.deleteView(view.getViewId());
+        return isSuccess?Result.success("删除成功!",null) : Result.fail("删除失败或视图不存在！",null);
+    }
 }

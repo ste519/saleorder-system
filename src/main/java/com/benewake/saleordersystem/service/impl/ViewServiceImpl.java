@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.benewake.saleordersystem.entity.View;
 import com.benewake.saleordersystem.mapper.ViewMapper;
@@ -49,5 +50,23 @@ public class ViewServiceImpl implements ViewService {
                 .set(view.getTableId()!=null,View::getTableId,view.getTableId())
                 .set(view.getUserId()!=null,View::getUserId,view.getUserId());
         return viewMapper.update(view,luw);
+    }
+
+    @Override
+    public boolean isExist(Long tableId, Long id, String viewName) {
+        if(StringUtils.isBlank(viewName)){
+            return true;
+        }
+        LambdaQueryWrapper<View> lqw = new LambdaQueryWrapper<>();
+        lqw.select(View::getViewName)
+                .eq(View::getViewName,viewName)
+                .eq(View::getTableId,tableId)
+                .eq(View::getUserId,id);
+        return viewMapper.selectOne(lqw)!=null;
+    }
+
+    @Override
+    public boolean deleteView(Long viewId) {
+        return viewMapper.deleteById(viewId)!=0;
     }
 }
