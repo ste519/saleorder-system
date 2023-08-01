@@ -34,7 +34,7 @@ public interface SalesOrderVoMapper extends BaseMapper<Map<String,Object>> {
      * @return
      */
     @Select("<script>" +
-            "select inquiry_id,inquiry_code,inquiry_init_type,state,created_user_name,item_type,inquiry_type," +
+            "select distinct distinct (inquiry_id),inquiry_code,inquiry_init_type,state,created_user_name,item_type,inquiry_type," +
             "item_code,item_name,customer_name,salesman_name,sale_num,expected_time,arranged_time,delay," +
             "customer_type,order_delivery_progress,delivery_code,receive_time,delivery_state,customize,remark " +
             "from " +
