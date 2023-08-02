@@ -41,4 +41,20 @@ public interface ViewService {
      * @return
      */
     int updateView(View view);
+
+    /**
+     * 判断视图名称是否已存在
+     * @param tableId
+     * @param id
+     * @param viewName
+     * @return
+     */
+    boolean isExist(Long tableId, Long id, String viewName);
+
+    /**
+     * 删除视图
+     * @param viewId
+     * @return
+     */
+    boolean deleteView(Long viewId);
 }
