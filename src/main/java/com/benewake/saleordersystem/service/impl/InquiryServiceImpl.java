@@ -102,7 +102,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         if(map.containsKey("state")){
             f1.add(filters.get(map.get("state")));
         }else{
-            f1.add(new FilterCriteria("state","ge",0));
+            f1.add(new FilterCriteria("state","ge","0"));
         }
         for(String s : str1){
             if(map.containsKey(s)){

@@ -4,13 +4,12 @@ import com.benewake.saleordersystem.annotation.LoginRequired;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.service.UserService;
 import com.benewake.saleordersystem.utils.*;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -21,8 +20,8 @@ import java.util.Map;
  * @since 2023年07月07 15:29
  * 描 述： TODO
  */
-@Controller
-@ResponseBody
+@Api(tags = "用户管理接口")
+@RestController
 @RequestMapping("/user")
 public class UserController implements BenewakeConstants {
     @Autowired
@@ -31,6 +30,7 @@ public class UserController implements BenewakeConstants {
     @Autowired
     private HostHolder hostHolder;
 
+    @ApiOperation("更新用户密码")
     @PostMapping("/updatePwd")
     @LoginRequired
     public Result<String> updatePassword(HttpServletRequest request, Map<String,Object> param){
@@ -86,6 +86,7 @@ public class UserController implements BenewakeConstants {
      * 根据用户姓名模糊匹配
      * @return
      */
+    @ApiOperation("根据姓名模糊匹配用户")
     @PostMapping("/likeList")
     public Result<List<User>> getUserLikeList(@RequestBody Map<String,Object> param){
         String username = (String) param.get("username");
