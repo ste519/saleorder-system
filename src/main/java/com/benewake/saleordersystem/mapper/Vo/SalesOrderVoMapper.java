@@ -34,11 +34,12 @@ public interface SalesOrderVoMapper extends BaseMapper<Map<String,Object>> {
      * @return
      */
     @Select("<script>" +
-            "select distinct distinct (inquiry_id),inquiry_code,inquiry_init_type,state,created_user_name,item_type,inquiry_type," +
+            "select distinct (inquiry_id),inquiry_code,inquiry_init_type,state,created_user_name,item_type,inquiry_type," +
             "item_code,item_name,customer_name,salesman_name,sale_num,expected_time,arranged_time,delay," +
             "customer_type,order_delivery_progress,delivery_code,receive_time,delivery_state,customize,remark " +
             "from " +
-            "(select inquiry_id as inquiry_id,state as state,a.inquiry_code as inquiry_code,sale_num as sale_num,expected_time as expected_time," +
+            "(select inquiry_id as inquiry_id,(case when state=-1 then '无效' when state=0 then '保存' else concat('询单',state,'次') end) as state," +
+            "a.inquiry_code as inquiry_code,sale_num as sale_num,expected_time as expected_time," +
             "arranged_time as arranged_time,created_user as created_user,salesman_id as salesman_id,a.item_id as item_id," +
             "a.customer_id as customer_id,remark as remark,(case " +
             "when order_delivery_progress is null then '未发货' " +
@@ -54,7 +55,8 @@ public interface SalesOrderVoMapper extends BaseMapper<Map<String,Object>> {
             "when item_type = 3 or item_type = 4 or item_type = 5 then '是' else '错误' end) as customize," +
             "(case when customer_type is null then '日常' else customer_type end) as customer_type," +
             "(case when inquiry_init_type = 5 then '销售询单' when inquiry_init_type = 4 then '销售预测' " +
-            "when inquiry_init_type = 3 then '供应链预估' else '错误的初始类型' end) as inquiry_init_type " +
+            "when inquiry_init_type = 3 then '供应链预估' when inquiry_init_type = 2 then '客户提出付款意向' " +
+            "when inquiry_init_type = 1 then '客户付款' else '错误的初始类型' end) as inquiry_init_type " +
             "from " +
             "(select fim_inquiry_table.inquiry_id,inquiry_code as inquiry_code,state as state,inquiry_init_type as inquiry_init_type," +
             "inquiry_type as inquiry_type,sale_num as sale_num,expected_time as expected_time," +

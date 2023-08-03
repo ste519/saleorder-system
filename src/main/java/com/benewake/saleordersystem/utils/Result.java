@@ -90,4 +90,13 @@ public class Result<T> implements BenewakeConstants{
         return Result;
     }
 
+    public Result<T> message(String msg){
+        this.setMessage(msg);
+        return this;
+    }
+
+    public Result<T> code(Integer code){
+        this.setCode(code);
+        return this;
+    }
 }

@@ -5,6 +5,7 @@ import com.benewake.saleordersystem.entity.Customer;
 import com.benewake.saleordersystem.service.CustomerService;
 import com.benewake.saleordersystem.service.CustomerTypeService;
 import com.benewake.saleordersystem.utils.Result;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -37,13 +38,17 @@ public class CustomerController {
     }
 
     @PostMapping("/type")
-    public Result<String> getCustomerType(@RequestBody Map<String,Object> param){
+    public Result getCustomerType(@RequestBody Map<String,Object> param){
         try{
             Long itemId = Long.parseLong((String) param.get("itemId"));
             Long customerId = Long.parseLong((String) param.get("customerId"));
+            String type = customerTypeService.getCustomerTypeByRule(customerId,itemId);
+            if(StringUtils.isEmpty(type)){
+                return Result.fail().message("无匹配类型，请飞书联系管理员！");
+            }
             return Result.success(customerTypeService.getCustomerTypeByRule(customerId,itemId),null);
         }catch (Exception e) {
-            return Result.fail("输入格式有误！请输入数字",null);
+            return Result.fail("输入格式有误！",null);
         }
     }
 

@@ -2,7 +2,7 @@ package com.benewake.saleordersystem.service;
 
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.entity.Inquiry;
-import com.benewake.saleordersystem.model.InquiryModel;
+import com.benewake.saleordersystem.excel.model.InquiryModel;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.List;

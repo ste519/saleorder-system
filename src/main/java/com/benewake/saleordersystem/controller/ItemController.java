@@ -33,7 +33,7 @@ public class ItemController {
     private HostHolder hostHolder;
 
     @PostMapping("/likeList")
-    public Result<List<Item>> getlikeItemList(@RequestBody Map<String,Object> param){
+    public Result getlikeItemList(@RequestBody Map<String,Object> param){
         String itemCode = (String) param.get("itemCode");
         return Result.success(itemService.itemCodeLikeList(itemCode));
     }

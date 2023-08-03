@@ -44,4 +44,12 @@ public interface ItemMapper extends BaseMapper<Item> {
             "order by priority desc " +
             "</script>")
     List<Map<String,Object>> getInventories(@Param("userId")Long userId,@Param("startTime")String startTime,@Param("endTime")String endTime);
+
+    @Select("<script>" +
+            "select item_id as id,item_code as itemCode,item_name as itemName," +
+            "b.item_type_name as itemType from fim_item_table as a " +
+            "left join item_type_dic as b on a.item_type = b.item_type " +
+            "where item_code like #{itemCode}" +
+            "</script>")
+    List<Map<String,Object>> selectCodeLikeList(String itemCode);
 }

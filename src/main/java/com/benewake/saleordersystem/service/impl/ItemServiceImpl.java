@@ -1,16 +1,15 @@
 package com.benewake.saleordersystem.service.impl;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.benewake.saleordersystem.entity.Item;
 import com.benewake.saleordersystem.mapper.ItemMapper;
 import com.benewake.saleordersystem.service.ItemService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lcs
@@ -24,11 +23,8 @@ public class ItemServiceImpl implements ItemService , BenewakeConstants {
     private ItemMapper itemMapper;
 
     @Override
-    public List<Item> itemCodeLikeList(String itemCode) {
-        LambdaQueryWrapper<Item> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.select(Item::getId,Item::getItemCode,Item::getItemName,Item::getItemType);
-        queryWrapper.like(StringUtils.isNotBlank(itemCode),Item::getItemCode,itemCode);
-        return itemMapper.selectList(queryWrapper);
+    public List<Map<String, Object>> itemCodeLikeList(String itemCode) {
+        return itemMapper.selectCodeLikeList("%"+itemCode+"%");
     }
 
     @Override

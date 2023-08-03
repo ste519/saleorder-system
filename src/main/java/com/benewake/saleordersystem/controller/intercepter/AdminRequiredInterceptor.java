@@ -34,7 +34,7 @@ public class AdminRequiredInterceptor implements HandlerInterceptor {
             Method method = handlerMethod.getMethod();
             AdminRequired adminRequired = method.getAnnotation(AdminRequired.class);
             // 有标记 且此时处于未登录状态
-            if(null != adminRequired && (hostHolder.getUser() == null || !hostHolder.getUser().getUserType().equals("管理员")) ){
+            if(null != adminRequired && (hostHolder.getUser() == null || hostHolder.getUser().getUserType()!=1) ){
                 // 提示账号未登录
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json; charset=utf-8");

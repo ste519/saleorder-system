@@ -3,6 +3,7 @@ package com.benewake.saleordersystem.service;
 import com.benewake.saleordersystem.entity.Item;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * @author Lcs
@@ -11,10 +12,11 @@ public interface ItemService {
 
     /**
      * 根据物料编码模糊查询物料
+     *
      * @param itemCode
      * @return
      */
-    List<Item> itemCodeLikeList(String itemCode);
+    List<Map<String, Object>> itemCodeLikeList(String itemCode);
 
     /**
      * 根据id判断物料是否存在

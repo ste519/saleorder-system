@@ -3,6 +3,8 @@ package com.benewake.saleordersystem.controller;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.service.UserService;
 import com.benewake.saleordersystem.utils.Result;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,6 +19,7 @@ import java.util.Map;
  * @since 2023年07月06 15:34
  * 描 述： TODO
  */
+@Api(tags = "管理员管理")
 @ResponseBody
 @RequestMapping("/admin")
 @Controller
@@ -29,10 +32,10 @@ public class AdminController {
      * 添加新用户（需管理员权限 目前没设置)
      * @return
      */
+    @ApiOperation("添加新用户接口")
     @PostMapping("/add")
     public Result<Map<String, Object>> add(@RequestBody User user) {
         //System.out.println("新增用户信息："+user.toString());
-
         return userService.addUser(user);
     }
 
