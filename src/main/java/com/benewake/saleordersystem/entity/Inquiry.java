@@ -48,9 +48,9 @@ public class Inquiry {
     private String remark;
 
     public boolean exist(Inquiry inquiry){
-        if(inquiry.getExpectedTime().equals(expectedTime) || inquiry.getInquiryType().equals(inquiryType) ||
-            inquiry.getSaleNum().equals(saleNum) || inquiry.getState().equals(state) || inquiry.getSalesmanId().equals(salesmanId) ||
-                inquiry.getRemark().equals(remark) || inquiry.getCustomerId().equals(customerId) || inquiry.getItemId().equals(itemId) ||
+        if(inquiry.getExpectedTime().equals(expectedTime) && inquiry.getInquiryType().equals(inquiryType) &&
+            inquiry.getSaleNum().equals(saleNum) && inquiry.getState().equals(state) && inquiry.getSalesmanId().equals(salesmanId) &&
+                inquiry.getRemark().equals(remark) && inquiry.getCustomerId().equals(customerId) && inquiry.getItemId().equals(itemId) &&
                 inquiry.getArrangedTime().equals(arrangedTime)
         ){
             return true;

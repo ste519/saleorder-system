@@ -21,7 +21,7 @@ import java.util.UUID;
  */
 @RestController
 @RequestMapping("/consumer")
-public class ConsumerTest {
+public class ConsumerTestController {
     @Autowired
     RabbitTemplate rabbitTemplate;
     @GetMapping("/send")
