@@ -2,10 +2,8 @@ package com.benewake.saleordersystem.KindDee;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
 import com.benewake.saleordersystem.entity.Past.Withdraw;
-import com.benewake.saleordersystem.entity.Ysdd;
-import com.benewake.saleordersystem.model.Md;
 import com.benewake.saleordersystem.entity.Transfer.*;
-import com.benewake.saleordersystem.entity.Past.SaleOut;
+import com.benewake.saleordersystem.excel.model.Md;
 import com.benewake.saleordersystem.service.KingDeeService;
 import com.benewake.saleordersystem.utils.CommonUtils;
 import com.kingdee.bos.webapi.entity.IdentifyInfo;
@@ -170,21 +168,6 @@ public class DemoTest {
         List<SalerT> list = api.executeBillQuery(queryParam, SalerT.class);
         File file = new File("F:/测试.xlsx");
         CommonUtils.writeExcel(file,list, SalerT.class);
-    }
-
-    @Test
-    public void xsck() throws Exception {
-        QueryParam queryParam = new QueryParam();
-        queryParam.setFormId("SAL_OUTSTOCK");
-        queryParam.setFieldKeys("FBillNo,FCarriageNO,F_ora_Text2,F_ora_Remarks1");
-        //queryParam.setFilterString(String.format("FDate >= '%s'","2023-06-30"));
-        queryParam.setFilterString(String.format("FBillNo='%s'","XSCKD2023069400"));
-        //queryParam.setStartRow(300);
-        queryParam.setLimit(1);
-        List<Ysdd> list = api.executeBillQuery(queryParam, Ysdd.class);
-        File file = new File("F:/运输单号.xlsx");
-        CommonUtils.writeExcel(file,list,Ysdd.class);
-
     }
 
     @Test

@@ -3,7 +3,7 @@ package com.benewake.saleordersystem.excel;
 import com.alibaba.excel.context.AnalysisContext;
 import com.alibaba.excel.event.AnalysisEventListener;
 
-import com.benewake.saleordersystem.model.BillMaterialModel;
+import com.benewake.saleordersystem.excel.model.BillMaterialModel;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.ArrayList;

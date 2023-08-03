@@ -6,7 +6,7 @@ import com.alibaba.excel.exception.ExcelAnalysisException;
 import com.alibaba.excel.exception.ExcelAnalysisStopException;
 import com.alibaba.excel.read.metadata.holder.ReadRowHolder;
 import com.benewake.saleordersystem.entity.Inquiry;
-import com.benewake.saleordersystem.model.InquiryModel;
+import com.benewake.saleordersystem.excel.model.InquiryModel;
 import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.service.InquiryService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;

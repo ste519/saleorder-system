@@ -15,7 +15,7 @@ import com.benewake.saleordersystem.excel.InquiryExcelListener;
 import com.benewake.saleordersystem.mapper.InquiryCodeMapper;
 import com.benewake.saleordersystem.mapper.InquiryMapper;
 import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
-import com.benewake.saleordersystem.model.InquiryModel;
+import com.benewake.saleordersystem.excel.model.InquiryModel;
 import com.benewake.saleordersystem.service.*;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.CommonUtils;

@@ -20,13 +20,16 @@ public interface NoticeMapper extends BaseMapper<Notice> {
      * @return
      */
     @Select("<script>" +
-            "select FIM_user_name as username,create_time,update_time,message " +
+            "select id,create_user_id as createUserId,FIM_user_name as createUsername,create_time,update_time,message " +
             "from fim_notice_table " +
             "left join fim_users_table on create_user_id = FIM_user_id " +
             "where is_deleted = 0 " +
             "<if test='userId!=null'>" +
             "and create_user_id = #{userId} " +
             "</if>" +
+            "<if test='type!=null'>" +
+            "and type = #{type} " +
+            "</if>" +
             "</script>")
-    List<Map<String,Object>> findNoticeByUserId(@Param("userId")Long userId);
+    List<Map<String,Object>> findNoticeByUserId(@Param("userId")Long userId,@Param("type")Integer type);
 }

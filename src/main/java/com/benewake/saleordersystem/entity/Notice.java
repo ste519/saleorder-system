@@ -30,4 +30,6 @@ public class Notice {
     private Date updateTime;
     @TableField("is_deleted")
     private Integer deleted;
+    @TableField("type")
+    private Integer type;
 }

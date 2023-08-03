@@ -6,7 +6,6 @@ import com.benewake.saleordersystem.mapper.NoticeMapper;
 import com.benewake.saleordersystem.service.NoticeService;
 import org.springframework.stereotype.Service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -18,7 +17,7 @@ import java.util.Map;
 @Service
 public class NoticeServiceImpl extends ServiceImpl<NoticeMapper, Notice> implements NoticeService {
     @Override
-    public List<Map<String, Object>> getAllList(Long id) {
-        return baseMapper.findNoticeByUserId(id);
+    public List<Map<String, Object>> getAllList(Long id,Integer type) {
+        return baseMapper.findNoticeByUserId(id,type);
     }
 }

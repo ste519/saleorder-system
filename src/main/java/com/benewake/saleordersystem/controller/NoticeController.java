@@ -29,10 +29,16 @@ public class NoticeController {
     @Autowired
     private HostHolder hostHolder;
 
+    /**
+     * 查询通知
+     * type 0-普通通知 1-异常通知
+     * @param notice
+     * @return
+     */
     @ApiOperation("查询通知接口")
     @PostMapping("/find")
     public Result findNotice(@RequestBody Notice notice){
-        return Result.success(noticeService.getAllList(notice.getCreateUserId()));
+        return Result.success(noticeService.getAllList(notice.getCreateUserId(),notice.getType()));
     }
     @ApiOperation("保存通知接口")
     @PostMapping("/save")
@@ -55,6 +61,9 @@ public class NoticeController {
     public Result updateNotice(@RequestBody Notice notice){
         if(notice.getId()==null){
             return Result.fail().message("参数有误！");
+        }
+        if(notice.getType()!=null && notice.getType() < 0){
+            return Result.fail().message("通知类型参数有误！");
         }
         noticeService.updateById(notice);
         return Result.success();

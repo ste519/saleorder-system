@@ -17,5 +17,5 @@ public interface NoticeService extends IService<Notice> {
      *
      * @return
      */
-    List<Map<String,Object>> getAllList(Long id);
+    List<Map<String,Object>> getAllList(Long id,Integer type);
 }

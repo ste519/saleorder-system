@@ -1,4 +1,4 @@
-package com.benewake.saleordersystem.model;
+package com.benewake.saleordersystem.excel.model;
 
 import com.alibaba.excel.annotation.format.DateTimeFormat;
 import lombok.Data;
