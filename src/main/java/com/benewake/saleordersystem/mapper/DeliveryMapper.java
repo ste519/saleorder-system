@@ -24,10 +24,10 @@ public interface DeliveryMapper extends BaseMapper<Delivery> {
             "<set>" +
             "delivery_state = #{item.deliveryState} " +
             "<if test='item.receiveTime!=null'> " +
-            "receive_time = #{item.receiveTime} " +
+            ",receive_time = #{item.receiveTime} " +
             "</if> " +
             "<if test='item.deliveryLastestState!=null'> " +
-            "delivery_latest_state = #{item.deliveryLastestState} " +
+            ",delivery_latest_state = #{item.deliveryLastestState} " +
             "</if> " +
             "</set> " +
             "where inquiry_code = #{item.inquiryCode} " +
@@ -39,7 +39,7 @@ public interface DeliveryMapper extends BaseMapper<Delivery> {
             "<foreach collection='list' item='item' index='index' separator=';'>" +
             "update delivery_table " +
             "<set>" +
-            "delivery_code = #{item.deliveryCode} " +
+            "delivery_code = #{item.deliveryCode}, " +
             "delivery_phone = #{item.deliveryPhone} " +
             "</set> " +
             "where inquiry_code = #{item.inquiryCode} " +
@@ -94,10 +94,9 @@ public interface DeliveryMapper extends BaseMapper<Delivery> {
             "where inquiry_code in(" +
             "select inquiry_code from fim_inquiry_table " +
             "where (created_user = #{userId} or salesman_id = #{userId}) and state >= 0 " +
-            ") and (" +
+            ") and " +
             "delivery_code is not null and delivery_phone is not null " +
-            "and delivery_state != 80 " +
-            ")" +
+            "and receive_time is null " +
             "</script>")
     List<Delivery> selectUnFinisheDeliveriesByUser(@Param("userId")Long userId);
 

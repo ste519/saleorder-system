@@ -1,6 +1,5 @@
 package com.benewake.saleordersystem.service.impl;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.benewake.saleordersystem.entity.Delivery;
 import com.benewake.saleordersystem.entity.Inquiry;
 import com.benewake.saleordersystem.entity.sfexpress.Route;
@@ -50,7 +49,7 @@ public class DeliveryServiceImpl implements DeliveryService {
             saleOuts.forEach(s->{
                 //System.out.println(s.toString());
                 Delivery delivery = new Delivery();
-                delivery.setInquiryCode(s.getFNOTE());
+                delivery.setInquiryCode(s.getFIM());
                 delivery.setDeliveryCode(s.getFCarriageNO());
                 delivery.setDeliveryPhone(StringUtils.isBlank(s.getF_ora_Text2())?null:s.getF_ora_Text2()
                         .substring(s.getF_ora_Text2().length()-4));
@@ -63,11 +62,12 @@ public class DeliveryServiceImpl implements DeliveryService {
 
             // 获取所有状态未签收的订单信息
             List<Delivery> deliveries = deliveryMapper.selectUnFinisheDeliveriesByUser(hostHolder.getUser().getId());
+            deliveries.forEach(System.out::println);
             // 获取最新运输状态 并更新
             deliveries.forEach(c->{
                 try {
                     Route r = sFExpressService.getLastestRouteByFCarriageNO(c);
-                    //System.out.println(r.toString());
+                    System.out.println(r.toString());
                     if(r!=null){
                         if("80".equals(r.getOpCode())){
                             c.setReceiveTime(r.getAcceptTime());
