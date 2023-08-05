@@ -287,7 +287,7 @@ public class SaleOrderController implements BenewakeConstants {
     @LoginRequired
     public Result<String> deleteOrder(@RequestBody Map<String,Long> param){
         Long orderId = param.get("orderId");
-        System.out.println(orderId);
+        //System.out.println(orderId);
         boolean res = inquiryService.deleteOrder(orderId);
         if(!res){
             return Result.fail("订单不存在！",null);

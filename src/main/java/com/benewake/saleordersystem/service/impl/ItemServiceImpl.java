@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService , BenewakeConstants {
     @Override
     public int transferItemType(String itemType) {
         switch (itemType){
-            case "已有竞品":
+            case "已有标品":
                 return 1;
             case "已有定制":
                 return 2;
@@ -51,6 +51,8 @@ public class ItemServiceImpl implements ItemService , BenewakeConstants {
                 return 3;
             case "原材料定制":
                 return 4;
+            case "原材料+软件定制":
+                return 5;
             default:
                 return -1;
         }

@@ -35,8 +35,6 @@ public interface InquiryService {
      */
     List<Map<String,Object>> selectSalesOrderVoList(List<FilterCriteria> filters,String username);
 
-    List<Map<String,Object>> testItemFilter(List<FilterCriteria> filters, int offset, int limit);
-
     /**
      * 根据订单类型生成相应的单据编号
      * @param type
@@ -65,13 +63,6 @@ public interface InquiryService {
      * @return
      */
     boolean deleteOrder(Long orderId);
-
-    /**
-     * 判断询单是否已经存在（不考虑订单Id、订单编码、创建时间)
-     * @param inquiry
-     * @return
-     */
-    boolean isExist(Inquiry inquiry);
 
     /**
      * 判断订单类型是否合法

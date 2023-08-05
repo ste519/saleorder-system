@@ -55,8 +55,7 @@ public interface SalesOrderVoMapper extends BaseMapper<Map<String,Object>> {
             "when item_type = 3 or item_type = 4 or item_type = 5 then '是' else '错误' end) as customize," +
             "(case when customer_type is null then '日常' else customer_type end) as customer_type," +
             "(case when inquiry_init_type = 5 then '销售询单' when inquiry_init_type = 4 then '销售预测' " +
-            "when inquiry_init_type = 3 then '供应链预估' when inquiry_init_type = 2 then '客户提出付款意向' " +
-            "when inquiry_init_type = 1 then '客户付款' else '错误的初始类型' end) as inquiry_init_type " +
+            "else '错误的初始类型' end) as inquiry_init_type " +
             "from " +
             "(select fim_inquiry_table.inquiry_id,inquiry_code as inquiry_code,state as state,inquiry_init_type as inquiry_init_type," +
             "inquiry_type as inquiry_type,sale_num as sale_num,expected_time as expected_time," +

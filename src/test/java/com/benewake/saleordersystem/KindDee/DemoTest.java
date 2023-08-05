@@ -1,6 +1,7 @@
 package com.benewake.saleordersystem.KindDee;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
+import com.benewake.saleordersystem.entity.Past.SaleOut;
 import com.benewake.saleordersystem.entity.Past.Withdraw;
 import com.benewake.saleordersystem.entity.Transfer.*;
 import com.benewake.saleordersystem.excel.model.Md;
@@ -182,8 +183,11 @@ public class DemoTest {
 
     @Test
     public void testSelectFCarriageNO() throws Exception {
-//        SaleOut fCarriageNo = kingDeeService.selectFCarriageNO("XSDD2306131");
-//        System.out.println(fCarriageNo==null ?"无":fCarriageNo);
+        String formId = "SAL_OUTSTOCK";
+        List<String> fieldKeys = new ArrayList<>();
+        fieldKeys.add("FIM,FCarriageNO,F_ora_Text2");
+        List<SaleOut> lists = kingDeeService.searchData(formId,fieldKeys,null,Integer.MAX_VALUE, SaleOut.class);
+        lists.forEach(System.out::println);
     }
 
 }

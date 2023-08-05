@@ -274,9 +274,9 @@ public class KingDeeServiceImpl implements KingDeeService, BenewakeConstants {
         if(deliveries == null || deliveries.size() == 0) return new ArrayList<>();
         String formId = "SAL_OUTSTOCK";
         List<String> fieldKeys = new ArrayList<>();
-        fieldKeys.add("FNOTE,FCarriageNO,F_ora_Text2");
+        fieldKeys.add("FIM,FCarriageNO,F_ora_Text2");
         List<String> queryFields = new ArrayList<>();
-        deliveries.forEach(d->queryFields.add(String.format("FNOTE = '%s'",d.getInquiryCode())));
+        deliveries.forEach(d->queryFields.add(String.format("FIM = '%s'",d.getInquiryCode())));
         List<SaleOut> lists = searchData(formId,fieldKeys,String.join(" or ",queryFields),Integer.MAX_VALUE, SaleOut.class);
         return lists;
     }

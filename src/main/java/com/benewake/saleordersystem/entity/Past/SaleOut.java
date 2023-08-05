@@ -5,7 +5,6 @@ import com.alibaba.excel.annotation.ExcelProperty;
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
-import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
 
 /**
@@ -49,5 +48,5 @@ public class SaleOut {
     private String FSoorDerno;
 
     @ExcelProperty("fim单据编号")
-    private String FNOTE;
+    private String FIM;
 }

@@ -60,10 +60,12 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     @Override
     @TrackingTime
     public Map<String, Object> saveDataByExcel(MultipartFile file) {
+        // 获取当前用户所有有效订单
         LambdaQueryWrapper<Inquiry> lqw = new LambdaQueryWrapper<>();
-        lqw.and(a->a.eq(Inquiry::getSalesmanId,hostHolder.getUser().getId()).
-                or().eq(Inquiry::getCreatedUser,hostHolder.getUser().getId()));
+        lqw.and(a->a.ge(Inquiry::getState,0).and(b->b.eq(Inquiry::getSalesmanId,hostHolder.getUser().getId()).
+                or().eq(Inquiry::getCreatedUser,hostHolder.getUser().getId())));
         List<Inquiry> existList = inquiryMapper.selectList(lqw);
+        // 读取Excel
         InquiryExcelListener listener = new InquiryExcelListener(this,deliveryService,existList);
         Map<String,Object> map;
         try{
@@ -203,21 +205,6 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
                 queryWrapper3,queryWrapper4,queryWrapper5,queryWrapper6,queryWrapper7);
     }
 
-    /**
-     * 只是测试
-     * @param filters
-     * @param offset
-     * @param limit
-     * @return
-     */
-    @Override
-    public List<Map<String, Object>> testItemFilter(List<FilterCriteria> filters, int offset, int limit) {
-
-        QueryWrapper<List<Map<String,Object>>> queryWrapper = new QueryWrapper<>();
-        CommonUtils.addFilters(filters, queryWrapper);
-        return salesOrderVoMapper.getALL(queryWrapper,offset,limit);
-    }
-
 
     @Override
     public List<String> getDocumentNumberFormat(long type,int length) {
@@ -227,6 +214,8 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             s += "XSXD";
         }else if(ORDER_TYPE_YC == type){
             s += "XSYC";
+        }else{
+            return res;
         }
         // 拼接月份
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMM");
@@ -310,44 +299,13 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     }
 
     @Override
-    public boolean isExist(Inquiry inquiry) {
-        LambdaQueryWrapper<Inquiry> queryWrapper = new LambdaQueryWrapper<>();
-        queryWrapper.eq(Inquiry::getInquiryType,inquiry.getInquiryType())
-                .eq(Inquiry::getState,inquiry.getState())
-                .eq(Inquiry::getArrangedTime,inquiry.getArrangedTime())
-                .eq(Inquiry::getCreatedUser,inquiry.getCreatedUser())
-                .eq(Inquiry::getExpectedTime,inquiry.getExpectedTime())
-                .eq(inquiry.getRemark()!=null,Inquiry::getRemark,inquiry.getRemark())
-                .eq(Inquiry::getCustomerId,inquiry.getCustomerId())
-                .eq(Inquiry::getSaleNum,inquiry.getSaleNum())
-                .eq(Inquiry::getItemId,inquiry.getItemId())
-                .eq(Inquiry::getSalesmanId,inquiry.getSalesmanId())
-                .ne(Inquiry::getState,-1);
-        return inquiryMapper.selectOne(queryWrapper)!=null;
-    }
-
-    @Override
     public Integer transferType(String inquiryType) {
         Integer type = -1;
         if(StringUtils.isNotBlank(inquiryType)){
-            switch (inquiryType){
-                case "YC":
-                    type = ORDER_TYPE_YC;
-                    break;
-                case "PO":
-                    type = ORDER_TYPE_PO;
-                    break;
-                case "PR":
-                    type = ORDER_TYPE_PR;
-                    break;
-                case "YG":
-                    type = ORDER_TYPE_YG;
-                    break;
-                case "XD":
-                    type = ORDER_TYPE_XD;
-                    break;
-                default:
-                    type = -1;
+            if(inquiryType.contains("YC")){
+                type = ORDER_TYPE_YC;
+            }else if(inquiryType.contains("XD")){
+                type = ORDER_TYPE_XD;
             }
         }
         return type;
@@ -361,17 +319,17 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         Item item = itemService.findItemByCode(inquiryModel.getItemCode());
         if(item == null){
             map.put("error","第"+rowIndex+"行的物料编码在数据库中不存在，请核对");
-            log.error("第"+rowIndex+"行的物料编码在数据库中不存在，请核对");
+            //log.error("第"+rowIndex+"行的物料编码在数据库中不存在，请核对");
             return map;
         }
         if(!item.getItemName().equals(inquiryModel.getItemName())){
             map.put("error","第"+rowIndex+"行的物料编码和物料名称在数据库中不是对应的，请核对");
-            log.error("第"+rowIndex+"行的物料编码和物料名称在数据库中不是对应的，请核对");
+            //log.error("第"+rowIndex+"行的物料编码和物料名称在数据库中不是对应的，请核对");
             return map;
         }
         if(inquiryModel.getItemType() == null || item.getItemType()!=itemService.transferItemType(inquiryModel.getItemType())){
-            map.put("error","第"+rowIndex+"行的物料编码和物料类型在数据库中不是对应的，请核对");
-            log.error("第"+rowIndex+"行的物料编码和物料类型在数据库中不是对应的，请核对");
+            map.put("error","第"+rowIndex+"行的物料编码和产品类型在数据库中不是对应的，请核对");
+            //log.error("第"+rowIndex+"行的物料编码和物料类型在数据库中不是对应的，请核对");
             return map;
         }
         inquiry.setItemId(item.getId());
@@ -379,13 +337,13 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         Customer c = customerService.findCustomerByName(inquiryModel.getCustomerName());
         if(c==null){
             map.put("error","第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
-            log.error("第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
+            //log.error("第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
             return map;
         }
         String ct = customerTypeService.getCustomerTypeByRule(c.getFCustId(),item.getId());
         if(ct==null || inquiryModel.getCustomerType() == null || !ct.equals(inquiryModel.getCustomerType())){
             map.put("error","第"+rowIndex+"行的客户类型与数据库对应关系不匹配或不存在，请核对");
-            log.error("第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
+            //log.error("第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
             return map;
         }
         inquiry.setCustomerId(c.getFCustId());
@@ -393,7 +351,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         User salesman = userService.findSalesmanByName(inquiryModel.getSalesmanName());
         if(salesman == null){
             map.put("error","第"+rowIndex+"行的销售员名称在数据库中不存在，请核对");
-            log.error("第"+rowIndex+"行的销售员名称在数据库中不存在，请核对");
+            //log.error("第"+rowIndex+"行的销售员名称在数据库中不存在，请核对");
             return map;
         }
         inquiry.setSalesmanId(salesman.getId());
@@ -405,7 +363,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         int type;
         if((type = transferType(inquiryModel.getInquiryType()))==-1){
             map.put("error","第"+rowIndex+"行的订单类型有误，请修改并重试！");
-            log.error("第"+rowIndex+"行的订单类型有误，请修改并重试！");
+            //log.error("第"+rowIndex+"行的订单类型有误，请修改并重试！");
             return map;
         }
         inquiry.setInquiryType(type);
@@ -429,7 +387,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             }
         }catch (Exception e){
             map.put("error","第"+rowIndex+"行的时间数据有误，请检查！");
-            log.error("第"+rowIndex+"行的时间数据有误，请检查！");
+            //log.error("第"+rowIndex+"行的时间数据有误，请检查！");
             return map;
         }
         // 设置备注
@@ -439,15 +397,9 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             inquiry.setSaleNum(Long.parseLong(inquiryModel.getNum()));
         }catch (Exception e) {
             map.put("error","第"+rowIndex+"行的数量可能不是数字或长度有误，请检查！");
-            log.error("第"+rowIndex+"行的数量可能不是数字或长度有误，请检查！");
+            //log.error("第"+rowIndex+"行的数量可能不是数字或长度有误，请检查！");
             return map;
         }
-        // 判断是否重复
-//        if(isExist(inquiry)){
-//            map.put("error","第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
-//            log.error("第"+rowIndex+"行数据在数据库中已存在，请检查是否重复添加！");
-//            return map;
-//        }
         map.put("inquiry",inquiry);
         return map;
     }

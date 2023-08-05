@@ -24,7 +24,7 @@ public class SFTest {
 
     @Test
     public void testSF(){
-        SF_SEARCH_RESULT result = sfExpressService.findRoutesByCode("SF1455058081013","2831");
+        SF_SEARCH_RESULT result = sfExpressService.findRoutesByCode("SF1420610891305","1917");
         System.out.println(result.toString());
     }
 
