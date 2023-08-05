@@ -2,7 +2,6 @@ package com.benewake.saleordersystem.mapper;
 
 import com.benewake.saleordersystem.SaleOrderSystemApplication;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
-import com.benewake.saleordersystem.service.AlphaService;
 import com.benewake.saleordersystem.service.PastOrderService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import org.junit.jupiter.api.Test;

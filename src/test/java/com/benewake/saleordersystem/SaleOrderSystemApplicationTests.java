@@ -1,28 +1,16 @@
 package com.benewake.saleordersystem;
 
-import com.benewake.saleordersystem.entity.Inquiry;
-import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.entity.api.holiday.Holiday;
 import com.benewake.saleordersystem.mapper.UserMapper;
-import com.benewake.saleordersystem.service.AlphaService;
 import com.benewake.saleordersystem.service.DeliveryService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.CommonUtils;
 import com.benewake.saleordersystem.utils.api.HolidayUtils;
-import jnr.ffi.annotations.In;
 import org.junit.jupiter.api.Test;
-import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
 
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 @SpringBootTest
@@ -32,8 +20,6 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
     @Autowired
     private UserMapper userMap;
 
-    @Autowired
-    private AlphaService alphaService;
     @Autowired
     DeliveryService deliveryService;
 
