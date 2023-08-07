@@ -44,6 +44,20 @@ public class SaleOrderController implements BenewakeConstants {
     @Autowired
     private ViewService viewService;
 
+        @PostMapping("/inquiryTypeList")
+    public Result getInquiryTypeList(@RequestBody Map<String,Object> param){
+        String key = (String) param.get("inquiryType");
+        if(key==null) key = "";
+        return Result.success(inquiryService.getInquiryTypeList(key));
+    }
+    @PostMapping("/inquiryCodeList")
+    public Result getInquiryLikeList(@RequestBody Map<String,Object> param){
+        String key = (String) param.get("inquiryCode");
+        if(key==null) key = "";
+        List<Inquiry> res = inquiryService.getInquiryCodeLikeList(key);
+        return Result.success(res);
+    }
+
     /**
      * 已登录用户根据tableid获取对应的新增视图，若无新增视图则为空
      * @return
@@ -219,7 +233,7 @@ public class SaleOrderController implements BenewakeConstants {
             List<String> fail = new ArrayList<>();
             List<Inquiry> success = new ArrayList<>();
             int ind = 1;
-            for(int i=0;i<newInquiries.size();++i){
+            for(int i=0;i<newInquiries.size();++i,++ind){
                 Inquiry inquiry = newInquiries.get(i);
                 Item item = itemService.findItemById(inquiry.getItemId());
                 Long is = null;
@@ -238,13 +252,14 @@ public class SaleOrderController implements BenewakeConstants {
                 return Result.fail("序号"+String.join(",",fail)+"。请飞书联系计划！",null);
             }
             if(success.size() > 0){
-                //map.put("success",success.size()+"个订单开始询单！");
+                map.put("success",success.size()+"个订单开始询单！");
 
-                // 询单功能（待添加)   异步
+                // 询单功能（待添加)   异步或消息队列
 
-
-                // 设置state+1
+                // 设置state+1 （之后移到异步操作中或使用消息队列）
                 success.forEach(s->s.setState(s.getState()+1));
+                // 更新数据库  （之后移到异步操作中或使用消息队列）
+                inquiryService.updateByInquiry(success);
                 return Result.success("已开始询单！",map);
             }
         }

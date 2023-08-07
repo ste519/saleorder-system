@@ -57,4 +57,10 @@ public interface ItemMapper extends BaseMapper<Item> {
             "where item_code like #{itemCode}" +
             "</script>")
     List<Map<String,Object>> selectCodeLikeList(String itemCode);
+
+    @Select("<script>" +
+            "select item_type_name from item_type_dic " +
+            "where item_type_name like #{type}" +
+            "</script>")
+    List<String> getItemTypeList(@Param("type") String s);
 }

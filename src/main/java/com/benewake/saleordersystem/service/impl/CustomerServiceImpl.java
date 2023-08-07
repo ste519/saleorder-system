@@ -66,4 +66,9 @@ public class CustomerServiceImpl implements CustomerService {
         queryWrapper.eq(Customer::getFName,customerName);
         return customerMapper.selectOne(queryWrapper);
     }
+
+    @Override
+    public List<String> getCustomerTypeLikeList(String type) {
+        return customerMapper.getCustomerTypeLikeList("%"+type+"%");
+    }
 }

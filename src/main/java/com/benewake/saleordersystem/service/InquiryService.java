@@ -92,4 +92,26 @@ public interface InquiryService {
      * @return
      */
     boolean containsCode(String inquiryCode);
+
+    /**
+     * 更新state 和 arrangeTime
+     * @param success
+     * @return
+     */
+    Integer updateByInquiry(List<Inquiry> success);
+
+    /**
+     * 获取单据编号模糊匹配结果
+     *
+     * @param key
+     * @return
+     */
+    List<Inquiry> getInquiryCodeLikeList(String key);
+
+    /**
+     * 获取订单状态模糊匹配结果
+     * @param key
+     * @return
+     */
+    List<String> getInquiryTypeList(String key);
 }

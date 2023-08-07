@@ -7,9 +7,9 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
 
 /**
  * @author Lcs
@@ -40,5 +40,19 @@ public class DeliveryController {
         return Result.fail("运输状态更新失败，请重试！",null);
     }
 
+    @PostMapping("/deliveryCodeList")
+    @LoginRequired
+    public Result getDeliveryCodeList(@RequestBody Map<String,Object> param){
+        String deliveryCode = (String) param.get("deliveryCode");
+        if(deliveryCode == null) deliveryCode = "";
+        return Result.success(deliveryService.getDeliveryCodeList(deliveryCode));
+    }
+
+    @PostMapping("/deliveryStateList")
+    public Result getDeliveryStateList(@RequestBody Map<String,Object> param){
+        String deliveryState = (String) param.get("deliveryState");
+        if(deliveryState==null) deliveryState = "";
+        return Result.success(deliveryService.getDeliveryStateList(deliveryState));
+    }
 
 }

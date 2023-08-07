@@ -32,10 +32,25 @@ public class ItemController {
     @Autowired
     private HostHolder hostHolder;
 
+    @PostMapping("/itemTypeList")
+    public Result getItemTypeList(@RequestBody Map<String,Object> param){
+        String itemType = (String) param.get("itemType");
+        if(itemType==null) itemType = "";
+        return Result.success(itemService.getItemTypeList(itemType));
+    }
+
     @PostMapping("/likeList")
     public Result getlikeItemList(@RequestBody Map<String,Object> param){
         String itemCode = (String) param.get("itemCode");
+        if(itemCode==null) itemCode = "";
         return Result.success(itemService.itemCodeLikeList(itemCode));
+    }
+    
+    @PostMapping("/itemNameList")
+    public Result getItemNameList(@RequestBody Map<String,Object> param){
+        String key = (String) param.get("itemName");
+        if(key==null) key = "";
+        return Result.success(itemService.getItemNameList(key));
     }
 
     @PostMapping("/follow")

@@ -57,4 +57,16 @@ public class ItemServiceImpl implements ItemService , BenewakeConstants {
                 return -1;
         }
     }
+
+    @Override
+    public List<Item> getItemNameList(String key) {
+        LambdaQueryWrapper<Item> lqw = new LambdaQueryWrapper<>();
+        lqw.select(Item::getItemName).like(Item::getItemName,key);
+        return itemMapper.selectList(lqw);
+    }
+
+    @Override
+    public List<String> getItemTypeList(String itemType) {
+        return itemMapper.getItemTypeList("%"+itemType+"%");
+    }
 }

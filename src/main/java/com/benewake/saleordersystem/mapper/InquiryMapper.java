@@ -33,4 +33,28 @@ public interface InquiryMapper extends BaseMapper<Inquiry> {
     @Options(useGeneratedKeys = true,keyProperty = "inquiryId")
     int insertInquiries(@Param("lists") List<Inquiry> lists);
 
+    /**
+     * 更新state 和 arrangeTIme
+     * @param success
+     * @return
+     */
+    @Update("<script>" +
+            "<foreach collection='list' item='item' index='index' separator=';'>" +
+            "update fim_inquiry_table " +
+            "<set>" +
+            "state = #{item.state} " +
+            "<if test='item.arrangedTime!=null'> " +
+            ",arranged_time = #{item.arrangedTime} " +
+            "</if> " +
+            "</set> " +
+            "where inquiry_id = #{item.inquiryId} " +
+            "</foreach> " +
+            "</script>")
+    Integer ipdateByInquiry(@Param("list") List<Inquiry> success);
+
+    @Select("<script>" +
+            "select inquiry_type_name from inquiry_type_dic " +
+            "where inquiry_type_name like #{type}" +
+            "</script>")
+    List<String> getInquiryTypeList(@Param("type") String s);
 }
