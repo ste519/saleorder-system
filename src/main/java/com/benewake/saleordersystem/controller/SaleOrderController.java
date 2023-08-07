@@ -172,9 +172,7 @@ public class SaleOrderController implements BenewakeConstants {
     public Result<Map<String,Object>> addInquiries(@RequestBody StartInquiryVo param){
         List<Inquiry> newInquiries = param.getInquiryList();
         Integer startInquiry = param.getStartInquiry();
-//        for(Inquiry inquiry : newInquiries){
-//            System.out.println(inquiry.toString());
-//        }
+
         Map<String,Object> map = new HashMap<>();
         if(newInquiries == null){
             return Result.fail("请添加至少一条询单信息",null);
@@ -216,7 +214,7 @@ public class SaleOrderController implements BenewakeConstants {
             }
             map.put("ids",ids);
         }
-        // 询单  类型修改
+        // 询单
         if(startInquiry!=null && startInquiry != 0){
             List<String> fail = new ArrayList<>();
             List<Inquiry> success = new ArrayList<>();
@@ -224,8 +222,12 @@ public class SaleOrderController implements BenewakeConstants {
             for(int i=0;i<newInquiries.size();++i){
                 Inquiry inquiry = newInquiries.get(i);
                 Item item = itemService.findItemById(inquiry.getItemId());
+                Long is = null;
                 if(item.getItemType() == ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE ||
-                        item.getItemType() == ITEM_TYPE_RAW_MATERIALS_BESPOKE || inquiry.getSaleNum()<=0){
+                        item.getItemType() == ITEM_TYPE_RAW_MATERIALS_BESPOKE ||
+                        item.getQuantitative()==0 || inquiry.getSaleNum()>item.getQuantitative()){
+                    // 询单失败
+                    // 物料类型为 新增原材料+软件定制 或 新增原材料定制 或 物料标准数量为0 或 当前数量大于物料标准数量
                     fail.add(String.valueOf(ind));
                 }else{
                     success.add(inquiry);
@@ -239,7 +241,7 @@ public class SaleOrderController implements BenewakeConstants {
                 //map.put("success",success.size()+"个订单开始询单！");
 
                 // 询单功能（待添加)   异步
-                
+
 
                 // 设置state+1
                 success.forEach(s->s.setState(s.getState()+1));
