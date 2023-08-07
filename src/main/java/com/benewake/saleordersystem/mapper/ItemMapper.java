@@ -45,6 +45,11 @@ public interface ItemMapper extends BaseMapper<Item> {
             "</script>")
     List<Map<String,Object>> getInventories(@Param("userId")Long userId,@Param("startTime")String startTime,@Param("endTime")String endTime);
 
+    /**
+     * 订单编码模糊查询
+     * @param itemCode
+     * @return
+     */
     @Select("<script>" +
             "select item_id as id,item_code as itemCode,item_name as itemName," +
             "b.item_type_name as itemType from fim_item_table as a " +

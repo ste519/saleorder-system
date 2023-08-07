@@ -2,17 +2,11 @@ package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
 import com.benewake.saleordersystem.annotation.TrackingTime;
-import com.benewake.saleordersystem.entity.Inquiry;
-import com.benewake.saleordersystem.entity.User;
+import com.benewake.saleordersystem.entity.*;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.entity.VO.FilterVo;
 import com.benewake.saleordersystem.entity.VO.StartInquiryVo;
-import com.benewake.saleordersystem.entity.View;
-import com.benewake.saleordersystem.entity.ViewCol;
-import com.benewake.saleordersystem.service.DeliveryService;
-import com.benewake.saleordersystem.service.InquiryService;
-import com.benewake.saleordersystem.service.ViewColService;
-import com.benewake.saleordersystem.service.ViewService;
+import com.benewake.saleordersystem.service.*;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
@@ -41,6 +35,8 @@ public class SaleOrderController implements BenewakeConstants {
     private InquiryService inquiryService;
     @Autowired
     private DeliveryService deliveryService;
+    @Autowired
+    private ItemService itemService;
     @Autowired
     private HostHolder hostHolder;
     @Autowired
@@ -220,15 +216,16 @@ public class SaleOrderController implements BenewakeConstants {
             }
             map.put("ids",ids);
         }
-        // 询单
+        // 询单  类型修改
         if(startInquiry!=null && startInquiry != 0){
             List<String> fail = new ArrayList<>();
             List<Inquiry> success = new ArrayList<>();
             int ind = 1;
             for(int i=0;i<newInquiries.size();++i){
                 Inquiry inquiry = newInquiries.get(i);
-                if(inquiry.getInquiryType().equals(ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE) ||
-                        inquiry.getInquiryType().equals(ITEM_TYPE_RAW_MATERIALS_BESPOKE) || inquiry.getSaleNum()<=0){
+                Item item = itemService.findItemById(inquiry.getItemId());
+                if(item.getItemType() == ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE ||
+                        item.getItemType() == ITEM_TYPE_RAW_MATERIALS_BESPOKE || inquiry.getSaleNum()<=0){
                     fail.add(String.valueOf(ind));
                 }else{
                     success.add(inquiry);
@@ -242,8 +239,10 @@ public class SaleOrderController implements BenewakeConstants {
                 //map.put("success",success.size()+"个订单开始询单！");
 
                 // 询单功能（待添加)   异步
-                // 设置state+1
+                
 
+                // 设置state+1
+                success.forEach(s->s.setState(s.getState()+1));
                 return Result.success("已开始询单！",map);
             }
         }

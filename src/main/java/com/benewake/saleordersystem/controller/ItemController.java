@@ -40,12 +40,12 @@ public class ItemController {
 
     @PostMapping("/follow")
     @LoginRequired
-    public Result<String> setTop(@RequestBody ItemVo itemVo){
+    public Result setTop(@RequestBody ItemVo itemVo){
         User u = hostHolder.getUser();
 
 
 
-        return Result.success(200,"置顶成功！",null);
+        return Result.success().message("置顶成功！");
     }
 
 
