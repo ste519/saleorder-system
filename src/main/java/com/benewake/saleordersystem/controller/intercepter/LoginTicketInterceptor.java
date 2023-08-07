@@ -15,6 +15,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.util.Date;
 
+/**
+ * @author Lcs
+ */
 @Component
 public class LoginTicketInterceptor implements HandlerInterceptor {
 

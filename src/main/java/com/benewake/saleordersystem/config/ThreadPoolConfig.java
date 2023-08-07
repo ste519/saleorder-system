@@ -23,8 +23,8 @@ public class ThreadPoolConfig {
     // 队列大小
     private static final int QUEUE_SIZE = 10;
 
-
-    @Bean
+    public static final String ASYN_EXECUTOR_NAME = "asynExecutor";
+    @Bean(ASYN_EXECUTOR_NAME)
     public ThreadPoolTaskExecutor myThreadPoolTask(){
         ThreadPoolTaskExecutor taskExecutor = new ThreadPoolTaskExecutor();
         taskExecutor.setCorePoolSize(CORE_POLL_SIZE);
