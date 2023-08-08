@@ -31,6 +31,15 @@ public class CustomerController {
     @Autowired
     private CustomerTypeService customerTypeService;
 
+    @PostMapping("/typeList")
+    public Result getCustomerTypeLikeList(@RequestBody Map<String,Object> param){
+        String type = (String) param.get("customerType");
+        if (type == null) {
+            type = "";
+        }
+        return Result.success(customerService.getCustomerTypeLikeList(type));
+    }
+
     @PostMapping("/likeList")
     public Result<List<Customer>> getCustomerLikeList(@RequestBody Map<String,Object> param){
         String customerName = (String) param.get("customerName");

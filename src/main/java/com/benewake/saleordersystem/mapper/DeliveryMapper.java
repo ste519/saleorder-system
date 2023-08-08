@@ -100,4 +100,9 @@ public interface DeliveryMapper extends BaseMapper<Delivery> {
             "</script>")
     List<Delivery> selectUnFinisheDeliveriesByUser(@Param("userId")Long userId);
 
+    @Select("<script>" +
+            "select delivery_latest_state from delivery_table " +
+            "where delivery_latest_state like #{deliveryState} " +
+            "</script>")
+    List<String> getDeliveryStateList(@Param("deliveryState") String deliveryState);
 }

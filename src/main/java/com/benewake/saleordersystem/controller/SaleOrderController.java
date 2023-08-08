@@ -2,17 +2,11 @@ package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
 import com.benewake.saleordersystem.annotation.TrackingTime;
-import com.benewake.saleordersystem.entity.Inquiry;
-import com.benewake.saleordersystem.entity.User;
+import com.benewake.saleordersystem.entity.*;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.entity.VO.FilterVo;
 import com.benewake.saleordersystem.entity.VO.StartInquiryVo;
-import com.benewake.saleordersystem.entity.View;
-import com.benewake.saleordersystem.entity.ViewCol;
-import com.benewake.saleordersystem.service.DeliveryService;
-import com.benewake.saleordersystem.service.InquiryService;
-import com.benewake.saleordersystem.service.ViewColService;
-import com.benewake.saleordersystem.service.ViewService;
+import com.benewake.saleordersystem.service.*;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
@@ -42,11 +36,27 @@ public class SaleOrderController implements BenewakeConstants {
     @Autowired
     private DeliveryService deliveryService;
     @Autowired
+    private ItemService itemService;
+    @Autowired
     private HostHolder hostHolder;
     @Autowired
     private ViewColService viewColService;
     @Autowired
     private ViewService viewService;
+
+        @PostMapping("/inquiryTypeList")
+    public Result getInquiryTypeList(@RequestBody Map<String,Object> param){
+        String key = (String) param.get("inquiryType");
+        if(key==null) key = "";
+        return Result.success(inquiryService.getInquiryTypeList(key));
+    }
+    @PostMapping("/inquiryCodeList")
+    public Result getInquiryLikeList(@RequestBody Map<String,Object> param){
+        String key = (String) param.get("inquiryCode");
+        if(key==null) key = "";
+        List<Inquiry> res = inquiryService.getInquiryCodeLikeList(key);
+        return Result.success(res);
+    }
 
     /**
      * 已登录用户根据tableid获取对应的新增视图，若无新增视图则为空
@@ -176,9 +186,7 @@ public class SaleOrderController implements BenewakeConstants {
     public Result<Map<String,Object>> addInquiries(@RequestBody StartInquiryVo param){
         List<Inquiry> newInquiries = param.getInquiryList();
         Integer startInquiry = param.getStartInquiry();
-//        for(Inquiry inquiry : newInquiries){
-//            System.out.println(inquiry.toString());
-//        }
+
         Map<String,Object> map = new HashMap<>();
         if(newInquiries == null){
             return Result.fail("请添加至少一条询单信息",null);
@@ -225,10 +233,15 @@ public class SaleOrderController implements BenewakeConstants {
             List<String> fail = new ArrayList<>();
             List<Inquiry> success = new ArrayList<>();
             int ind = 1;
-            for(int i=0;i<newInquiries.size();++i){
+            for(int i=0;i<newInquiries.size();++i,++ind){
                 Inquiry inquiry = newInquiries.get(i);
-                if(inquiry.getInquiryType().equals(ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE) ||
-                        inquiry.getInquiryType().equals(ITEM_TYPE_RAW_MATERIALS_BESPOKE) || inquiry.getSaleNum()<=0){
+                Item item = itemService.findItemById(inquiry.getItemId());
+                Long is = null;
+                if(item.getItemType() == ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE ||
+                        item.getItemType() == ITEM_TYPE_RAW_MATERIALS_BESPOKE ||
+                        item.getQuantitative()==0 || inquiry.getSaleNum()>item.getQuantitative()){
+                    // 询单失败
+                    // 物料类型为 新增原材料+软件定制 或 新增原材料定制 或 物料标准数量为0 或 当前数量大于物料标准数量
                     fail.add(String.valueOf(ind));
                 }else{
                     success.add(inquiry);
@@ -239,11 +252,14 @@ public class SaleOrderController implements BenewakeConstants {
                 return Result.fail("序号"+String.join(",",fail)+"。请飞书联系计划！",null);
             }
             if(success.size() > 0){
-                //map.put("success",success.size()+"个订单开始询单！");
+                map.put("success",success.size()+"个订单开始询单！");
 
-                // 询单功能（待添加)   异步
-                // 设置state+1
+                // 询单功能（待添加)   异步或消息队列
 
+                // 设置state+1 （之后移到异步操作中或使用消息队列）
+                success.forEach(s->s.setState(s.getState()+1));
+                // 更新数据库  （之后移到异步操作中或使用消息队列）
+                inquiryService.updateByInquiry(success);
                 return Result.success("已开始询单！",map);
             }
         }

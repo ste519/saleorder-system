@@ -22,5 +22,7 @@ public class Item {
     private String itemName;
     @TableField("item_type")
     private int itemType;
+    @TableField("quantitative")
+    private Long quantitative;
 
 }

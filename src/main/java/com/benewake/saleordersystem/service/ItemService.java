@@ -38,4 +38,18 @@ public interface ItemService {
      * @return
      */
     int transferItemType(String itemType);
+
+    /**
+     * 模糊匹配物料名称
+     * @param key
+     * @return
+     */
+    List<Item> getItemNameList(String key);
+
+    /**
+     * 模糊匹配产品类型
+     * @param itemType
+     * @return
+     */
+    List<String> getItemTypeList(String itemType);
 }

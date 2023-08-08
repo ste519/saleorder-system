@@ -109,15 +109,15 @@ public interface BenewakeConstants {
      */
     int ITEM_TYPE_ALREADY_BESPOKE = 2;
     /**
-     * 产品类型：软件定制
+     * 产品类型：新增软件定制
      */
     int ITEM_TYPE_SOFTWARE_BESPOKE = 3;
     /**
-     * 产品类型：原材料定制
+     * 产品类型：新增原材料定制
      */
     int ITEM_TYPE_RAW_MATERIALS_BESPOKE = 4;
     /**
-     * 产品类型：原材料+软件定制
+     * 产品类型：新增原材料+软件定制
      */
     int ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE = 5;
 

@@ -37,4 +37,10 @@ public interface CustomerService {
      */
     Customer findCustomerByName(String customerName);
 
+    /**
+     * 获取客户类型模糊匹配列表
+     * @param type
+     * @return
+     */
+    List<String> getCustomerTypeLikeList(String type);
 }

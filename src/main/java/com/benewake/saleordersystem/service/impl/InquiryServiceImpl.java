@@ -179,7 +179,7 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
 
         QueryWrapper<Inquiry> queryWrapper7 = new QueryWrapper<>();
         f1 = new ArrayList<>();
-        String[] str7 = {"customer_type","item_type","inquiry_type","delay","order_delivery_progress"};
+        String[] str7 = {"customer_type","item_type","inquiry_type","delay","order_delivery_progress","customize"};
         for(String s : str7){
             if(map.containsKey(s)){
                 f1.add(filters.get(map.get(s)));
@@ -414,4 +414,22 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
                 .ne(Inquiry::getState,-1);
         return inquiryMapper.selectList(lqw).size()>0;
     }
+
+    @Override
+    public Integer updateByInquiry(List<Inquiry> success) {
+        return inquiryMapper.ipdateByInquiry(success);
+    }
+
+    @Override
+    public List<Inquiry> getInquiryCodeLikeList(String key) {
+        LambdaQueryWrapper<Inquiry> lqw = new LambdaQueryWrapper<>();
+        lqw.select(Inquiry::getInquiryCode).like(Inquiry::getInquiryCode,key);
+        return inquiryMapper.selectList(lqw);
+    }
+
+    @Override
+    public List<String> getInquiryTypeList(String key) {
+        return inquiryMapper.getInquiryTypeList("%"+key+"%");
+    }
+
 }

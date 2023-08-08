@@ -47,14 +47,26 @@ public class ItemServiceImpl implements ItemService , BenewakeConstants {
                 return 1;
             case "已有定制":
                 return 2;
-            case "软件定制":
+            case "新增软件定制":
                 return 3;
-            case "原材料定制":
+            case "新增原材料定制":
                 return 4;
-            case "原材料+软件定制":
+            case "新增原材料+软件定制":
                 return 5;
             default:
                 return -1;
         }
+    }
+
+    @Override
+    public List<Item> getItemNameList(String key) {
+        LambdaQueryWrapper<Item> lqw = new LambdaQueryWrapper<>();
+        lqw.select(Item::getItemName).like(Item::getItemName,key);
+        return itemMapper.selectList(lqw);
+    }
+
+    @Override
+    public List<String> getItemTypeList(String itemType) {
+        return itemMapper.getItemTypeList("%"+itemType+"%");
     }
 }

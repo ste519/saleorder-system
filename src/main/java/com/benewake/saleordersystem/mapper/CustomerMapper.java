@@ -5,6 +5,7 @@ import com.benewake.saleordersystem.entity.Customer;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
+import org.apache.ibatis.annotations.Select;
 
 import java.util.List;
 
@@ -21,4 +22,9 @@ public interface CustomerMapper extends BaseMapper<Customer> {
             "</script>")
     int updateCustomer(@Param("customers") List<Customer> customers);
 
+    @Select("<script>" +
+            "Select customer_type from customer_type_dic " +
+            "where customer_type like #{type} " +
+            "</script>")
+    List<String> getCustomerTypeLikeList(@Param("type") String s);
 }

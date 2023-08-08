@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.benewake.saleordersystem.entity.Delivery;
 import com.benewake.saleordersystem.entity.Inquiry;
 import com.benewake.saleordersystem.entity.sfexpress.Route;
@@ -94,5 +95,17 @@ public class DeliveryServiceImpl implements DeliveryService {
     @Override
     public int insertLists(List<Inquiry> lists) {
         return deliveryMapper.insertLists(lists);
+    }
+
+    @Override
+    public List<Delivery> getDeliveryCodeList(String deliveryCode) {
+        LambdaQueryWrapper<Delivery> lqw = new LambdaQueryWrapper<>();
+        lqw.select(Delivery::getDeliveryCode).like(Delivery::getDeliveryCode,deliveryCode);
+        return deliveryMapper.selectList(lqw);
+    }
+
+    @Override
+    public List<String> getDeliveryStateList(String deliveryState) {
+        return deliveryMapper.getDeliveryStateList("%"+deliveryState+"%");
     }
 }
