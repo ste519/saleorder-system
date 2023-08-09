@@ -69,7 +69,7 @@ public class CommonUtils implements BenewakeConstants{
     public static String getJSONString(int code, String msg, Map<String,Object> map){
         JSONObject json = new JSONObject();
         json.put("code",code);
-        json.put("msg",msg);
+        json.put("message",msg);
         if(map!=null){
             for(String key : map.keySet()){
                 json.put(key,map.get(key));
@@ -94,7 +94,6 @@ public class CommonUtils implements BenewakeConstants{
      * @return
      */
     public static boolean writeExcel(File file, List data,Class type,String sheetName){
-        //1、创建一个文件对象
         //2、判断文件是否存在，不存在则创建一个Excel文件
         if (!file.exists()) {
             try {

@@ -4,12 +4,13 @@ import com.benewake.saleordersystem.entity.Past.PastOrder;
 import com.benewake.saleordersystem.entity.Past.SaleOut;
 import com.benewake.saleordersystem.entity.Past.Withdraw;
 import com.benewake.saleordersystem.mapper.PastOrderMapper;
+import com.benewake.saleordersystem.mapper.StoredProceduresMapper;
 import com.benewake.saleordersystem.service.KingDeeService;
 import com.benewake.saleordersystem.service.PastOrderService;
 import lombok.val;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -29,6 +30,8 @@ public class PastOrderServiceImpl implements PastOrderService {
     private PastOrderMapper pastOrderMapper;
     @Autowired
     private KingDeeService kingDeeService;
+    @Autowired
+    private StoredProceduresMapper storedProceduresMapper;
 
     volatile private static Long updateTime = 0L;
 
@@ -63,6 +66,7 @@ public class PastOrderServiceImpl implements PastOrderService {
     }
 
     @Override
+    @Transactional(rollbackFor = Exception.class)
     public int savePastOrder(boolean reloadAll) {
         // 取数限制
         int num = Integer.MAX_VALUE;
@@ -107,10 +111,10 @@ public class PastOrderServiceImpl implements PastOrderService {
 
             res = pastOrderMapper.insertPastOrders(list);
             updateTime = System.currentTimeMillis();
-
-            // System.out.println(new Date(updateTime));
+            storedProceduresMapper.doReloadPastOrdersAnalysisTempTables(365,1.5,2);
         }catch (Exception e){
             e.printStackTrace();
+            throw new RuntimeException(e.getMessage());
         }finally {
             lock.unlock();
         }

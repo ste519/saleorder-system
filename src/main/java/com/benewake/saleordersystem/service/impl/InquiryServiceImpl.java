@@ -214,7 +214,9 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             s += "XSXD";
         }else if(ORDER_TYPE_YC == type){
             s += "XSYC";
-        }else{
+        }else if(ORDER_TYPE_YG == type){
+            s += "XSYG";
+        }else {
             return res;
         }
         // 拼接月份

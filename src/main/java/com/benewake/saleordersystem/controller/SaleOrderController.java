@@ -11,6 +11,7 @@ import com.benewake.saleordersystem.service.*;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
+import lombok.extern.slf4j.Slf4j;
 import lombok.val;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -30,6 +31,7 @@ import java.util.*;
 @Controller
 @RequestMapping("/order")
 @ResponseBody
+@Slf4j
 public class SaleOrderController implements BenewakeConstants {
 
     @Autowired
@@ -183,14 +185,14 @@ public class SaleOrderController implements BenewakeConstants {
     }
 
     /**
-     * 保存询单信息 及 开始询单
+     * 新增询单信息 及 开始询单 （只能新增或询单）
      * startInquiry = 1 表示询单
      * @return
      */
     @PostMapping("/save")
     @SalesmanRequired
     @Transactional
-    public Result<Map<String,Object>> addInquiries(@RequestBody StartInquiryVo param){
+    public Result addInquiries(@RequestBody StartInquiryVo param){
         List<Inquiry> newInquiries = param.getInquiryList();
         Integer startInquiry = param.getStartInquiry();
 
@@ -198,7 +200,8 @@ public class SaleOrderController implements BenewakeConstants {
         if(newInquiries == null){
             return Result.fail("请添加至少一条询单信息",null);
         }
-        if(startInquiry == 0 || newInquiries.get(0).getInquiryCode()==null){
+        // 保存 且 单据id不存在
+        if(startInquiry == 0 || newInquiries.get(0).getInquiryId()==null){
             User user = hostHolder.getUser();
             Date nowTime = new Date();
             if(newInquiries.get(0).getInquiryType()==null){
@@ -222,7 +225,6 @@ public class SaleOrderController implements BenewakeConstants {
                 inq.setInquiryCode(inquiryCode_);
                 inq.setState(0);
 
-                //System.out.println(inq.toString());
             }
             map.put("inquiryCode",inquiryCode_);
             // 添加运输信息
@@ -240,19 +242,25 @@ public class SaleOrderController implements BenewakeConstants {
             List<String> fail = new ArrayList<>();
             List<Inquiry> success = new ArrayList<>();
             int ind = 1;
-            for(int i=0;i<newInquiries.size();++i,++ind){
-                Inquiry inquiry = newInquiries.get(i);
-                Item item = itemService.findItemById(inquiry.getItemId());
-                Long is = null;
-                if(item.getItemType() == ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE ||
-                        item.getItemType() == ITEM_TYPE_RAW_MATERIALS_BESPOKE ||
-                        item.getQuantitative()==0 || inquiry.getSaleNum()>item.getQuantitative()){
-                    // 询单失败
-                    // 物料类型为 新增原材料+软件定制 或 新增原材料定制 或 物料标准数量为0 或 当前数量大于物料标准数量
-                    fail.add(String.valueOf(ind));
-                }else{
-                    success.add(inquiry);
+            try {
+                for(int i=0;i<newInquiries.size();++i,++ind){
+                    // 根据订单
+                    Inquiry inquiry = inquiryService.getInquiryById(newInquiries.get(i).getInquiryId());
+                    Item item = itemService.findItemById(inquiry.getItemId());
+                    if(item.getItemType() == ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE ||
+                            item.getItemType() == ITEM_TYPE_RAW_MATERIALS_BESPOKE ||
+                            item.getQuantitative()==0 || inquiry.getSaleNum()>item.getQuantitative()){
+                        // 询单失败
+                        // 物料类型为 新增原材料+软件定制 或 新增原材料定制 或 物料标准数量为0 或 当前数量大于物料标准数量
+                        fail.add(String.valueOf(ind));
+                    }else{
+                        success.add(inquiry);
+                    }
                 }
+            }catch (Exception e){
+                e.printStackTrace();
+                log.error(e.getMessage());
+                throw new RuntimeException("参数有误！");
             }
             if(fail.size() > 0){
                 map.put("序号"+String.join(",",fail)+"。请飞书联系计划！",null);
@@ -301,14 +309,14 @@ public class SaleOrderController implements BenewakeConstants {
 
     @PostMapping("/importExcel")
     @SalesmanRequired
-    public Result<Map<String, Object>> addOrdersByExcel(@RequestParam("file")MultipartFile file){
+    public Result addOrdersByExcel(@RequestParam("file")MultipartFile file){
         Map<String,Object> map = new HashMap<>();
         if(file.isEmpty()){
             return Result.fail("文件为空！",null);
         }
         val split = file.getOriginalFilename().split("\\.");
         if(!"xlsx".equals(split[1]) && !"xls".equals(split[1])){
-            return Result.fail("请提供.xlsx或.xls为后缀的Excel文件",null);
+            return Result.fail().message("请提供.xlsx或.xls为后缀的Excel文件");
         }
         try {
             map = inquiryService.saveDataByExcel(file);
@@ -316,9 +324,9 @@ public class SaleOrderController implements BenewakeConstants {
             e.printStackTrace();
         }
         if(map.containsKey("error")){
-            return Result.fail((String) map.get("error"),null);
+            return Result.fail().message((String) map.get("error"));
         }else{
-            return Result.success((String) map.get("success"),null);
+            return Result.success().message((String) map.get("success"));
         }
     }
 

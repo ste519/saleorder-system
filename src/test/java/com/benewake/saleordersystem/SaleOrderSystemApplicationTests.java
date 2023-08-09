@@ -23,7 +23,6 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
     @Autowired
     DeliveryService deliveryService;
 
-
     @Test
     void testAsync() throws InterruptedException {
 //        alphaService.alphaPython();
