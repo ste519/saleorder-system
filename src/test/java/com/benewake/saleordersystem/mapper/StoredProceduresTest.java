@@ -22,7 +22,7 @@ public class StoredProceduresTest {
 
     @Test
     public void doGet(){
-        List<Map<String,Object>> list = storedProceduresMapper.doppp();
+        List<Map<String,Object>> list = storedProceduresMapper.doPastOrdersAnalysis13CustomerTypeOrdersBack(1,1,1,1,1,1);
         for(Map<String,Object> t : list){
             t.forEach((k,v)-> System.out.print(k+"："+v+","));
             System.out.println();

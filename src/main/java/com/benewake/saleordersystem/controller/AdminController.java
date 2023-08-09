@@ -36,7 +36,7 @@ public class AdminController {
     @ApiOperation("添加新用户接口")
     @AdminRequired
     @PostMapping("/add")
-    public Result<Map<String, Object>> add(@RequestBody User user) {
+    public Result add(@RequestBody User user) {
         //System.out.println("新增用户信息："+user.toString());
         return userService.addUser(user);
     }
