@@ -99,6 +99,7 @@ public interface SalesOrderVoMapper extends BaseMapper<Map<String,Object>> {
             "${qw6.customSqlSegment}" +
             ") as f on a.customer_id = f.customer_id " +
             "${ew.customSqlSegment} " +
+            "order by inquiry_code desc " +
             "</script>")
     List<Map<String,Object>> selectListByFilter(@Param("qw1") Wrapper wrapper1,@Param("qw2")Wrapper wrapper2,
                                                 @Param("qw3")Wrapper wrapper3,@Param("qw4")Wrapper wrapper4,

@@ -94,6 +94,10 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
             map.put("error", "未注册无法登录，注册请飞书联系管理员!");
             return map;
         }
+        if(u.getUserType().equals(USER_TYPE_INVALID)){
+            map.put("error","用户无效，请飞书联系管理员！");
+            return map;
+        }
         // 验证密码
         password = CommonUtils.md5(password + u.getSalt());
         if (!password.equals(u.getPassword())) {

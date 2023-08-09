@@ -57,4 +57,10 @@ public interface InquiryMapper extends BaseMapper<Inquiry> {
             "where inquiry_type_name like #{type}" +
             "</script>")
     List<String> getInquiryTypeList(@Param("type") String s);
+
+    @Select("<script>" +
+            "select state from fim_inquiry_table " +
+            "group by state order by state asc " +
+            "</script>")
+    List<String> getStateList();
 }

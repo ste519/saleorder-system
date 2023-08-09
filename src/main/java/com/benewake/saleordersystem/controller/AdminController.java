@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.controller;
 
+import com.benewake.saleordersystem.annotation.AdminRequired;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.service.UserService;
 import com.benewake.saleordersystem.utils.Result;
@@ -29,10 +30,11 @@ public class AdminController {
     private UserService userService;
 
     /**
-     * 添加新用户（需管理员权限 目前没设置)
+     * 添加新用户
      * @return
      */
     @ApiOperation("添加新用户接口")
+    @AdminRequired
     @PostMapping("/add")
     public Result<Map<String, Object>> add(@RequestBody User user) {
         //System.out.println("新增用户信息："+user.toString());

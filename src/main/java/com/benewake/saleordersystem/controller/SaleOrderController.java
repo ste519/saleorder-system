@@ -1,6 +1,7 @@
 package com.benewake.saleordersystem.controller;
 
 import com.benewake.saleordersystem.annotation.LoginRequired;
+import com.benewake.saleordersystem.annotation.SalesmanRequired;
 import com.benewake.saleordersystem.annotation.TrackingTime;
 import com.benewake.saleordersystem.entity.*;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
@@ -44,7 +45,12 @@ public class SaleOrderController implements BenewakeConstants {
     @Autowired
     private ViewService viewService;
 
-        @PostMapping("/inquiryTypeList")
+    @GetMapping("/stateList")
+    public Result getStateList(){
+        List<String> stateList = inquiryService.getStateList();
+        return Result.success(stateList);
+    }
+    @PostMapping("/inquiryTypeList")
     public Result getInquiryTypeList(@RequestBody Map<String,Object> param){
         String key = (String) param.get("inquiryType");
         if(key==null) key = "";
@@ -177,11 +183,12 @@ public class SaleOrderController implements BenewakeConstants {
     }
 
     /**
-     * 保存询单信息
+     * 保存询单信息 及 开始询单
+     * startInquiry = 1 表示询单
      * @return
      */
     @PostMapping("/save")
-    @LoginRequired
+    @SalesmanRequired
     @Transactional
     public Result<Map<String,Object>> addInquiries(@RequestBody StartInquiryVo param){
         List<Inquiry> newInquiries = param.getInquiryList();
@@ -266,54 +273,29 @@ public class SaleOrderController implements BenewakeConstants {
         return Result.success("操作成功！",map);
     }
 
-
-
-//    @PostMapping("/startInquiry")
-//    @LoginRequired
-//    @Deprecated
-//    public Result<Map<String,Object>> startInquiry(@RequestBody Map<String,List<StartInquiryVo>> request){
-//        Map<String,Object> map = new HashMap<>();
-//        List<StartInquiryVo> startInquiries = request.getOrDefault("inquiries",new ArrayList<>());
-//        List<String> fail = new ArrayList<>();
-//        List<Long> success = new ArrayList<>();
-//        for(int i=0;i<startInquiries.size(); i++){
-//            Integer type = startInquiries.get(i).getItemType();
-//            Integer num = startInquiries.get(i).getSaleNum();
-//            // 超出数量限制逻辑还未确定 暂时用 num<0占位
-//            if(type.equals(ITEM_TYPE_MATERIALS_AND_SOFTWARE_BESPOKE) || type.equals(ITEM_TYPE_RAW_MATERIALS_BESPOKE) || num < 0){
-//                fail.add(String.valueOf(1+i));
-//            }else{
-//                success.add(startInquiries.get(i).getInquiryId());
-//            }
-//        }
-//        if(fail.size() > 0){
-//            map.put("fail","序号"+String.join(",",fail)+"。请飞书联系计划！");
-//        }
-//        if(success.size() > 0){
-//            map.put("success",success.size()+"个订单开始询单！");
-//
-//            // 询单功能（待添加)
-//
-//        }
-//        return Result.success(map);
-//    }
-
-
     @PostMapping("/delete")
-    @LoginRequired
-    public Result<String> deleteOrder(@RequestBody Map<String,Long> param){
+    @SalesmanRequired
+    public Result deleteOrder(@RequestBody Map<String,Long> param){
         Long orderId = param.get("orderId");
-        //System.out.println(orderId);
-        boolean res = inquiryService.deleteOrder(orderId);
-        if(!res){
-            return Result.fail("订单不存在！",null);
-        }else {
-            return Result.success("删除成功！",null);
+        Inquiry inquiry = inquiryService.getInquiryById(orderId);
+        User u = hostHolder.getUser();
+        if( u.getUserType().equals(USER_TYPE_SALESMAN)&&
+                (inquiry.getSalesmanId().equals(u.getId())||inquiry.getCreatedUser().equals(u.getId())) ||
+                u.getUserType().equals(USER_TYPE_ADMIN) || u.getUserType().equals(USER_TYPE_SYSTEM)
+        ){
+            boolean res = inquiryService.deleteOrder(orderId);
+            if(!res){
+                return Result.fail("订单不存在！",null);
+            }else {
+                return Result.success("删除成功！",null);
+            }
+        }else{
+            return Result.fail().message("用户权限不够！");
         }
     }
 
     @PostMapping("/importExcel")
-    @LoginRequired
+    @SalesmanRequired
     public Result<Map<String, Object>> addOrdersByExcel(@RequestParam("file")MultipartFile file){
         Map<String,Object> map = new HashMap<>();
         if(file.isEmpty()){

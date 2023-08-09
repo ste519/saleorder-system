@@ -114,4 +114,10 @@ public interface InquiryService {
      * @return
      */
     List<String> getInquiryTypeList(String key);
+
+    /**
+     * 获取所有订单中存在的state集合
+     * @return
+     */
+    List<String> getStateList();
 }
