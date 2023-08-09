@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.controller;
 
+import com.benewake.saleordersystem.annotation.AdminRequired;
 import com.benewake.saleordersystem.service.PastOrderService;
 import com.benewake.saleordersystem.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +27,7 @@ public class InstrumentPanelsController {
      * @return
      */
     @PostMapping("/update")
+    @AdminRequired
     public Result<String> getTest(@RequestBody Map<String,Integer> param){
         Integer isAll = param.get("isAll");
         if(isAll >= 1){

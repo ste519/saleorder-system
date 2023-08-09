@@ -1,6 +1,8 @@
 package com.benewake.saleordersystem.controller.intercepter;
 
 import com.benewake.saleordersystem.annotation.AdminRequired;
+import com.benewake.saleordersystem.annotation.SalesmanRequired;
+import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.CommonUtils;
 import com.benewake.saleordersystem.utils.HostHolder;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,7 +21,7 @@ import java.lang.reflect.Method;
  * 描 述： TODO
  */
 @Component
-public class AdminRequiredInterceptor implements HandlerInterceptor {
+public class SalesmanRequiredInterceptor implements HandlerInterceptor, BenewakeConstants {
 
     @Autowired
     private HostHolder hostHolder;
@@ -30,10 +32,11 @@ public class AdminRequiredInterceptor implements HandlerInterceptor {
         if(handler instanceof HandlerMethod){
             HandlerMethod handlerMethod = (HandlerMethod)handler;
             Method method = handlerMethod.getMethod();
-            AdminRequired adminRequired = method.getAnnotation(AdminRequired.class);
+            SalesmanRequired salesmanRequired = method.getAnnotation(SalesmanRequired.class);
             // 有标记 且此时处于未登录状态
-            if(null != adminRequired && (hostHolder.getUser() == null ||
-                    hostHolder.getUser().getUserType()!=1 && hostHolder.getUser().getUserType()!=5) ){
+            Long type;
+            if(null != salesmanRequired && (hostHolder.getUser() == null || (type = hostHolder.getUser().getUserType()).equals(USER_TYPE_VISITOR)
+                    || type.equals(USER_TYPE_INVALID))){
                 // 提示账号未登录
                 response.setCharacterEncoding("UTF-8");
                 response.setContentType("application/json; charset=utf-8");

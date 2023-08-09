@@ -35,26 +35,6 @@ public class HomeController implements BenewakeConstants {
 
     @Value("${server.servlet.context-path}")
     private String contextPath;
-
-
-    /**
-     * index测试
-     */
-    @GetMapping("/index")
-    @LoginRequired
-    public Result<String> index() {
-        return Result.success();
-    }
-
-
-
-    @GetMapping("/login")
-    public Result<Map<String,Object>> toLogin(){
-        Map<String,Object> map = new HashMap<>(1);
-        map.put("msg","进入登录页面！");
-        return Result.success(map);
-    }
-
     /**
      * 用户登录
      * @param response

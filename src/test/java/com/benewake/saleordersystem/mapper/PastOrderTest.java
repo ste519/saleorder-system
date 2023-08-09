@@ -23,9 +23,6 @@ public class PastOrderTest implements BenewakeConstants {
     @Autowired
     public PastOrderService pastOrderService;
 
-    @Autowired
-    public AlphaService alphaService;
-
 //    @Test
 //    public void testReload(){
 //        pastOrderMapper.reloadLocalOrders();

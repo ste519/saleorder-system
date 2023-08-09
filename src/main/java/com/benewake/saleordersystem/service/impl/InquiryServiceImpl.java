@@ -432,4 +432,9 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
         return inquiryMapper.getInquiryTypeList("%"+key+"%");
     }
 
+    @Override
+    public List<String> getStateList() {
+        return inquiryMapper.getStateList();
+    }
+
 }
