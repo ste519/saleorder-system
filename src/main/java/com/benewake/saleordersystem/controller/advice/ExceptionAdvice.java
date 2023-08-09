@@ -28,6 +28,6 @@ public class ExceptionAdvice{
         for(StackTraceElement element : e.getStackTrace()){
             log.error(element.toString());
         }
-        return Result.fail(1,"服务器异常",e.getMessage());
+        return Result.fail(1,"请求失败，服务器异常！",e.getMessage());
     }
 }

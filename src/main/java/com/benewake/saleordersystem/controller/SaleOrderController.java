@@ -273,6 +273,11 @@ public class SaleOrderController implements BenewakeConstants {
         return Result.success("操作成功！",map);
     }
 
+    /**
+     * 删除接口 销售员只能删除销售员id或创建人id等于自己id的数据
+     * @param param
+     * @return
+     */
     @PostMapping("/delete")
     @SalesmanRequired
     public Result deleteOrder(@RequestBody Map<String,Long> param){
