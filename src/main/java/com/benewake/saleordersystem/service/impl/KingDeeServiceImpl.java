@@ -187,10 +187,10 @@ public class KingDeeServiceImpl implements KingDeeService, BenewakeConstants {
         fieldKeys.add("FSalesManID");
         fieldKeys.add("FDate");
         fieldKeys.add("FSoorDerno");
-        // 临时获取 运输单号和收件人电话号码  FNOTE表示fim单据编号用于唯一匹配
+        // 临时获取 运输单号和收件人电话号码  FIM表示fim单据编号用于唯一匹配
 //        fieldKeys.add("FCarriageNO");
 //        fieldKeys.add("F_ora_Text2");
-//        fieldKeys.add("FNOTE");
+//        fieldKeys.add("FIM");
         List<SaleOut> lists = searchData(formId,fieldKeys,queryFilters,limit, SaleOut.class);
 
         // 替换信息
