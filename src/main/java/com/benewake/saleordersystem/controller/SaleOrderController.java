@@ -184,6 +184,33 @@ public class SaleOrderController implements BenewakeConstants {
         }
     }
 
+
+    @PostMapping("/update")
+    @SalesmanRequired
+    @Transactional
+    public Result updateInquired(@RequestBody Inquiry inquiry){
+        if(inquiry == null){
+            return Result.fail().message("请添加选择要修改的订单！");
+        }
+        if(inquiry.getInquiryType()==null){
+            return Result.fail().message("请选择订单类型");
+        }
+        if(inquiry.getState()==null || inquiry.getState()==-1){
+            return Result.fail().message("订单无效！");
+        }
+        // 订单参数有效判断
+        Map<String,Object> res = inquiryService.addValid(inquiry);
+        if(res.size()>0){
+            return Result.fail((String) res.get("error"),null);
+        }
+        // 原订单设置无效
+        inquiryService.updateState(inquiry.getInquiryId(),-1);
+        // 新增修改后的订单
+        inquiry.setInquiryId(null);
+        inquiry.setCreatedUser(hostHolder.getUser().getId());
+        inquiryService.save(inquiry);
+        return Result.success().message("修改成功！");
+    }
     /**
      * 新增询单信息 及 开始询单 （只能新增或询单）
      * startInquiry = 1 表示询单
@@ -200,19 +227,18 @@ public class SaleOrderController implements BenewakeConstants {
         if(newInquiries == null){
             return Result.fail("请添加至少一条询单信息",null);
         }
-        // 保存 且 单据id不存在
+        // 保存 或 单据id不存在
         if(startInquiry == 0 || newInquiries.get(0).getInquiryId()==null){
             User user = hostHolder.getUser();
             Date nowTime = new Date();
             if(newInquiries.get(0).getInquiryType()==null){
                 return Result.fail("请选择订单类型",null);
             }
-            if(newInquiries.get(0).getInquiryCode()!=null && !inquiryService.containsCode(newInquiries.get(0).getInquiryCode())){
-                return Result.fail("单据编号不存在！",null);
-            }
-            // 获取新增的订单编码
-            String inquiryCode_ = newInquiries.get(0).getInquiryCode()!=null?newInquiries.get(0).getInquiryCode()
-                    :inquiryService.getDocumentNumberFormat(newInquiries.get(0).getInquiryType(),1).get(0);
+//            if(newInquiries.get(0).getInquiryCode()!=null && !inquiryService.containsCode(newInquiries.get(0).getInquiryCode())){
+//                return Result.fail("单据编号不存在！",null);
+//            }
+            // 获取订单编码列表
+            List<String> inquiryCodes = new ArrayList<>();
             // 逐条分析询单是否合法
             for(Inquiry inq : newInquiries){
                 Map<String,Object> res = inquiryService.addValid(inq);
@@ -220,13 +246,14 @@ public class SaleOrderController implements BenewakeConstants {
                     return Result.fail((String) res.get("error"),null);
                 }
                 // 设置创建人信息以及单据编号
-                inq.setCreatedTime(nowTime);
                 inq.setCreatedUser(user.getId());
-                inq.setInquiryCode(inquiryCode_);
+                if(inq.getInquiryCode()==null){
+                    inq.setInquiryCode(inquiryService.getDocumentNumberFormat(inq.getInquiryType(),1).get(0));
+                }
+                inquiryCodes.add(inq.getInquiryCode());
                 inq.setState(0);
-
             }
-            map.put("inquiryCode",inquiryCode_);
+            map.put("inquiryCode",inquiryCodes);
             // 添加运输信息
             deliveryService.insertLists(newInquiries);
             // 全部通过加入数据库
@@ -239,7 +266,7 @@ public class SaleOrderController implements BenewakeConstants {
         }
         // 询单
         if(startInquiry!=null && startInquiry != 0){
-            List<String> fail = new ArrayList<>();
+            List<Inquiry> fail = new ArrayList<>();
             List<Inquiry> success = new ArrayList<>();
             int ind = 1;
             try {
@@ -252,7 +279,7 @@ public class SaleOrderController implements BenewakeConstants {
                             item.getQuantitative()==0 || inquiry.getSaleNum()>item.getQuantitative()){
                         // 询单失败
                         // 物料类型为 新增原材料+软件定制 或 新增原材料定制 或 物料标准数量为0 或 当前数量大于物料标准数量
-                        fail.add(String.valueOf(ind));
+                        fail.add(inquiry);
                     }else{
                         success.add(inquiry);
                     }
@@ -262,12 +289,13 @@ public class SaleOrderController implements BenewakeConstants {
                 log.error(e.getMessage());
                 throw new RuntimeException("参数有误！");
             }
-            if(fail.size() > 0){
-                map.put("序号"+String.join(",",fail)+"。请飞书联系计划！",null);
-                return Result.fail("序号"+String.join(",",fail)+"。请飞书联系计划！",null);
-            }
+            //
+            List<String> resStr = new ArrayList<>();
+            fail.forEach(f->{
+                resStr.add("单据编号:"+f.getInquiryCode()+"，请飞书联系管理员!");
+            });
             if(success.size() > 0){
-                map.put("success",success.size()+"个订单开始询单！");
+                //map.put("success",success.size()+"个订单开始询单！");
 
                 // 询单功能（待添加)   异步或消息队列
 
@@ -275,10 +303,12 @@ public class SaleOrderController implements BenewakeConstants {
                 success.forEach(s->s.setState(s.getState()+1));
                 // 更新数据库  （之后移到异步操作中或使用消息队列）
                 inquiryService.updateByInquiry(success);
-                return Result.success("已开始询单！",map);
+                //return Result.success("已开始询单！",map);
+                resStr.add("APS暂未上线，今日内计划手动反馈日期！");
             }
+            return Result.success(String.join("\r\n",resStr),map);
         }
-        return Result.success("操作成功！",map);
+        return Result.success("保存成功！",map);
     }
 
     /**

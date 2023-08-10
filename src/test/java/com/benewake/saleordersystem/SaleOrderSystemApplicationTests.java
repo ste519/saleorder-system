@@ -28,10 +28,16 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
 //        alphaService.alphaPython();
 //        System.out.println("下一个任务开始");
 //        Thread.sleep(30000);
-        String code = CommonUtils.generateUUID().substring(0, 5);
-        String password = CommonUtils.md5("123456"+code);
-        System.out.println(code);
-        System.out.println(password);
+        String[] pas = {"14021402xieminmin","14021402zhengkaiwen","14021402nielinyun","14021402qijunyun","14021402liushuangshuang",
+        "14021402liuyan","14021402lvnan","14021402zhaolu","14021402xiaoshuting","14021402gejing","14021402wangxiaoxi","14021402liuhuanyi",
+        "14021402wuleibo","14021403wangli"};
+        for (String pa : pas) {
+            String code = CommonUtils.generateUUID().substring(0, 5);
+            String password = CommonUtils.md5(pa+code);
+            System.out.println(code);
+            System.out.println(password);
+            System.out.println();
+        }
 
     }
     @Test
@@ -45,7 +51,6 @@ class SaleOrderSystemApplicationTests implements BenewakeConstants {
         for(Holiday h : list){
             System.out.println(h.toString());
         }
-
     }
 
 }

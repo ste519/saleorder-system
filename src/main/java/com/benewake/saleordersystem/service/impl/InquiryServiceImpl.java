@@ -5,6 +5,7 @@ import com.alibaba.excel.util.StringUtils;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.benewake.saleordersystem.annotation.TrackingTime;
 import com.benewake.saleordersystem.entity.Customer;
 import com.benewake.saleordersystem.entity.Inquiry;
@@ -36,7 +37,7 @@ import java.util.concurrent.locks.ReentrantLock;
  */
 @Service
 @Slf4j
-public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
+public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> implements InquiryService, BenewakeConstants {
 
     @Autowired
     private InquiryCodeMapper inquiryCodeMapper;
@@ -272,12 +273,12 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
             map.put("error","订单状态为空或不合法！");
             return map;
         }
-        if(inquiry.getExpectedTime() == null || inquiry.getExpectedTime().before(new Date())){
-            map.put("error","期待发货日期不存在或早于当前时间");
+        if(inquiry.getSalesmanId() == null || userService.findUserById(inquiry.getSalesmanId())==null){
+            map.put("error","销售员为空或不存在！");
             return map;
         }
-        if(inquiry.getSalesmanId()!=null&&userService.findUserById(inquiry.getSalesmanId())==null){
-            map.put("error","销售员为空或不存在！");
+        if(inquiry.getExpectedTime() == null || inquiry.getExpectedTime().before(new Date())){
+            map.put("error","期待发货日期不存在或早于当前时间");
             return map;
         }
         return map;
@@ -437,6 +438,13 @@ public class InquiryServiceImpl implements InquiryService, BenewakeConstants {
     @Override
     public List<String> getStateList() {
         return inquiryMapper.getStateList();
+    }
+
+    @Override
+    public int updateState(Long inquiryId, int i) {
+        LambdaUpdateWrapper<Inquiry> luw = new LambdaUpdateWrapper<>();
+        luw.set(Inquiry::getState,i).eq(Inquiry::getInquiryId,inquiryId);
+        return inquiryMapper.update(null,luw);
     }
 
 }
