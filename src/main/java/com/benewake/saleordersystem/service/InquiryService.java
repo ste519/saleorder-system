@@ -1,5 +1,6 @@
 package com.benewake.saleordersystem.service;
 
+import com.baomidou.mybatisplus.extension.service.IService;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.entity.Inquiry;
 import com.benewake.saleordersystem.excel.model.InquiryModel;
@@ -12,7 +13,7 @@ import java.util.Map;
  * 订单应用接口
  * @author Lcs
  */
-public interface InquiryService {
+public interface InquiryService extends IService<Inquiry> {
 
     /**
      * 将Excel数据导入到数据库
@@ -120,4 +121,12 @@ public interface InquiryService {
      * @return
      */
     List<String> getStateList();
+
+    /**
+     * 更新单个订单的state
+     * @param inquiryId
+     * @param i
+     * @return
+     */
+    int updateState(Long inquiryId, int i);
 }
