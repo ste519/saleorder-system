@@ -19,12 +19,12 @@ public interface InquiryMapper extends BaseMapper<Inquiry> {
      * @return
      */
     @Insert("<script> " +
-            "Insert into fim_inquiry_table(inquiry_code,state,created_time," +
+            "Insert into fim_inquiry_table(inquiry_code,state," +
             "created_user,salesman_id,item_id,customer_id,sale_num,expected_time,arranged_time,inquiry_type,remark) " +
             "values " +
             "<foreach collection='lists' item='list' separator=','> " +
             "(" +
-            "#{list.inquiryCode},#{list.state},#{list.createdTime},#{list.createdUser}," +
+            "#{list.inquiryCode},#{list.state},#{list.createdUser}," +
             "#{list.salesmanId},#{list.itemId},#{list.customerId},#{list.saleNum}," +
             "#{list.expectedTime},#{list.arrangedTime},#{list.inquiryType},#{list.remark} " +
             ")" +

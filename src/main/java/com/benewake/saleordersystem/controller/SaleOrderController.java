@@ -209,7 +209,7 @@ public class SaleOrderController implements BenewakeConstants {
         inquiry.setInquiryId(null);
         inquiry.setCreatedUser(hostHolder.getUser().getId());
         inquiryService.save(inquiry);
-        return Result.success().message("修改成功！");
+        return Result.success("修改成功！",inquiry.getInquiryId());
     }
     /**
      * 新增询单信息 及 开始询单 （只能新增或询单）
