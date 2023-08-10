@@ -589,3 +589,332 @@
 2023-08-10 14:02:18.440 [http-nio-8080-exec-7] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 14:08:18],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[updateInquired]方法，参数为[[Inquiry(inquiryId=320, inquiryCode=XSYC2023080019, state=0, createdTime=null, createdUser=null, salesmanId=3, itemId=3, customerId=3, saleNum=49, expectedTime=Fri Aug 11 00:00:00 GMT+08:00 2023, arrangedTime=null, inquiryType=4, remark=修改后！！！)]].
 2023-08-10 14:03:29.354 [http-nio-8080-exec-5] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 14:08:29],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[updateInquired]方法，参数为[[Inquiry(inquiryId=330, inquiryCode=XSYC2023080019, state=0, createdTime=null, createdUser=null, salesmanId=3, itemId=3, customerId=3, saleNum=49, expectedTime=Fri Aug 11 00:00:00 GMT+08:00 2023, arrangedTime=null, inquiryType=4, remark=修改后！！！)]].
 2023-08-10 14:05:09.872 [http-nio-8080-exec-9] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 14:08:09],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[updateInquired]方法，参数为[[Inquiry(inquiryId=330, inquiryCode=null, state=0, createdTime=null, createdUser=null, salesmanId=3, itemId=3, customerId=3, saleNum=49, expectedTime=Fri Aug 11 00:00:00 GMT+08:00 2023, arrangedTime=null, inquiryType=4, remark=修改后！！！)]].
+2023-08-10 14:14:03.605 [Thread-14] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'asynExecutor'
+2023-08-10 14:14:03.615 [Thread-14] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-10 14:14:03.624 [Thread-14] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-10 14:14:09.525 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 25244 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 14:14:09.526 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 14:14:10.325 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 14:14:10.326 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 14:14:10.326 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 14:14:10.349 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat-1].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 14:14:10.349 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 819 ms
+2023-08-10 14:14:10.550 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-10 14:14:10.563 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 14:14:11.126 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 14:14:11.182 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 1.751 seconds (JVM running for 760.608)
+2023-08-10 14:14:11.186 [restartedMain] INFO  [,] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2023-08-10 14:14:17.588 [Thread-24] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-10 14:14:17.911 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 25244 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 14:14:17.912 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 14:14:18.495 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 14:14:18.496 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 14:14:18.496 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 14:14:18.524 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat-1].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 14:14:18.524 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 610 ms
+2023-08-10 14:14:19.829 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService
+2023-08-10 14:14:19.829 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'asynExecutor'
+2023-08-10 14:14:19.920 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 14:14:20.358 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 14:14:20.490 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 2.63 seconds (JVM running for 769.916)
+2023-08-10 14:14:20.492 [restartedMain] INFO  [,] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor:
+      Did not match:
+         - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) found beans of type 'java.util.concurrent.Executor' asynExecutor (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2023-08-10 14:14:28.509 [Thread-32] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'asynExecutor'
+2023-08-10 14:14:28.761 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 25244 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 14:14:28.762 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 14:14:29.172 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 14:14:29.172 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 14:14:29.172 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 14:14:29.198 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat-1].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 14:14:29.198 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 434 ms
+2023-08-10 14:14:29.378 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-10 14:14:29.388 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 14:14:29.866 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 14:14:29.896 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 1.172 seconds (JVM running for 779.322)
+2023-08-10 14:14:29.898 [restartedMain] INFO  [,] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2023-08-10 14:14:33.498 [Thread-37] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-10 14:14:33.681 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 25244 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 14:14:33.681 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 14:14:34.101 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 14:14:34.101 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 14:14:34.102 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 14:14:34.117 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat-1].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 14:14:34.117 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 433 ms
+2023-08-10 14:14:35.158 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService
+2023-08-10 14:14:35.159 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'asynExecutor'
+2023-08-10 14:14:35.230 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 14:14:35.580 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 14:14:35.681 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 2.038 seconds (JVM running for 785.107)
+2023-08-10 14:14:35.683 [restartedMain] INFO  [,] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor:
+      Did not match:
+         - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) found beans of type 'java.util.concurrent.Executor' asynExecutor (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2023-08-10 14:24:20.237 [Thread-42] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'asynExecutor'
+2023-08-10 14:24:26.598 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 25244 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 14:24:26.599 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 14:24:27.154 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 14:24:27.155 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 14:24:27.155 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 14:24:27.176 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat-2].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 14:24:27.177 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 575 ms
+2023-08-10 14:24:27.332 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'applicationTaskExecutor'
+2023-08-10 14:24:27.343 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 14:24:27.937 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 14:24:27.982 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 1.445 seconds (JVM running for 1377.408)
+2023-08-10 14:24:27.984 [restartedMain] INFO  [,] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor matched:
+      - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) did not find any beans (OnBeanCondition)
+
+
+Negative matches:
+-----------------
+
+    None
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2023-08-10 14:24:33.590 [Thread-47] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'applicationTaskExecutor'
+2023-08-10 14:24:33.823 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 25244 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 14:24:33.823 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 14:24:34.294 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 14:24:34.295 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 14:24:34.295 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 14:24:34.313 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat-2].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 14:24:34.313 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 486 ms
+2023-08-10 14:24:35.282 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService
+2023-08-10 14:24:35.282 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'asynExecutor'
+2023-08-10 14:24:35.354 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 14:24:35.756 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 14:24:35.870 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 2.081 seconds (JVM running for 1385.297)
+2023-08-10 14:24:35.873 [restartedMain] INFO  [,] o.s.b.d.a.ConditionEvaluationDeltaLoggingListener - Condition evaluation delta:
+
+
+==========================
+CONDITION EVALUATION DELTA
+==========================
+
+
+Positive matches:
+-----------------
+
+    None
+
+
+Negative matches:
+-----------------
+
+   TaskExecutionAutoConfiguration#applicationTaskExecutor:
+      Did not match:
+         - @ConditionalOnMissingBean (types: java.util.concurrent.Executor; SearchStrategy: all) found beans of type 'java.util.concurrent.Executor' asynExecutor (OnBeanCondition)
+
+
+Exclusions:
+-----------
+
+    None
+
+
+Unconditional classes:
+----------------------
+
+    None
+
+
+
+2023-08-10 15:10:37.055 [SpringContextShutdownHook] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'asynExecutor'
+2023-08-10 15:25:01.054 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 23848 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 15:25:01.056 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 15:25:01.101 [restartedMain] INFO  [,] o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-10 15:25:01.101 [restartedMain] INFO  [,] o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-10 15:25:02.559 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 15:25:02.567 [restartedMain] INFO  [,] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-08-10 15:25:02.568 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 15:25:02.568 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 15:25:02.642 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 15:25:02.642 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1540 ms
+2023-08-10 15:25:05.053 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService
+2023-08-10 15:25:05.055 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'asynExecutor'
+2023-08-10 15:25:05.193 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 15:25:05.800 [restartedMain] INFO  [,] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-08-10 15:25:05.821 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 15:25:06.133 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 5.475 seconds (JVM running for 6.403)
+2023-08-10 15:27:16.885 [http-nio-8080-exec-1] INFO  [,] o.a.c.c.C.[Tomcat].[localhost].[/benewake] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-10 15:27:16.885 [http-nio-8080-exec-1] INFO  [,] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-10 15:27:16.896 [http-nio-8080-exec-1] INFO  [,] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 11 ms
+2023-08-10 15:27:16.977 [http-nio-8080-exec-1] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-10 15:27:17.126 [http-nio-8080-exec-1] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-10 15:27:17.237 [http-nio-8080-exec-1] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:17],访问了[com.benewake.saleordersystem.controller.NoticeController]的[findNotice]方法，参数为[[Notice(id=null, createUserId=null, message=null, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:29:31.194 [http-nio-8080-exec-6] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:31],访问了[com.benewake.saleordersystem.controller.HomeController]的[logout]方法，参数为[[bffbc4767c3048efa28779c9292f277c]].
+2023-08-10 15:29:47.193 [http-nio-8080-exec-7] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:47],访问了[com.benewake.saleordersystem.controller.HomeController]的[login]方法，参数为[[User(id=null, username=王小溪, password=14021402wangxiaoxi, salt=null, userType=null, userConllection=null), org.apache.catalina.connector.ResponseFacade@e2fb494]].
+2023-08-10 15:30:27.509 [http-nio-8080-exec-8] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:27],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个修改通知！！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:31:30.656 [http-nio-8080-exec-4] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:30],访问了[com.benewake.saleordersystem.controller.NoticeController]的[updateNotice]方法，参数为[[Notice(id=1686669015965003784, createUserId=null, message=这是一个修改通知！！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:31:50.871 [http-nio-8080-exec-1] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:50],访问了[com.benewake.saleordersystem.controller.NoticeController]的[updateNotice]方法，参数为[[Notice(id=1686669015965003784, createUserId=null, message=这是一个修改通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:32:13.479 [http-nio-8080-exec-9] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:13],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:32:30.896 [http-nio-8080-exec-2] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:30],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:32:49.276 [http-nio-8080-exec-5] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:49],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:33:33.863 [http-nio-8080-exec-6] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:33],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:34:26.098 [http-nio-8080-exec-7] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:26],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:34:26.925 [http-nio-8080-exec-8] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:26],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:34:27.549 [http-nio-8080-exec-3] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:27],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:34:48.134 [http-nio-8080-exec-10] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:48],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:35:02.069 [http-nio-8080-exec-4] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:02],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:35:16.354 [http-nio-8080-exec-1] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:16],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:35:35.444 [http-nio-8080-exec-9] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:35],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:35:45.806 [http-nio-8080-exec-2] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:45],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:36:42.568 [http-nio-8080-exec-5] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:42],访问了[com.benewake.saleordersystem.controller.NoticeController]的[saveNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:37:11.149 [http-nio-8080-exec-6] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 15:08:11],访问了[com.benewake.saleordersystem.controller.NoticeController]的[findNotice]方法，参数为[[Notice(id=null, createUserId=null, message=这是一个新增通知！!!!!！, createTime=null, updateTime=null, deleted=null, type=null)]].
+2023-08-10 15:37:18.492 [SpringContextShutdownHook] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'asynExecutor'
+2023-08-10 15:37:18.500 [SpringContextShutdownHook] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
+2023-08-10 15:37:18.506 [SpringContextShutdownHook] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.

@@ -1,6 +1,5 @@
 package com.benewake.saleordersystem.controller;
 
-import com.benewake.saleordersystem.annotation.LoginRequired;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.service.UserService;
 import com.benewake.saleordersystem.utils.BenewakeConstants;

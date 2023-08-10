@@ -16,11 +16,9 @@ import java.util.Map;
 public interface NoticeMapper extends BaseMapper<Notice> {
     /**
      * 根据创建人id查询所有消息 不填userid则为所有消息
-     * @param userId
-     * @return
      */
     @Select("<script>" +
-            "select id,create_user_id as createUserId,FIM_user_name as createUsername,create_time,update_time,message " +
+            "select id,create_user_id as createUserId,FIM_user_name as createUsername,create_time,update_time,message,type " +
             "from fim_notice_table " +
             "left join fim_users_table on create_user_id = FIM_user_id " +
             "where is_deleted = 0 " +

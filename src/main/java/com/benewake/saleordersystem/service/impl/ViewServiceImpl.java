@@ -4,7 +4,6 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.benewake.saleordersystem.entity.View;
 import com.benewake.saleordersystem.mapper.ViewMapper;
-import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
 import com.benewake.saleordersystem.service.ViewService;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;

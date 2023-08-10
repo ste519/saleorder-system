@@ -148,8 +148,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
     public LoginTicket findLoginTicket(String ticket) {
         QueryWrapper<LoginTicket> qw = new QueryWrapper<>();
         qw.eq("FIM_ticket",ticket);
-        LoginTicket loginTicket = loginTicketMapper.selectOne(qw);
-        return loginTicket;
+        return loginTicketMapper.selectOne(qw);
     }
 
     @Override

@@ -55,20 +55,23 @@ public class SaleOrderController implements BenewakeConstants {
     @PostMapping("/inquiryTypeList")
     public Result getInquiryTypeList(@RequestBody Map<String,Object> param){
         String key = (String) param.get("inquiryType");
-        if(key==null) key = "";
+        if(key==null) {
+            key = "";
+        }
         return Result.success(inquiryService.getInquiryTypeList(key));
     }
     @PostMapping("/inquiryCodeList")
     public Result getInquiryLikeList(@RequestBody Map<String,Object> param){
         String key = (String) param.get("inquiryCode");
-        if(key==null) key = "";
+        if(key==null) {
+            key = "";
+        }
         List<Inquiry> res = inquiryService.getInquiryCodeLikeList(key);
         return Result.success(res);
     }
 
     /**
-     * 已登录用户根据tableid获取对应的新增视图，若无新增视图则为空
-     * @return
+     * 已登录用户根据tableId获取对应的新增视图，若无新增视图则为空
      */
     @PostMapping("/views")
     @LoginRequired
@@ -82,7 +85,7 @@ public class SaleOrderController implements BenewakeConstants {
     @PostMapping("/cols")
     public Result<Map<String,Object>> getAllCols(@RequestBody Map<String,Object> param){
         Long tableId = Long.parseLong((String) param.get("tableId"));
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>(16);
         List<Map<String,Object>> maps = viewService.getAllCols(tableId);
         map.put("cols",maps);
         return Result.success(map);
@@ -97,18 +100,18 @@ public class SaleOrderController implements BenewakeConstants {
     @PostMapping("/Lists")
     @LoginRequired
     @TrackingTime
-    public Result<Map<String,Object>> selectList(@RequestBody FilterVo filterVo){
+    public Result selectList(@RequestBody FilterVo filterVo){
 
-        Map<String,Object> res = new HashMap<>();
+        Map<String,Object> res = new HashMap<>(16);
         if(filterVo==null || filterVo.getTableId()==null || filterVo.getViewId()==null){
-            return Result.fail("未选择表或视图！",null);
+            return Result.fail().message("未选择表或视图！");
         }
         // 当前登录用户
         User loginUser = hostHolder.getUser();
+        // 列信息
+        List<Map<String,Object>> cols = viewColService.getCols(filterVo.getTableId(), filterVo.getViewId(), loginUser.getUserType().equals(1L));
         if(filterVo.getViewId() <= 0){
             // 我的视图
-            // 列信息
-            List<Map<String,Object>> cols = viewColService.getCols(filterVo.getTableId(), filterVo.getViewId(), loginUser.getUserType().equals(1L));
             // 查看我的
             List<Map<String,Object>> lists;
             if(loginUser.getUserType().equals(1L) || (filterVo.getTableId().equals(1L)&&filterVo.getViewId().equals(-1L))){
@@ -119,11 +122,8 @@ public class SaleOrderController implements BenewakeConstants {
                 lists = inquiryService.selectSalesOrderVoList(filterVo.getFilterCriterias(),loginUser.getUsername());
             }
             res.put("lists",lists);
-            res.put("cols",cols);
         }else{
             // 个人设定的视图
-            // 列信息
-            List<Map<String,Object>> cols = viewColService.getCols(filterVo.getTableId(),filterVo.getViewId(),loginUser.getUserType().equals(1L));
             List<FilterCriteria> filters = filterVo.getFilterCriterias()==null?new ArrayList<>():filterVo.getFilterCriterias();
             // 添加方案默认筛选信息
             for(Map<String,Object> col : cols){
@@ -137,15 +137,21 @@ public class SaleOrderController implements BenewakeConstants {
             List<Map<String,Object>> lists = inquiryService.selectSalesOrderVoList(filters, loginUser.getUsername());
 
             res.put("lists",lists);
-            res.put("cols",cols);
         }
+        res.put("cols",cols);
         return Result.success(res);
     }
 
+    /**
+     * 保存方案
+     * @param filterVo
+     * @return
+     */
     @PostMapping("/saveView")
     @LoginRequired
-    @Transactional
-    public Result<String> savePlan(@RequestBody FilterVo filterVo){
+    @Transactional(rollbackFor = Exception.class)
+    public Result savePlan(@RequestBody FilterVo filterVo){
+        // 参数合法性判断
         if(filterVo.getTableId() == null){
             return Result.fail("表id不能为空！",null);
         }
@@ -187,7 +193,7 @@ public class SaleOrderController implements BenewakeConstants {
 
     @PostMapping("/update")
     @SalesmanRequired
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Result updateInquired(@RequestBody Inquiry inquiry){
         if(inquiry == null){
             return Result.fail().message("请添加选择要修改的订单！");
@@ -218,12 +224,12 @@ public class SaleOrderController implements BenewakeConstants {
      */
     @PostMapping("/save")
     @SalesmanRequired
-    @Transactional
+    @Transactional(rollbackFor = Exception.class)
     public Result addInquiries(@RequestBody StartInquiryVo param){
         List<Inquiry> newInquiries = param.getInquiryList();
         Integer startInquiry = param.getStartInquiry();
 
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>(16);
         if(newInquiries == null){
             return Result.fail("请添加至少一条询单信息",null);
         }
@@ -234,9 +240,6 @@ public class SaleOrderController implements BenewakeConstants {
             if(newInquiries.get(0).getInquiryType()==null){
                 return Result.fail("请选择订单类型",null);
             }
-//            if(newInquiries.get(0).getInquiryCode()!=null && !inquiryService.containsCode(newInquiries.get(0).getInquiryCode())){
-//                return Result.fail("单据编号不存在！",null);
-//            }
             // 获取订单编码列表
             List<String> inquiryCodes = new ArrayList<>();
             // 逐条分析询单是否合法
@@ -299,9 +302,9 @@ public class SaleOrderController implements BenewakeConstants {
 
                 // 询单功能（待添加)   异步或消息队列
 
-                // 设置state+1 （之后移到异步操作中或使用消息队列）
+                // 设置state+1 （之后可考虑移到异步操作中或使用消息队列）
                 success.forEach(s->s.setState(s.getState()+1));
-                // 更新数据库  （之后移到异步操作中或使用消息队列）
+                // 更新数据库  （之后可考虑移到异步操作中或使用消息队列）
                 inquiryService.updateByInquiry(success);
                 //return Result.success("已开始询单！",map);
                 resStr.add("APS暂未上线，今日内计划手动反馈日期！");
@@ -328,19 +331,19 @@ public class SaleOrderController implements BenewakeConstants {
         ){
             boolean res = inquiryService.deleteOrder(orderId);
             if(!res){
-                return Result.fail("订单不存在！",null);
+                return Result.fail().message("订单不存在！");
             }else {
-                return Result.success("删除成功！",null);
+                return Result.success().message("删除成功！");
             }
         }else{
-            return Result.fail().message("用户权限不够！");
+            return Result.fail().message("用户权限不够，只能删除自己的订单！");
         }
     }
 
     @PostMapping("/importExcel")
     @SalesmanRequired
     public Result addOrdersByExcel(@RequestParam("file")MultipartFile file){
-        Map<String,Object> map = new HashMap<>();
+        Map<String,Object> map = new HashMap<>(16);
         if(file.isEmpty()){
             return Result.fail("文件为空！",null);
         }

@@ -5,7 +5,10 @@ import com.benewake.saleordersystem.service.PastOrderService;
 import com.benewake.saleordersystem.utils.Result;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import java.util.Map;
 
@@ -24,7 +27,6 @@ public class InstrumentPanelsController {
 
     /**
      * 更新历史订单数据  isAll -true 重新导入全部历史订单 -false 根据上次导入的节点进行追加
-     * @return
      */
     @PostMapping("/update")
     @AdminRequired

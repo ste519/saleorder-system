@@ -71,7 +71,7 @@ public class PastOrderServiceImpl implements PastOrderService {
         // 取数限制
         int num = Integer.MAX_VALUE;
 
-        int res = 0;
+        int res;
         // type = 0 重新导入数据
         ReentrantLock lock = new ReentrantLock();
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
