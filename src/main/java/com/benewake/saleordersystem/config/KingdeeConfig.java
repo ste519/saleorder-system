@@ -24,7 +24,6 @@ public class KingdeeConfig implements BenewakeConstants {
         iden.setlCID(X_KDAPI_LCID);
         iden.setServerUrl(X_KDAPI_SERVICEURL);
         iden.setOrgNum("100");
-        K3CloudApi api = new K3CloudApi(iden);
-        return api;
+        return new K3CloudApi(iden);
     }
 }

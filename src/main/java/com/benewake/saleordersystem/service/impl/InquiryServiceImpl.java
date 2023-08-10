@@ -13,10 +13,10 @@ import com.benewake.saleordersystem.entity.Item;
 import com.benewake.saleordersystem.entity.User;
 import com.benewake.saleordersystem.entity.VO.FilterCriteria;
 import com.benewake.saleordersystem.excel.InquiryExcelListener;
+import com.benewake.saleordersystem.excel.model.InquiryModel;
 import com.benewake.saleordersystem.mapper.InquiryCodeMapper;
 import com.benewake.saleordersystem.mapper.InquiryMapper;
 import com.benewake.saleordersystem.mapper.Vo.SalesOrderVoMapper;
-import com.benewake.saleordersystem.excel.model.InquiryModel;
 import com.benewake.saleordersystem.service.*;
 import com.benewake.saleordersystem.utils.BenewakeConstants;
 import com.benewake.saleordersystem.utils.CommonUtils;
@@ -91,7 +91,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
             filters = new ArrayList<>();
         }
         // 添加筛选条件
-        Map<String,Integer> map = new HashMap<>();
+        Map<String,Integer> map = new HashMap<>(16);
         for(int i=0;i<filters.size();++i){
             map.put(filters.get(i).getColName(),i);
         }
@@ -238,7 +238,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
             lock.unlock();
         }
         for(int i=1;i<=length;++i){
-            Long now = code+i;
+            long now = code+i;
             StringBuilder temp = new StringBuilder();
             for (int j = 0; j < 4; j++) {
                 temp.append(now % 10);
@@ -303,7 +303,7 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
 
     @Override
     public Integer transferType(String inquiryType) {
-        Integer type = -1;
+        int type = -1;
         if(StringUtils.isNotBlank(inquiryType)){
             if(inquiryType.contains("YC")){
                 type = ORDER_TYPE_YC;
@@ -322,17 +322,14 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
         Item item = itemService.findItemByCode(inquiryModel.getItemCode());
         if(item == null){
             map.put("error","第"+rowIndex+"行的物料编码在数据库中不存在，请核对");
-            //log.error("第"+rowIndex+"行的物料编码在数据库中不存在，请核对");
             return map;
         }
         if(!item.getItemName().equals(inquiryModel.getItemName())){
             map.put("error","第"+rowIndex+"行的物料编码和物料名称在数据库中不是对应的，请核对");
-            //log.error("第"+rowIndex+"行的物料编码和物料名称在数据库中不是对应的，请核对");
             return map;
         }
         if(inquiryModel.getItemType() == null || item.getItemType()!=itemService.transferItemType(inquiryModel.getItemType())){
             map.put("error","第"+rowIndex+"行的物料编码和产品类型在数据库中不是对应的，请核对");
-            //log.error("第"+rowIndex+"行的物料编码和物料类型在数据库中不是对应的，请核对");
             return map;
         }
         inquiry.setItemId(item.getId());
@@ -340,13 +337,11 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
         Customer c = customerService.findCustomerByName(inquiryModel.getCustomerName());
         if(c==null){
             map.put("error","第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
-            //log.error("第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
             return map;
         }
         String ct = customerTypeService.getCustomerTypeByRule(c.getFCustId(),item.getId());
         if(ct==null || inquiryModel.getCustomerType() == null || !ct.equals(inquiryModel.getCustomerType())){
             map.put("error","第"+rowIndex+"行的客户类型与数据库对应关系不匹配或不存在，请核对");
-            //log.error("第"+rowIndex+"行的客户名称在数据库中不存在，请核对");
             return map;
         }
         inquiry.setCustomerId(c.getFCustId());
@@ -354,7 +349,6 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
         User salesman = userService.findSalesmanByName(inquiryModel.getSalesmanName());
         if(salesman == null){
             map.put("error","第"+rowIndex+"行的销售员名称在数据库中不存在，请核对");
-            //log.error("第"+rowIndex+"行的销售员名称在数据库中不存在，请核对");
             return map;
         }
         inquiry.setSalesmanId(salesman.getId());
@@ -366,7 +360,6 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
         int type;
         if((type = transferType(inquiryModel.getInquiryType()))==-1){
             map.put("error","第"+rowIndex+"行的订单类型有误，请修改并重试！");
-            //log.error("第"+rowIndex+"行的订单类型有误，请修改并重试！");
             return map;
         }
         inquiry.setInquiryType(type);
@@ -380,17 +373,12 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
             sdf.setLenient(false);
             if(inquiryModel.getArrangedTime()!=null){
                 inquiry.setArrangedTime(sdf.parse(inquiryModel.getArrangedTime()));
-//                if(!inquiryModel.getArrangedTime().equals(sdf.format(inquiry.getArrangedTime()))){
-//                    System.out.println(sdf.format(inquiry.getArrangedTime()));
-//                    throw new IllegalArgumentException("时间格式不对！");
-//                }
             }
             if(inquiryModel.getExceptedTime()!=null){
                 inquiry.setExpectedTime(sdf.parse(inquiryModel.getExceptedTime()));
             }
         }catch (Exception e){
             map.put("error","第"+rowIndex+"行的时间数据有误，请检查！");
-            //log.error("第"+rowIndex+"行的时间数据有误，请检查！");
             return map;
         }
         // 设置备注
@@ -400,7 +388,6 @@ public class InquiryServiceImpl extends ServiceImpl<InquiryMapper,Inquiry> imple
             inquiry.setSaleNum(Long.parseLong(inquiryModel.getNum()));
         }catch (Exception e) {
             map.put("error","第"+rowIndex+"行的数量可能不是数字或长度有误，请检查！");
-            //log.error("第"+rowIndex+"行的数量可能不是数字或长度有误，请检查！");
             return map;
         }
         map.put("inquiry",inquiry);

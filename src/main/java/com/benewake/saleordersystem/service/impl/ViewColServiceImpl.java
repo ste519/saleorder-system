@@ -61,10 +61,10 @@ public class ViewColServiceImpl implements ViewColService , BenewakeConstants {
 
     private List<Map<String,Object>> getColsTansfer(int[] seq){
         List<Map<String,Object>> maps = new ArrayList<>();
-        for(int i=0;i<seq.length; i++){
-            Map<String,Object> map = new HashMap<>();
-            map.put("col_name_CN", CNS[seq[i]]);
-            map.put("col_name_ENG", ENGS[seq[i]]);
+        for (int j : seq) {
+            Map<String, Object> map = new HashMap<>();
+            map.put("col_name_CN", CNS[j]);
+            map.put("col_name_ENG", ENGS[j]);
             maps.add(map);
         }
         return maps;

@@ -1,6 +1,5 @@
 package com.benewake.saleordersystem.controller;
 
-import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.benewake.saleordersystem.annotation.AdminRequired;
 import com.benewake.saleordersystem.entity.Notice;
 import com.benewake.saleordersystem.service.NoticeService;
@@ -8,12 +7,13 @@ import com.benewake.saleordersystem.utils.HostHolder;
 import com.benewake.saleordersystem.utils.Result;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import org.omg.CORBA.OBJ_ADAPTER;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * @author Lcs
@@ -32,8 +32,6 @@ public class NoticeController {
     /**
      * 查询通知
      * type 0-普通通知 1-异常通知
-     * @param notice
-     * @return
      */
     @ApiOperation("查询通知接口")
     @PostMapping("/find")

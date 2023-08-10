@@ -29,7 +29,7 @@ public class InquiryExcelListener extends AnalysisEventListener<InquiryModel> im
 
     private List<Inquiry> lists = new ArrayList<>();
     private Map<String,Object> map = new HashMap<>();
-    private List<Inquiry> existList = new ArrayList<>();
+    private List<Inquiry> existList;
     private InquiryService inquiryService;
     private DeliveryService deliveryService;
 

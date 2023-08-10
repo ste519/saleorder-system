@@ -1,6 +1,5 @@
 package com.benewake.saleordersystem.controller;
 
-import com.alibaba.fastjson2.JSONObject;
 import com.benewake.saleordersystem.entity.Customer;
 import com.benewake.saleordersystem.service.CustomerService;
 import com.benewake.saleordersystem.service.CustomerTypeService;

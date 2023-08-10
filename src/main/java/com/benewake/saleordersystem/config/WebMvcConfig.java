@@ -1,6 +1,5 @@
 package com.benewake.saleordersystem.config;
 
-import com.benewake.saleordersystem.annotation.AdminRequired;
 import com.benewake.saleordersystem.controller.intercepter.AdminRequiredInterceptor;
 import com.benewake.saleordersystem.controller.intercepter.LoginRequiredInterceptor;
 import com.benewake.saleordersystem.controller.intercepter.LoginTicketInterceptor;

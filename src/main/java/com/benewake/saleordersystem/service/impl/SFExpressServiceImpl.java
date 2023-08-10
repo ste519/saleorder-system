@@ -21,8 +21,8 @@ import java.util.Map;
 import java.util.UUID;
 
 /**
- * @author: xsong
- * date:2022/11/8 15:35
+ * @author Lcs
+ * @since
  * 描述：
  **/
 @Service
@@ -50,7 +50,6 @@ public class SFExpressServiceImpl implements SFExpressService {
             String timeStamp = String.valueOf(System.currentTimeMillis());
 
             String msgData = "{\"trackingType\": \"1\",\"trackingNumber\": [\"" + code + "\"],\"checkPhoneNo\": \"" + tel + "\"}";
-            //System.out.println(msgData);
             // 顾客编码
             params.put("partnerID", CLIENT_CODE);
             params.put("requestID", UUID.randomUUID().toString().replace("-", ""));
@@ -60,7 +59,6 @@ public class SFExpressServiceImpl implements SFExpressService {
             params.put("msgData", msgData);
             params.put("msgDigest", CallExpressServiceTools.getMsgDigest(msgData, timeStamp, CHECK_WORD));
             String result = HttpClientUtil.post(CALL_URL_PRO, params);
-            //System.out.println(result);
             SF_SEARCH_RESULT routes = JSON.parseObject(result, SF_SEARCH_RESULT.class);
             return routes;
         } catch (UnsupportedEncodingException e) {
@@ -92,8 +90,7 @@ public class SFExpressServiceImpl implements SFExpressService {
             params.put("msgData", msgData);
             params.put("msgDigest", CallExpressServiceTools.getMsgDigest(msgData, timeStamp, CHECK_WORD));
             String result = HttpClientUtil.post(CALL_URL_PRO, params);
-            SF_SEARCH_RESULT routes = JSON.parseObject(result, SF_SEARCH_RESULT.class);
-            return routes;
+            return JSON.parseObject(result, SF_SEARCH_RESULT.class);
         } catch (UnsupportedEncodingException e) {
             return null;
         }

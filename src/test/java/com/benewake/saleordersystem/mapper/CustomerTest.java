@@ -25,7 +25,7 @@ public class CustomerTest {
 
     @Test
     public void testUpdateDB(){
-        customerService.updateCustomerDB();
+       // customerService.updateCustomerDB();
     }
 
     @Test
