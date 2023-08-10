@@ -41,13 +41,12 @@ public class HomeController implements BenewakeConstants {
      */
     @ApiOperation("用户登录接口")
     @PostMapping("/login")
-    public Result<Map<String,Object>> login(@RequestBody User user, HttpServletResponse response){
+    public Result login(@RequestBody User user, HttpServletResponse response){
         String username = user.getUsername();
         String password = user.getPassword();
         if(hostHolder.getUser() != null) {
             // 当前已存在登录用户
             Map<String,Object> map = new HashMap<>(1);
-            // map.put("loginMessage","当前已有账号登录，请先退出当前账号！");
             return Result.fail(202,"当前已有账号登录，请先退出当前账号！",null);
         }
         // 尝试登录

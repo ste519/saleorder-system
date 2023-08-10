@@ -28,6 +28,7 @@ public interface NoticeMapper extends BaseMapper<Notice> {
             "<if test='type!=null'>" +
             "and type = #{type} " +
             "</if>" +
+            "order by id desc" +
             "</script>")
     List<Map<String,Object>> findNoticeByUserId(@Param("userId")Long userId,@Param("type")Integer type);
 }
