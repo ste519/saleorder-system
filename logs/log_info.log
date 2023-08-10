@@ -565,3 +565,27 @@
 2023-08-10 13:51:27.136 [SpringContextShutdownHook] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Shutting down ExecutorService 'asynExecutor'
 2023-08-10 13:51:27.144 [SpringContextShutdownHook] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown initiated...
 2023-08-10 13:51:27.150 [SpringContextShutdownHook] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Shutdown completed.
+2023-08-10 14:01:32.173 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Starting SaleOrderSystemApplication on ATHQ-20221218UI with PID 25244 (F:\study\javaProject\SaleOrderSystem\target\classes started by Lcs in F:\study\javaProject\SaleOrderSystem)
+2023-08-10 14:01:32.175 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - No active profile set, falling back to default profiles: default
+2023-08-10 14:01:32.226 [restartedMain] INFO  [,] o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2023-08-10 14:01:32.226 [restartedMain] INFO  [,] o.s.b.d.env.DevToolsPropertyDefaultsPostProcessor - For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2023-08-10 14:01:33.793 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port(s): 8080 (http)
+2023-08-10 14:01:33.801 [restartedMain] INFO  [,] org.apache.coyote.http11.Http11NioProtocol - Initializing ProtocolHandler ["http-nio-8080"]
+2023-08-10 14:01:33.802 [restartedMain] INFO  [,] org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2023-08-10 14:01:33.803 [restartedMain] INFO  [,] org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/9.0.41]
+2023-08-10 14:01:33.878 [restartedMain] INFO  [,] o.a.c.c.C.[Tomcat].[localhost].[/benewake] - Initializing Spring embedded WebApplicationContext
+2023-08-10 14:01:33.879 [restartedMain] INFO  [,] o.s.b.w.s.c.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 1652 ms
+2023-08-10 14:01:36.268 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService
+2023-08-10 14:01:36.269 [restartedMain] INFO  [,] o.s.scheduling.concurrent.ThreadPoolTaskExecutor - Initializing ExecutorService 'asynExecutor'
+2023-08-10 14:01:36.396 [restartedMain] INFO  [,] o.s.b.d.autoconfigure.OptionalLiveReloadServer - LiveReload server is running on port 35729
+2023-08-10 14:01:37.024 [restartedMain] INFO  [,] org.apache.coyote.http11.Http11NioProtocol - Starting ProtocolHandler ["http-nio-8080"]
+2023-08-10 14:01:37.041 [restartedMain] INFO  [,] o.s.boot.web.embedded.tomcat.TomcatWebServer - Tomcat started on port(s): 8080 (http) with context path '/benewake'
+2023-08-10 14:01:37.358 [restartedMain] INFO  [,] c.b.saleordersystem.SaleOrderSystemApplication - Started SaleOrderSystemApplication in 5.712 seconds (JVM running for 6.783)
+2023-08-10 14:02:18.075 [http-nio-8080-exec-7] INFO  [,] o.a.c.c.C.[Tomcat].[localhost].[/benewake] - Initializing Spring DispatcherServlet 'dispatcherServlet'
+2023-08-10 14:02:18.076 [http-nio-8080-exec-7] INFO  [,] org.springframework.web.servlet.DispatcherServlet - Initializing Servlet 'dispatcherServlet'
+2023-08-10 14:02:18.087 [http-nio-8080-exec-7] INFO  [,] org.springframework.web.servlet.DispatcherServlet - Completed initialization in 10 ms
+2023-08-10 14:02:18.183 [http-nio-8080-exec-7] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Starting...
+2023-08-10 14:02:18.326 [http-nio-8080-exec-7] INFO  [,] com.zaxxer.hikari.HikariDataSource - HikariPool-1 - Start completed.
+2023-08-10 14:02:18.440 [http-nio-8080-exec-7] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 14:08:18],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[updateInquired]方法，参数为[[Inquiry(inquiryId=320, inquiryCode=XSYC2023080019, state=0, createdTime=null, createdUser=null, salesmanId=3, itemId=3, customerId=3, saleNum=49, expectedTime=Fri Aug 11 00:00:00 GMT+08:00 2023, arrangedTime=null, inquiryType=4, remark=修改后！！！)]].
+2023-08-10 14:03:29.354 [http-nio-8080-exec-5] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 14:08:29],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[updateInquired]方法，参数为[[Inquiry(inquiryId=330, inquiryCode=XSYC2023080019, state=0, createdTime=null, createdUser=null, salesmanId=3, itemId=3, customerId=3, saleNum=49, expectedTime=Fri Aug 11 00:00:00 GMT+08:00 2023, arrangedTime=null, inquiryType=4, remark=修改后！！！)]].
+2023-08-10 14:05:09.872 [http-nio-8080-exec-9] INFO  [,] com.benewake.saleordersystem.aspect.LogAspect - 用户[0:0:0:0:0:0:0:1],在[2023-08-10 14:08:09],访问了[com.benewake.saleordersystem.controller.SaleOrderController]的[updateInquired]方法，参数为[[Inquiry(inquiryId=330, inquiryCode=null, state=0, createdTime=null, createdUser=null, salesmanId=3, itemId=3, customerId=3, saleNum=49, expectedTime=Fri Aug 11 00:00:00 GMT+08:00 2023, arrangedTime=null, inquiryType=4, remark=修改后！！！)]].
