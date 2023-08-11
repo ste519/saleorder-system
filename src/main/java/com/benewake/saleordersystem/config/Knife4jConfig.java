@@ -44,7 +44,6 @@ public class Knife4jConfig {
                 .groupName("adminApi")
                 .apiInfo(adminApiInfo())
                 .select()
-                //只显示admin路径下的页面
                 .apis(RequestHandlerSelectors.basePackage("com.benewake"))
                 .paths(PathSelectors.regex("/.*"))
                 .build()

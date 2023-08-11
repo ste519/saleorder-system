@@ -23,7 +23,7 @@ public interface BenewakeConstants {
     /**
      * 一天的时间
      */
-    int ONE_DAY = 1000*60*60*24;
+    long ONE_DAY = 1000*60*60*24;
     /**
      * 响应code：成功
      */
@@ -43,7 +43,7 @@ public interface BenewakeConstants {
     /**
      * 默认状态的登录凭证超时时间 (7天)
      */
-    int DEFAULT_EXPIRED_SECONDS = 3600*24*7;
+    long DEFAULT_EXPIRED_SECONDS = 7*ONE_DAY;
     /**
      * 用户类型：管理员
      */
