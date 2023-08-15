@@ -160,7 +160,7 @@ public class SaleOrderController implements BenewakeConstants {
         }
         // 获取当前用户
         User u = hostHolder.getUser();
-        if(filterVo.getViewId()==null && viewService.isExist(filterVo.getTableId(),u.getId(),filterVo.getViewName())){
+        if(StringUtils.isEmpty(filterVo.getViewName()) || viewService.isExist(filterVo.getTableId(),u.getId(),filterVo.getViewName())){
             return Result.fail("该视图名称为空或已存在!",null);
         }
         // 持久化视图
