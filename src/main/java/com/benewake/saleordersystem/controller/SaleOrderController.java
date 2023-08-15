@@ -184,38 +184,52 @@ public class SaleOrderController implements BenewakeConstants {
         // 保存新增列信息
         viewColService.saveCols(cols);
         if(filterVo.getViewId()==null) {
-            return Result.success("方案添加成功！",null);
+            return Result.success().message("方案添加成功！");
         } else {
-            return Result.success("方案修改成功！",null);
+            return Result.success().message("方案修改成功！");
         }
     }
 
-
+    /**
+     * 修改订单
+     * 将原来订单state设置为-1  再新增一条订单信息
+     * @param inquiry
+     * @return
+     */
     @PostMapping("/update")
     @SalesmanRequired
     @Transactional(rollbackFor = Exception.class)
     public Result updateInquired(@RequestBody Inquiry inquiry){
-        if(inquiry == null){
-            return Result.fail().message("请添加选择要修改的订单！");
+        User u = hostHolder.getUser();
+        if( u.getUserType().equals(USER_TYPE_SALESMAN)&&
+                (inquiry.getSalesmanId().equals(u.getId())||inquiry.getCreatedUser().equals(u.getId())) ||
+                u.getUserType().equals(USER_TYPE_ADMIN) || u.getUserType().equals(USER_TYPE_SYSTEM)
+        ){
+            if(inquiry == null){
+                return Result.fail().message("请添加选择要修改的订单！");
+            }
+            if(inquiry.getInquiryType()==null){
+                return Result.fail().message("请选择订单类型");
+            }
+            if(inquiry.getState()==null || inquiry.getState()==-1){
+                return Result.fail().message("订单无效！");
+            }
+            // 订单参数有效判断
+            Map<String,Object> res = inquiryService.addValid(inquiry);
+            if(res.size()>0){
+                return Result.fail((String) res.get("error"),null);
+            }
+            // 原订单设置无效
+            inquiryService.updateState(inquiry.getInquiryId(),-1);
+            // 新增修改后的订单
+            inquiry.setInquiryId(null);
+            inquiry.setCreatedUser(hostHolder.getUser().getId());
+            inquiryService.save(inquiry);
+            return Result.success("修改成功！",inquiry.getInquiryId());
+        }else{
+            return Result.fail().message("用户权限不足！");
         }
-        if(inquiry.getInquiryType()==null){
-            return Result.fail().message("请选择订单类型");
-        }
-        if(inquiry.getState()==null || inquiry.getState()==-1){
-            return Result.fail().message("订单无效！");
-        }
-        // 订单参数有效判断
-        Map<String,Object> res = inquiryService.addValid(inquiry);
-        if(res.size()>0){
-            return Result.fail((String) res.get("error"),null);
-        }
-        // 原订单设置无效
-        inquiryService.updateState(inquiry.getInquiryId(),-1);
-        // 新增修改后的订单
-        inquiry.setInquiryId(null);
-        inquiry.setCreatedUser(hostHolder.getUser().getId());
-        inquiryService.save(inquiry);
-        return Result.success("修改成功！",inquiry.getInquiryId());
+
     }
     /**
      * 新增询单信息 及 开始询单 （只能新增或询单）
