@@ -33,21 +33,21 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
 
 
     @Override
-    public Result<Map<String, Object>> addUser(User user) {
+    public Result addUser(User user) {
         Map<String,Object> map = new HashMap<>();
         // 空处理 程序错误 抛出异常
         if(null == user){
-            return Result.fail("用户信息不能为空！",null);
+            return Result.fail().message("用户信息不能为空！");
         }
-        // 内容缺失
+        // 内容缺失检查
         if(StringUtils.isBlank(user.getUsername())){
-            return Result.fail("用户名不能为空！",null);
+            return Result.fail().message("用户名不能为空！");
         }
         if(StringUtils.isBlank(user.getPassword())){
-            return Result.fail("密码不能为空!",null);
+            return Result.fail().message("密码不能为空!");
         }
         if(user.getUserType()==null){
-            return Result.fail("用户类型不能为空！",null);
+            return Result.fail().message("用户类型不能为空！");
         }
 
         // 验证用户名是否唯一
@@ -55,7 +55,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         queryWrap.eq("FIM_user_name",user.getUsername());
         User u = userMapper.selectOne(queryWrap);
         if(u != null){
-            return Result.fail("用户已存在！",null);
+            return Result.fail().message("用户已存在！");
         }else{
             // 加密
             user.setSalt(CommonUtils.generateUUID().substring(0, 5));
@@ -66,7 +66,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
                 user.setUserConllection(0L);
             }
 
-
+            // 存入数据库
             userMapper.insert(user);
             return Result.success(map);
         }
@@ -110,7 +110,7 @@ public class UserServiceImpl implements UserService, BenewakeConstants {
         loginTicket.setUserId(u.getId());
         loginTicket.setTicket(CommonUtils.generateUUID());
         loginTicket.setStatus(0);
-        loginTicket.setExpired(new Date(System.currentTimeMillis() + DEFAULT_EXPIRED_SECONDS*1000));
+        loginTicket.setExpired(new Date(System.currentTimeMillis() + DEFAULT_EXPIRED_SECONDS* 1000L));
         // 持久化
         loginTicketMapper.insert(loginTicket);
 

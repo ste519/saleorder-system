@@ -35,7 +35,6 @@ public class AdminController {
     @AdminRequired
     @PostMapping("/add")
     public Result add(@RequestBody User user) {
-        //System.out.println("新增用户信息："+user.toString());
         return userService.addUser(user);
     }
 
